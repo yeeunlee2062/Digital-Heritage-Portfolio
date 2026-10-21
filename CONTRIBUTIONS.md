@@ -14,8 +14,6 @@ Roles follow the [CRediT taxonomy](https://credit.niso.org/), given in parenthes
 
 ## Use of AI tools
 
-### AI Assistance
-
 AI coding assistants, including Claude Code, supported code development, implementation, and debugging. The research questions, data models, methodologies, analyses, and interpretations are entirely YL's own work. YL independently reviewed and tested the code and verified all reported results against the original source data.
 
 ## Funding
