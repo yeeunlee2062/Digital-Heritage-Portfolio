@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you refer to this portfolio, please cite it using these metadata."
+type: software
+title: "Digital Heritage Portfolio"
+abstract: >-
+  Research on the lifecycle of multidimensional data for tangible, intangible
+  and natural heritage, from digitisation to preservation and machine-readable
+  reuse. The focus is on semantic data models and 3D rendering standards that
+  support interfaces for interpreting heritage in research, education,
+  creative and policy contexts.
+authors:
+  - family-names: Lee
+    given-names: Yeeun
+    affiliation: Korea National University of Heritage
+version: 1.0.0
+date-released: 2026-10-21
+repository-code: "https://github.com/yeeunlee2062/Digital-Heritage-Portfolio"
+license:
+  - MIT
+  - CC-BY-4.0
+keywords:
+  - digital heritage
+  - 3D/4D documentation
+  - Gaussian splatting
+  - knowledge graph
+  - paradata
+  - FAIR data
+  - cultural heritage
