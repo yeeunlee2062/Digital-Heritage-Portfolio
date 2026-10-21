@@ -1,0 +1,27 @@
+{
+  "source_jsonld_sha256": "3c045b67e04c7b78129b35b1b6b052403dcd9a13f00281bd0b19175839fd3ccd",
+  "build_version": "c5f14121ce52",
+  "tools": {
+    "rdflib": "7.6.0",
+    "pyshacl": "0.40.1"
+  },
+  "triples": {
+    "data": 27602,
+    "vocab": 3870,
+    "shapes": 1180,
+    "catalog": 128
+  },
+  "roundtrip": {
+    "hansan_mosi_kg": true,
+    "vocab": true,
+    "shapes": true
+  },
+  "record_files": 711,
+  "shacl": {
+    "conforms": true,
+    "results": 0,
+    "by_severity": {},
+    "by_path": {},
+    "results_detail": []
+  }
+}

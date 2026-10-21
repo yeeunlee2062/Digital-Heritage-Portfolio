@@ -1,0 +1,69 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix hm: <https://w3id.org/hansan-mosi/id/> .
+@prefix hmv: <https://w3id.org/hansan-mosi/vocab#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+hm:ITM_008 a hmv:Item ;
+    dcterms:license <https://www.kogl.or.kr/info/licenseType0.do> ;
+    hmv:BELONGS_TO_ASSET hm:AST_005 ;
+    hmv:REFERENCES_MOVEMENT hm:MOV_036,
+        hm:MOV_037,
+        hm:MOV_038,
+        hm:MOV_039,
+        hm:MOV_040 ;
+    hmv:access.contact hm:AGT_013 ;
+    hmv:access.contact_name "한국전통문화대학교" ;
+    hmv:access.delivery "승인 후 기간이 정해진 HTTPS 내려받기 링크" ;
+    hmv:access.evidence "사용자 결정 2026-10-19(질의 응답): 공개본이 없는 연구 생산 원본 중 작은 3건(ITM_007, ITM_013, ITM_014)은 공개 버킷에 올리고 나머지 34건은 요청 시 제공(이수자 T포즈 3D 스캔 ITM_041 도 같은 조건). 문의처 한국전통문화대학교(AGT_013, 4D 데이터 취득 프로젝트 제작주체), 승인되면 HTTPS 내려받기 링크로 전달. ITM_008(4DS 원본)은 공개 파일이 변환한 웹 경량본뿐이라 같은 조건을 적용" ;
+    hmv:access.note "대용량 원본이라 공개 저장소에 두지 않고 요청 시 제공한다. 문의처에 아이템 식별자를 적어 요청하면, 승인 후 기간이 정해진 HTTPS 내려받기 링크로 받는다. 이용 조건은 애셋의 이용허락을 따른다. 4D 통합 뷰어용 웹 경량본(이 4DS 에서 변환한 15fps, 401프레임)은 아이템 상세의 '내려받기'에서 받을 수 있다." ;
+    hmv:access.status "on_request" ;
+    hmv:asset_ref hm:AST_005 ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:description "전통 베짜기 시연을 실시간 재생하기 위해 저장한 약 27초 분량의 4DS 볼류메트릭 시퀀스" ;
+    hmv:display_name "bettle_H_60_00fps_FILTERED_DESKTOP_2880.4ds" ;
+    hmv:file_size "1.19 GB" ;
+    hmv:fixity.bytes 1279415272 ;
+    hmv:fixity.checked_at "2026-10-16"^^xsd:date ;
+    hmv:fixity.checked_copy "원본(DB 저장경로, 26_한산모시데이터)" ;
+    hmv:fixity.checked_file "My Book/26_한산모시데이터/KNUH_GUEST/motion/4d/bettle_H_60_00fps_FILTERED_DESKTOP_2880.4ds" ;
+    hmv:fixity.sha256 "3b559163702097d5ee9bb057cafdb5578d87e86ae3c775a2b687b912869acc02" ;
+    hmv:fixity.size_check "일치(1024 단위)" ;
+    hmv:format <https://w3id.org/hansan-mosi/vocab/Item/format/4DS> ;
+    hmv:format_check.detail "4DViews 전용 형식으로 공개 규격과 검증기가 없어 체크섬만 기록" ;
+    hmv:format_check.status "not_checked" ;
+    hmv:id "ITM_008" ;
+    hmv:item_id "ITM_008" ;
+    hmv:media_type <https://w3id.org/hansan-mosi/vocab/Item/media_type/4D%20%EB%B3%BC%EB%A5%98%EB%A9%94%ED%8A%B8%EB%A6%AD%20%EB%A9%94%EC%8B%9C> ;
+    hmv:name "bettle_H_60_00fps_FILTERED_DESKTOP_2880.4ds" ;
+    hmv:preview_at "시점 정면(거리 0.45배), 4D 13.37초(전체 26.73초의 가운데)" ;
+    hmv:preview_evidence "웹 재생본 화면: motion/bettle_h/(웹 재생본, motion) 시점 정면(거리 0.45배), 4D 13.37초(전체 26.73초의 가운데), 4D 통합 뷰어에 이 레이어만 켜고 찍은 화면(Twin3D.snapshot 1920×1080, https://hansan-mosi-archive.vercel.app), 긴 변 1400px·480px(ffmpeg, JPEG), 2026-10-18T20:53:48+09:00" ;
+    hmv:preview_kind "render" ;
+    hmv:preview_size "[1400,788]"^^rdf:JSON ;
+    hmv:preview_source "motion/bettle_h/(웹 재생본, motion)" ;
+    hmv:preview_thumb_url "previews/thumb/ITM_008.jpg" ;
+    hmv:preview_url "previews/ITM_008.jpg" ;
+    hmv:record_status "active" ;
+    hmv:record_version "v4.1" ;
+    hmv:role "SERVICE" ;
+    hmv:schema_version "4차" ;
+    hmv:source_row 13 ;
+    hmv:source_sheet "Item" ;
+    hmv:storage_path "26_한산모시데이터>KNUH_GUEST>motion>4d>bettle_H_60_00fps_FILTERED_DESKTOP_2880.4ds" ;
+    hmv:uri "https://w3id.org/hansan-mosi/id/ITM_008"^^xsd:anyURI ;
+    hmv:uuid "9e115e3e-9db0-56a2-aeaa-a565ed9a63f4" ;
+    hmv:volumetric4d.coordinate_system "위쪽 +Y (4DViews 규약)" ;
+    hmv:volumetric4d.duration "00:00:26.717" ;
+    hmv:volumetric4d.frame_rate 60 ;
+    hmv:volumetric4d.mesh_properties "텍스처 2880×2880 내장 (DESKTOP 압축 프리셋)" ;
+    hmv:volumetric4d.movement_refs hm:MOV_036,
+        hm:MOV_037,
+        hm:MOV_038,
+        hm:MOV_039,
+        hm:MOV_040 ;
+    hmv:volumetric4d.playback_characteristics "Unity·Unreal 4DViews 플러그인 실시간 재생" ;
+    hmv:volumetric4d.spatial_unit "meter (배율 미보정, ×0.9532 필요)" ;
+    hmv:volumetric4d.temporal_representation <https://w3id.org/hansan-mosi/vocab/Item/volumetric4d.temporal_representation/MESH_SEQUENCE> ;
+    hmv:volumetric4d.total_frames 1603 ;
+    hmv:web_service "{\"layer\":\"motion\",\"note\":\"웹 경량본은 이 4DS(60fps, 1,603프레임)에서 변환한 파일이며 DB 아이템으로 등록되어 있지 않다\",\"url\":\"motion/bettle_h/\",\"web_version\":\"웹 경량본(15fps, 401프레임, 메시 조각 + tex.mp4)\"}"^^rdf:JSON .
+

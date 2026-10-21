@@ -1,0 +1,958 @@
+@prefix hms: <https://w3id.org/hansan-mosi/shapes#> .
+@prefix hmv: <https://w3id.org/hansan-mosi/vocab#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+hms:Agent a sh:NodeShape ;
+    rdfs:comment "스키마 시트 04_Agent의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "주체설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:name "외부식별정보"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:external_identifiers ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "기관유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:organization_type ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "주체ID"@ko ;
+            sh:path hmv:agent_id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "소재지·활동지역"@ko ;
+            sh:path hmv:location ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "주체명"@ko ;
+            sh:path hmv:name ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "성별"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:gender ],
+        [ sh:datatype xsd:string ;
+            sh:name "이칭"@ko ;
+            sh:path hmv:alternative_name ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "주체유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:agent_type ] ;
+    sh:targetClass hmv:Agent .
+
+hms:Asset a sh:NodeShape ;
+    rdfs:comment "스키마 시트 12_Asset의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:class hmv:Performance ;
+            sh:name "관련실연"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:performance_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "애셋명"@ko ;
+            sh:path hmv:title ],
+        [ sh:class hmv:Item ;
+            sh:name "구성아이템"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:item_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "애셋설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "애셋ID"@ko ;
+            sh:path hmv:asset_id ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "애셋유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:asset_type ],
+        [ sh:class hmv:DigitalProject ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "소속디지털작업"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:digital_project_ref ] ;
+    sh:targetClass hmv:Asset .
+
+hms:Designation a sh:NodeShape ;
+    rdfs:comment "스키마 시트 02_Designation의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:class skos:Concept ;
+            sh:name "키워드"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:keywords ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:name "지정일"@ko ;
+            sh:path hmv:designation_date ],
+        [ sh:maxCount 1 ;
+            sh:name "등재서류 URL"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:designation_url ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "등재사유"@ko ;
+            sh:path hmv:designation_reason ],
+        [ sh:class hmv:Heritage ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "지정대상"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:heritage_ref ],
+        [ sh:class skos:Concept ;
+            sh:name "지속가능발전목표"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:sdg_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "지정ID"@ko ;
+            sh:path hmv:designation_id ] ;
+    sh:targetClass hmv:Designation .
+
+hms:DigitalProject a sh:NodeShape ;
+    rdfs:comment "스키마 시트 11_Digital Project의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:gYear ;
+            sh:maxCount 1 ;
+            sh:name "생산년도"@ko ;
+            sh:path hmv:production_year ],
+        [ sh:class hmv:Performance ;
+            sh:name "관련실연"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:performance_refs ],
+        [ sh:class hmv:Agent ;
+            sh:name "생산주체"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:producer_agent_refs ],
+        [ sh:class hmv:Agent ;
+            sh:name "관리주체"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:manager_agent_refs ],
+        [ sh:class hmv:Asset ;
+            sh:name "산출애셋"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:asset_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "디지털작업명"@ko ;
+            sh:path hmv:title ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "디지털작업ID"@ko ;
+            sh:path hmv:digital_project_id ] ;
+    sh:targetClass hmv:DigitalProject .
+
+hms:Heritage a sh:NodeShape ;
+    rdfs:comment "스키마 시트 01_Heritage의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:class hmv:Place ;
+            sh:name "공간정보"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:place_refs ],
+        [ sh:class hmv:Process ;
+            sh:name "과정정보"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:process_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:class hmv:Designation ;
+            sh:name "지정사항"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:designation_refs ],
+        [ sh:datatype rdf:langString ;
+            sh:languageIn ( "ko-Hani" ) ;
+            sh:maxCount 1 ;
+            sh:name "한자명"@ko ;
+            sh:path hmv:name.hanja ],
+        [ sh:datatype rdf:langString ;
+            sh:languageIn ( "ko" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "명칭"@ko ;
+            sh:path hmv:name.ko ],
+        [ sh:datatype rdf:langString ;
+            sh:languageIn ( "en" ) ;
+            sh:maxCount 1 ;
+            sh:name "영문명"@ko ;
+            sh:path hmv:name.en ],
+        [ sh:class hmv:Transmitter ;
+            sh:name "전승자정보"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:transmitter_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "종목ID"@ko ;
+            sh:path hmv:heritage_id ],
+        [ sh:class skos:Concept ;
+            sh:name "분류"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:classification ] ;
+    sh:targetClass hmv:Heritage .
+
+hms:Item a sh:NodeShape ;
+    rdfs:comment "스키마 시트 13_Item의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:name "자막유무"@ko ;
+            sh:path hmv:video.has_subtitles ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:name "포인트수"@ko ;
+            sh:path hmv:model3d.point_count ],
+        [ sh:maxCount 1 ;
+            sh:name "외부 URL"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:external_url ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:name "해설유무"@ko ;
+            sh:path hmv:video.has_narration ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:name "폴리곤수"@ko ;
+            sh:path hmv:model3d.polygon_count ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "매핑소스참조"@ko ;
+            sh:path hmv:model3d.mapping_source_ref ],
+        [ sh:in ( "RAW" "MASTER" "SERVICE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "아이템역할"@ko ;
+            sh:path hmv:role ],
+        [ sh:maxCount 1 ;
+            sh:name "영상프레임률"@ko ;
+            sh:or ( [ sh:datatype xsd:integer ] [ sh:datatype xsd:double ] [ sh:datatype xsd:decimal ] ) ;
+            sh:path hmv:video.frame_rate ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:name "삼각형수"@ko ;
+            sh:path hmv:model3d.triangle_count ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "저장경로"@ko ;
+            sh:path hmv:storage_path ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "재생특성"@ko ;
+            sh:path hmv:volumetric4d.playback_characteristics ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "비트심도"@ko ;
+            sh:path hmv:image.bit_depth ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:name "텍스처매핑여부"@ko ;
+            sh:path hmv:model3d.has_texture_mapping ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "4D공간단위"@ko ;
+            sh:path hmv:volumetric4d.spatial_unit ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:name "총프레임"@ko ;
+            sh:path hmv:volumetric4d.total_frames ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "점밀도"@ko ;
+            sh:path hmv:model3d.point_density ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "시간표현구조"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:volumetric4d.temporal_representation ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "프레임인덱스기준"@ko ;
+            sh:path hmv:volumetric4d.frame_index_basis ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "아이템크기"@ko ;
+            sh:path hmv:file_size ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "4D좌표계"@ko ;
+            sh:path hmv:volumetric4d.coordinate_system ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "4D재생시간"@ko ;
+            sh:path hmv:volumetric4d.duration ;
+            sh:pattern "^\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "영상재생시간"@ko ;
+            sh:path hmv:video.duration ;
+            sh:pattern "^\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$" ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "세부유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:model3d.subtype ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "Gaussian 세부 특성"@ko ;
+            sh:path hmv:volumetric4d.gaussian_properties ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "대본참조"@ko ;
+            sh:path hmv:video.script_ref ],
+        [ sh:class hmv:Asset ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "소속애셋"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:asset_ref ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "색공간"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:image.color_space ],
+        [ sh:class hmv:Movement ;
+            sh:name "동작구간"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:volumetric4d.movement_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "3D좌표계"@ko ;
+            sh:path hmv:model3d.coordinate_system ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "Mesh 세부 특성"@ko ;
+            sh:path hmv:volumetric4d.mesh_properties ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "3D공간단위"@ko ;
+            sh:path hmv:model3d.spatial_unit ],
+        [ sh:maxCount 1 ;
+            sh:name "4D프레임률"@ko ;
+            sh:or ( [ sh:datatype xsd:integer ] [ sh:datatype xsd:double ] [ sh:datatype xsd:decimal ] ) ;
+            sh:path hmv:volumetric4d.frame_rate ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "이미지해상도"@ko ;
+            sh:path hmv:image.resolution ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "4D바운딩박스"@ko ;
+            sh:path hmv:volumetric4d.bounding_box ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "표현구조"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:model3d.representation ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "스케일"@ko ;
+            sh:path hmv:model3d.scale ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "아이템명"@ko ;
+            sh:path hmv:name ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "영상해상도"@ko ;
+            sh:path hmv:video.resolution ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "영상코덱"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:video.codec ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "3D바운딩박스"@ko ;
+            sh:path hmv:model3d.bounding_box ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "아이템ID"@ko ;
+            sh:path hmv:item_id ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "아이템유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:media_type ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "아이템형식"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:format ] ;
+    sh:targetClass hmv:Item .
+
+hms:ItemSystem a sh:NodeShape ;
+    rdfs:comment "Item 의 시스템 필드(시스템 생성(P26), 시스템 생성(P30))"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "접근 조건 근거"@ko ;
+            sh:path hmv:access.evidence ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "DB 용량 대조"@ko ;
+            sh:path hmv:fixity.size_check ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:name "실제 파일 크기(바이트)"@ko ;
+            sh:path hmv:fixity.bytes ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "전달 방식"@ko ;
+            sh:path hmv:access.delivery ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "접근 문의처 이름"@ko ;
+            sh:path hmv:access.contact_name ],
+        [ sh:class hmv:Agent ;
+            sh:maxCount 1 ;
+            sh:name "접근 문의처"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:access.contact ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "검사한 파일 위치"@ko ;
+            sh:path hmv:fixity.checked_file ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "접근 방법"@ko ;
+            sh:path hmv:access.note ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "미디어 유형(MIME)"@ko ;
+            sh:path hmv:mime_type ;
+            sh:pattern "^[a-z]+/[a-z0-9.+-]+$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "포맷 검사 도구"@ko ;
+            sh:path hmv:format_check.tool ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "포맷 검사 내용"@ko ;
+            sh:path hmv:format_check.detail ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "검사한 사본"@ko ;
+            sh:path hmv:fixity.checked_copy ],
+        [ sh:in ( "valid" "valid_structure" "invalid" "not_checked" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "포맷 검사 결과"@ko ;
+            sh:path hmv:format_check.status ],
+        [ sh:in ( "open" "on_request" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "접근 상태"@ko ;
+            sh:path hmv:access.status ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:name "검사일"@ko ;
+            sh:path hmv:fixity.checked_at ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "체크섬(SHA-256)"@ko ;
+            sh:path hmv:fixity.sha256 ;
+            sh:pattern "^[0-9a-f]{64}$" ] ;
+    sh:targetClass hmv:Item .
+
+hms:Licence a sh:NodeShape ;
+    rdfs:comment "스키마 시트 15_Licence의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:minCount 1 ;
+            sh:name "이용주체"@ko ;
+            sh:path hmv:grantee_refs ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:name "2차적 활용가능여부"@ko ;
+            sh:path hmv:derivative_use_allowed ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:name "출처표시여부"@ko ;
+            sh:path hmv:attribution_required ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:name "상업적 사용여부"@ko ;
+            sh:path hmv:commercial_use_allowed ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "라이선스설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:name "비상업적 이용여부"@ko ;
+            sh:path hmv:noncommercial_use_allowed ],
+        [ sh:class hmv:Agent ;
+            sh:minCount 1 ;
+            sh:name "허락주체"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:grantor_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "이용조건"@ko ;
+            sh:path hmv:use_conditions ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "라이선스유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:licence_type ],
+        [ sh:class hmv:Asset ;
+            sh:minCount 1 ;
+            sh:name "적용애셋"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:asset_refs ],
+        [ sh:class hmv:Right ;
+            sh:name "근거권리"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:right_refs ],
+        [ sh:class skos:Concept ;
+            sh:minCount 1 ;
+            sh:name "이용유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:use_types ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "이용허락ID"@ko ;
+            sh:path hmv:licence_id ] ;
+    sh:targetClass hmv:Licence .
+
+hms:LicenceSystem a sh:NodeShape ;
+    rdfs:comment "Licence 의 시스템 필드(시스템 생성(P27))"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "라이선스 URI 근거"@ko ;
+            sh:path hmv:licence_uri_evidence ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "라이선스 URI"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:licence_uri ] ;
+    sh:targetClass hmv:Licence .
+
+hms:Materials a sh:NodeShape ;
+    rdfs:comment "스키마 시트 08_Materials의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "재료설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "재료ID"@ko ;
+            sh:path hmv:material_id ],
+        [ sh:class hmv:Materials ;
+            sh:maxCount 1 ;
+            sh:name "상위재료"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:parent_material_ref ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "재료명"@ko ;
+            sh:path hmv:name ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "재료분류"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:material_type ] ;
+    sh:targetClass hmv:Materials .
+
+hms:Movement a sh:NodeShape ;
+    rdfs:comment "스키마 시트 06_Movement의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "동작설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:class hmv:Materials ;
+            sh:name "대상재료"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:material_refs ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:name "단계순서"@ko ;
+            sh:path hmv:phase_sequence ],
+        [ sh:class hmv:Tool ;
+            sh:name "사용도구"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:tool_refs ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "동작단계"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:movement_phase ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "동작명"@ko ;
+            sh:path hmv:name ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "동작유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:movement_type ],
+        [ sh:class hmv:Process ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "소속공정"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:process_ref ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "동작ID"@ko ;
+            sh:path hmv:movement_id ] ;
+    sh:targetClass hmv:Movement .
+
+hms:Performance a sh:NodeShape ;
+    rdfs:comment "스키마 시트 10_Performance의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "실연유형"@ko ;
+            sh:path hmv:type ],
+        [ sh:class hmv:Transmitter ;
+            sh:name "참여실연자"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:transmitter_refs ],
+        [ sh:class hmv:Asset ;
+            sh:name "산출애셋"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:asset_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "실연장소"@ko ;
+            sh:path hmv:venue ],
+        [ sh:class hmv:Process ;
+            sh:name "실연공정"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:process_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "실연설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "실연명"@ko ;
+            sh:path hmv:title ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:name "실연일자"@ko ;
+            sh:path hmv:date ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "실연ID"@ko ;
+            sh:path hmv:performance_id ],
+        [ sh:class hmv:DigitalProject ;
+            sh:maxCount 1 ;
+            sh:name "관련디지털작업"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:digital_project_ref ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "실연유형이 기록화실연 또는 공개실연이면 공정참조(process_refs)가 필요하다(구술채록 제외)"@ko ;
+            sh:select "SELECT $this WHERE { $this <https://w3id.org/hansan-mosi/vocab#type> ?v . FILTER(REPLACE(STR(?v), \" \", \"\") IN (\"기록화실연\", \"공개실연\")) FILTER NOT EXISTS { $this <https://w3id.org/hansan-mosi/vocab#process_refs> ?x } }" ] ;
+    sh:targetClass hmv:Performance .
+
+hms:Place a sh:NodeShape ;
+    rdfs:comment "스키마 시트 09_Place의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "관리기관"@ko ;
+            sh:path hmv:managing_org ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "위경도"@ko ;
+            sh:path hmv:coordinates ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "주소"@ko ;
+            sh:path hmv:address ],
+        [ sh:maxCount 1 ;
+            sh:name "URL"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:url ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "공간역할"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:role ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "공간ID"@ko ;
+            sh:path hmv:place_id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "공간명"@ko ;
+            sh:path hmv:name ],
+        [ sh:class hmv:Heritage ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "연계유산"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:heritage_ref ] ;
+    sh:targetClass hmv:Place .
+
+hms:Process a sh:NodeShape ;
+    rdfs:comment "스키마 시트 05_Process의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:class hmv:Materials ;
+            sh:minCount 1 ;
+            sh:name "산출재료"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:output_material_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "모션데이터"@ko ;
+            sh:path hmv:motion_data_ref ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "공정설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:class hmv:Materials ;
+            sh:minCount 1 ;
+            sh:name "입력재료"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:input_material_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "공정ID"@ko ;
+            sh:path hmv:process_id ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "공정순서"@ko ;
+            sh:path hmv:sequence ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "공정명"@ko ;
+            sh:path hmv:name ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "공정분류"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:classification ],
+        [ sh:class hmv:Heritage ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "대상종목"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:heritage_ref ] ;
+    sh:targetClass hmv:Process .
+
+hms:Record a sh:NodeShape ;
+    rdfs:comment "모든 레코드의 시스템 필드(P25): 영속 URI, UUID 버전 5, 레코드 상태, 레코드 버전"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "삭제 이유"@ko ;
+            sh:path hmv:withdrawn_reason ],
+        [ sh:in ( "active" "withdrawn" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "레코드 상태"@ko ;
+            sh:path hmv:record_status ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "삭제한 판"@ko ;
+            sh:path hmv:withdrawn_in ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "영속 식별자(URI)"@ko ;
+            sh:path hmv:uri ;
+            sh:pattern "^https://w3id\\.org/hansan\\-mosi/id/[A-Z]{3}_\\d{3}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "레코드 버전"@ko ;
+            sh:path hmv:record_version ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "UUID"@ko ;
+            sh:path hmv:uuid ;
+            sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "삭제 근거"@ko ;
+            sh:path hmv:withdrawn_evidence ] ;
+    sh:targetClass hmv:Agent,
+        hmv:Asset,
+        hmv:Designation,
+        hmv:DigitalProject,
+        hmv:Heritage,
+        hmv:Item,
+        hmv:Licence,
+        hmv:Materials,
+        hmv:Movement,
+        hmv:Performance,
+        hmv:Place,
+        hmv:Process,
+        hmv:Right,
+        hmv:Tool,
+        hmv:Transmitter .
+
+hms:Right a sh:NodeShape ;
+    rdfs:comment "스키마 시트 14_Right의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:name "법률근거"@ko ;
+            sh:path hmv:legal_basis ],
+        [ sh:class skos:Concept ;
+            sh:name "권리범위"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:right_scope ],
+        [ sh:class hmv:Agent ;
+            sh:minCount 1 ;
+            sh:name "권리자"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:holder_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "권리설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:maxCount 1 ;
+            sh:name "근거계약링크"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:agreement_document_url ],
+        [ sh:class hmv:Asset ;
+            sh:minCount 1 ;
+            sh:name "적용애셋"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:asset_refs ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "권리유효기간"@ko ;
+            sh:path hmv:validity_period ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "근거계약유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:agreement_type ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "양도가능여부"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:transferability ],
+        [ sh:maxCount 1 ;
+            sh:name "지분율"@ko ;
+            sh:or ( [ sh:datatype xsd:integer ] [ sh:datatype xsd:double ] [ sh:datatype xsd:decimal ] ) ;
+            sh:path hmv:share_ratio ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "권리ID"@ko ;
+            sh:path hmv:right_id ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "권리유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:right_type ] ;
+    sh:targetClass hmv:Right .
+
+hms:Tool a sh:NodeShape ;
+    rdfs:comment "스키마 시트 07_Tool의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "요소명칭"@ko ;
+            sh:path hmv:name ],
+        [ sh:class hmv:Tool ;
+            sh:maxCount 1 ;
+            sh:name "상위도구"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:parent_tool_ref ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "요소세부설명"@ko ;
+            sh:path hmv:description ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "요소유형"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:component_type ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "도구ID"@ko ;
+            sh:path hmv:tool_id ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "이칭"@ko ;
+            sh:path hmv:alternative_name ] ;
+    sh:targetClass hmv:Tool .
+
+hms:Transmitter a sh:NodeShape ;
+    rdfs:comment "스키마 시트 03_Transmitter의 필수 여부, 입력 유형, 키/참조"@ko ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "전승자ID"@ko ;
+            sh:path hmv:transmitter_id ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "기예능"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:specialty ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:name "인정일"@ko ;
+            sh:path hmv:recognized_date ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "해제 사유"@ko ;
+            sh:path hmv:release_reason ],
+        [ sh:class hmv:Agent ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "주체참조"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:agent_ref ],
+        [ sh:class skos:Concept ;
+            sh:maxCount 1 ;
+            sh:name "보유구분"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:holder_type ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:name "해제일"@ko ;
+            sh:path hmv:released_date ],
+        [ sh:class hmv:Heritage ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "전승종목"@ko ;
+            sh:nodeKind sh:IRI ;
+            sh:path hmv:heritage_ref ] ;
+    sh:targetClass hmv:Transmitter .
+

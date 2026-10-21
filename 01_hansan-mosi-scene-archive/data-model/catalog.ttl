@@ -1,0 +1,138 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix hm: <https://w3id.org/hansan-mosi/id/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/hansan-mosi/catalog> a dcat:Catalog ;
+    dcterms:title "한산모시짜기 디지털 아카이브 메타데이터 카탈로그"@ko ;
+    dcat:dataset <https://w3id.org/hansan-mosi/dataset> .
+
+<https://w3id.org/hansan-mosi/dataset> a dcat:Dataset ;
+    dcterms:conformsTo <https://w3id.org/hansan-mosi/shapes>,
+        <https://w3id.org/hansan-mosi/vocab> ;
+    dcterms:description "한산모시짜기 원장 DB(스키마 4차)로 만든 지식그래프 v4.3: 레코드 705개(클래스 15개), 관계 2216개. 유산, 지정, 전승자, 주체, 공정, 동작, 도구, 재료, 공간, 실연, 디지털 사업, 애셋, 아이템, 권리, 이용허락을 잇는다."@ko ;
+    dcterms:identifier "HANSAN_MOSI_V4" ;
+    dcterms:issued "2026-10-18"^^xsd:date ;
+    dcterms:subject hm:HRT_001 ;
+    dcterms:title "한산모시짜기 지식그래프"@ko ;
+    owl:versionInfo "2026-10-18-v4.3" ;
+    dcat:distribution <https://w3id.org/hansan-mosi/dataset/context.jsonld>,
+        <https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.graphml>,
+        <https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.json>,
+        <https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.jsonld>,
+        <https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.sqlite>,
+        <https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.ttl>,
+        <https://w3id.org/hansan-mosi/dataset/nodes.csv>,
+        <https://w3id.org/hansan-mosi/dataset/relationships.csv>,
+        <https://w3id.org/hansan-mosi/dataset/shacl_report.ttl>,
+        <https://w3id.org/hansan-mosi/dataset/shapes.ttl>,
+        <https://w3id.org/hansan-mosi/dataset/vocab.ttl> ;
+    dcat:keyword "무형유산"@ko,
+        "지식그래프"@ko,
+        "한산모시짜기"@ko ;
+    dcat:version "v4.3" ;
+    prov:wasDerivedFrom <https://docs.google.com/spreadsheets/d/1Cf6kgq-0ar8ztf1ed6GUEi4GWh_rcvd5TOfnVfv7byc>,
+        <https://docs.google.com/spreadsheets/d/1xADKySfvjGuJEwBolWe_GdkiMKZMkoG0CqmAfy_tP4Q> .
+
+<https://w3id.org/hansan-mosi/dataset/context.jsonld> a dcat:Distribution ;
+    dcterms:title "JSON-LD 컨텍스트"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "e1f3ad4d199832bdde78693c2f61415ea92cc6df7476e7fefc4379561b03081b" ] ;
+    dcat:byteSize "855"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/fair/context.jsonld> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/application/ld+json> .
+
+<https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.graphml> a dcat:Distribution ;
+    dcterms:title "GraphML"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "e859b97d0c3f88a4b248d4e594dce418c9746b5e0f6f4cab0fccd7d9bc2b11d3" ] ;
+    dcat:byteSize "3919536"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/hansan_mosi_kg.graphml> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/application/graphml+xml> .
+
+<https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.json> a dcat:Distribution ;
+    dcterms:title "속성 그래프 JSON(웹 화면이 읽는 파일)"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "cbc6501e455cd6527ea9dbbc284ba5c59a8a928bf93c68276d6b8658f037ecbe" ] ;
+    dcat:byteSize "3605520"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/hansan_mosi_kg.json> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/application/json> .
+
+<https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.jsonld> a dcat:Distribution ;
+    dcterms:title "RDF(JSON-LD 1.1) 전체 레코드"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "3c045b67e04c7b78129b35b1b6b052403dcd9a13f00281bd0b19175839fd3ccd" ] ;
+    dcat:byteSize "1792339"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/fair/hansan_mosi_kg.jsonld> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/application/ld+json> .
+
+<https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.sqlite> a dcat:Distribution ;
+    dcterms:title "SQLite"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "8c825e325c87fd6887cf64b8c1a91e1db14678f7f17233af09f4c0eaf6d637f8" ] ;
+    dcat:byteSize "3964928"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/hansan_mosi_kg.sqlite> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/application/vnd.sqlite3> .
+
+<https://w3id.org/hansan-mosi/dataset/hansan_mosi_kg.ttl> a dcat:Distribution ;
+    dcterms:title "RDF(Turtle) 전체 레코드"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "7b978d2a413e9b3728a1d316374f6920d9c079a0c3c3e8cd13c5a67f58771f1d" ] ;
+    dcat:byteSize "1839448"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/fair/hansan_mosi_kg.ttl> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/turtle> .
+
+<https://w3id.org/hansan-mosi/dataset/nodes.csv> a dcat:Distribution ;
+    dcterms:title "노드 CSV"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "99b87f61479f987716e184ea744ce0aaaee5eb9f9505613af03ef096e9f2734f" ] ;
+    dcat:byteSize "1163507"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/nodes.csv> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/csv> .
+
+<https://w3id.org/hansan-mosi/dataset/relationships.csv> a dcat:Distribution ;
+    dcterms:title "관계 CSV"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "c2d9568e795a2a0160238f781de02776b7caf606fe908ad681f8c15d9116ccd6" ] ;
+    dcat:byteSize "753439"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/relationships.csv> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/csv> .
+
+<https://w3id.org/hansan-mosi/dataset/shacl_report.ttl> a dcat:Distribution ;
+    dcterms:title "SHACL 검증 결과"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "4a53a3befd9bcdb7273ef3d6e47a83be519927771faee49ef0d2a44ee23be2be" ] ;
+    dcat:byteSize "147"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/fair/shacl_report.ttl> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/turtle> .
+
+<https://w3id.org/hansan-mosi/dataset/shapes.ttl> a dcat:Distribution ;
+    dcterms:title "SHACL 형상(응용 프로파일)"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "6b2e475aa60b25b584345ac70da0466dfad9f47fc932a20b5a156c5725a7125f" ] ;
+    dcat:byteSize "35499"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/fair/shapes.ttl> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/turtle> .
+
+<https://w3id.org/hansan-mosi/dataset/vocab.ttl> a dcat:Distribution ;
+    dcterms:title "어휘(클래스, 필드, 관계어, 분류어)"@ko ;
+    spdx:checksum [ a spdx:Checksum ;
+            spdx:algorithm spdx:checksumAlgorithm_sha256 ;
+            spdx:checksumValue "f1e7f4dc5856540dbd129251a2d1b6fbdca300ae07a734a32146f44420e120fb" ] ;
+    dcat:byteSize "219649"^^xsd:nonNegativeInteger ;
+    dcat:downloadURL <https://w3id.org/hansan-mosi/data/fair/vocab.ttl> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/turtle> .
+

@@ -1,0 +1,342 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://w3id.org/hansan-mosi/vocab#",
+    "hm": "https://w3id.org/hansan-mosi/id/",
+    "hmv": "https://w3id.org/hansan-mosi/vocab#",
+    "hmc": "https://w3id.org/hansan-mosi/vocab/",
+    "hms": "https://w3id.org/hansan-mosi/shapes#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "spdx": "http://spdx.org/rdf/terms#"
+  },
+  "@id": "hm:PRC_010",
+  "@type": "Process",
+  "classification": {
+    "@id": "https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%9C%EC%A7%81"
+  },
+  "dataset_id": "HANSAN_MOSI_V4",
+  "description": "제직 준비와 가슴내기로 날실의 폭과 장력을 조정한 뒤 자연개구와 반종개구를 교대로 형성하고 씨실투입과 바디치기를 반복하며 제직 진행에 따라 날실을 풀고 형성된 직물을 말코에 감아 평조직 모시직물을 만드는 과정",
+  "display_name": "직물짜기",
+  "heritage_ref": {
+    "@id": "hm:HRT_001"
+  },
+  "id": "PRC_010",
+  "input_material_refs": [
+    {
+      "@id": "hm:MAT_006"
+    },
+    {
+      "@id": "hm:MAT_009"
+    }
+  ],
+  "name": "직물짜기",
+  "output_material_refs": {
+    "@id": "hm:MAT_010"
+  },
+  "photos": {
+    "@value": {
+      "cover": "ITM_368",
+      "items": [
+        "ITM_368",
+        "ITM_372",
+        "ITM_385",
+        "ITM_409",
+        "ITM_408",
+        "ITM_414"
+      ],
+      "annotated_by": "이예은",
+      "annotated_at": "2026-10-16T17:46:13Z",
+      "evidence": "주석 도구(/admin/photos) 사용자 지정"
+    },
+    "@type": "@json"
+  },
+  "process_id": "PRC_010",
+  "record_status": "active",
+  "record_version": "v4",
+  "schema_version": "4차",
+  "sequence": 11,
+  "source_row": 14,
+  "source_sheet": "Process",
+  "uri": {
+    "@value": "https://w3id.org/hansan-mosi/id/PRC_010",
+    "@type": "xsd:anyURI"
+  },
+  "uuid": "b91f3537-a740-517c-a98b-e2c932872d41",
+  "verification_status": "도구 역할표의 공정ID(PRC_012–PRC_017) → 제직 단계 1–6 대응 사용자 확인 전",
+  "weaving_tool_roles": {
+    "@value": [
+      {
+        "phase_sequence": 1,
+        "ui_process_id": "PRC_012",
+        "tool_id": "TOL_030",
+        "role_type": "설치 및 준비",
+        "role_description": "바디집을 끼워 바디를 고정하고 제직에 사용할 준비를 함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 1,
+        "ui_process_id": "PRC_012",
+        "tool_id": "TOL_050",
+        "role_type": "설치 및 준비",
+        "role_description": "가슴내기를 마친 뒤 임시 고정에 사용한 매답대를 제거함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 1,
+        "ui_process_id": "PRC_012",
+        "tool_id": "TOL_035",
+        "role_type": "설치 및 준비",
+        "role_description": "말코의 홈에 제직한 직물 끝을 넣고 고정함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 1,
+        "ui_process_id": "PRC_012",
+        "tool_id": "TOL_036",
+        "role_type": "지속 작용",
+        "role_description": "제직자가 부테를 허리에 감아 날실 장력을 유지함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 1,
+        "ui_process_id": "PRC_012",
+        "tool_id": "TOL_045",
+        "role_type": "지속 작용",
+        "role_description": "부테와 말코를 연결해 장력이 유지되도록 함",
+        "basis_status": "교재·구조도"
+      },
+      {
+        "phase_sequence": 2,
+        "ui_process_id": "PRC_013",
+        "tool_id": "TOL_020",
+        "role_type": "직접 작용",
+        "role_description": "발로 끌신을 당겨 잉아올을 들어 올리고 개구 상태를 바꿈",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 2,
+        "ui_process_id": "PRC_013",
+        "tool_id": "TOL_023",
+        "role_type": "직접 작용",
+        "role_description": "잉앗대의 상하 움직임을 통해 잉아올의 위치를 변화시킴",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 2,
+        "ui_process_id": "PRC_013",
+        "tool_id": "TOL_025",
+        "role_type": "지속 작용",
+        "role_description": "비거미가 잉아올과 사올을 분리하여 자연개구를 형성함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 2,
+        "ui_process_id": "PRC_013",
+        "tool_id": "TOL_026",
+        "role_type": "지속 작용",
+        "role_description": "누름대가 개구 시 사올이 함께 올라가는 것을 억제함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 2,
+        "ui_process_id": "PRC_013",
+        "tool_id": "TOL_049",
+        "role_type": "지속 작용",
+        "role_description": "하부 잉앗대가 잉앗줄과 연결된 개구 장치를 지지함",
+        "basis_status": "구조도 기반"
+      },
+      {
+        "phase_sequence": 3,
+        "ui_process_id": "PRC_014",
+        "tool_id": "TOL_028",
+        "role_type": "직접 작용",
+        "role_description": "북을 날실 사이로 통과시켜 씨실을 투입함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 3,
+        "ui_process_id": "PRC_014",
+        "tool_id": "TOL_029",
+        "role_type": "지속 작용",
+        "role_description": "북닫개가 북 속 꾸리를 고정함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 4,
+        "ui_process_id": "PRC_015",
+        "tool_id": "TOL_030",
+        "role_type": "직접 작용",
+        "role_description": "바디집을 잡아당겨 바디를 직물 형성 위치로 이동시킴",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 4,
+        "ui_process_id": "PRC_015",
+        "tool_id": "TOL_012",
+        "role_type": "직접 작용",
+        "role_description": "바디살이 씨실을 직물 쪽으로 밀착시키고 간격을 조정함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 5,
+        "ui_process_id": "PRC_016",
+        "tool_id": "TOL_037",
+        "role_type": "직접 작용",
+        "role_description": "밀침대로 도투마리를 밀어 날실이 풀리도록 함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 5,
+        "ui_process_id": "PRC_016",
+        "tool_id": "TOL_014",
+        "role_type": "직접 작용",
+        "role_description": "도투마리에서 감겨 있던 날실이 필요한 길이만큼 풀림",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 6,
+        "ui_process_id": "PRC_017",
+        "tool_id": "TOL_035",
+        "role_type": "직접 작용",
+        "role_description": "말코를 조작해 제직된 모시직물을 감음",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 6,
+        "ui_process_id": "PRC_017",
+        "tool_id": "TOL_036",
+        "role_type": "지속 작용",
+        "role_description": "부테가 말코와 제직자 허리를 연결하여 날실 장력을 유지함",
+        "basis_status": "교재 확인"
+      },
+      {
+        "phase_sequence": 6,
+        "ui_process_id": "PRC_017",
+        "tool_id": "TOL_045",
+        "role_type": "지속 작용",
+        "role_description": "부테끈이 말코와 부테를 연결하여 장력을 유지함",
+        "basis_status": "교재·구조도"
+      }
+    ],
+    "@type": "@json"
+  },
+  "weaving_tool_roles_evidence": "사용자 제공 '한산모시짜기_4D직조_UI_데이터.xlsm'(Google Drive 1tffqpr8yzUDQibTOXh5rknWeKfRv01hY, 2026-10-15 06:20 수정본) — 한산모시짜기_DB 의 ToolUsage 를 인터페이스 탐색용 보조 데이터로 분리한 표",
+  "CONSISTS_OF_MOVEMENT": [
+    {
+      "@id": "hm:MOV_035"
+    },
+    {
+      "@id": "hm:MOV_036"
+    },
+    {
+      "@id": "hm:MOV_037"
+    },
+    {
+      "@id": "hm:MOV_038"
+    },
+    {
+      "@id": "hm:MOV_039"
+    },
+    {
+      "@id": "hm:MOV_040"
+    },
+    {
+      "@id": "hm:MOV_041"
+    },
+    {
+      "@id": "hm:MOV_042"
+    }
+  ],
+  "IS_PROCESS_OF": {
+    "@id": "hm:HRT_001"
+  },
+  "PRODUCES_MATERIAL": {
+    "@id": "hm:MAT_010"
+  },
+  "USES_AS_INPUT_MATERIAL": [
+    {
+      "@id": "hm:MAT_006"
+    },
+    {
+      "@id": "hm:MAT_009"
+    }
+  ],
+  "USES_TOOL": [
+    {
+      "@id": "hm:TOL_012"
+    },
+    {
+      "@id": "hm:TOL_014"
+    },
+    {
+      "@id": "hm:TOL_019"
+    },
+    {
+      "@id": "hm:TOL_020"
+    },
+    {
+      "@id": "hm:TOL_021"
+    },
+    {
+      "@id": "hm:TOL_022"
+    },
+    {
+      "@id": "hm:TOL_023"
+    },
+    {
+      "@id": "hm:TOL_024"
+    },
+    {
+      "@id": "hm:TOL_025"
+    },
+    {
+      "@id": "hm:TOL_026"
+    },
+    {
+      "@id": "hm:TOL_028"
+    },
+    {
+      "@id": "hm:TOL_029"
+    },
+    {
+      "@id": "hm:TOL_030"
+    },
+    {
+      "@id": "hm:TOL_035"
+    },
+    {
+      "@id": "hm:TOL_036"
+    },
+    {
+      "@id": "hm:TOL_037"
+    },
+    {
+      "@id": "hm:TOL_043"
+    },
+    {
+      "@id": "hm:TOL_045"
+    },
+    {
+      "@id": "hm:TOL_046"
+    },
+    {
+      "@id": "hm:TOL_048"
+    },
+    {
+      "@id": "hm:TOL_049"
+    },
+    {
+      "@id": "hm:TOL_050"
+    }
+  ]
+}

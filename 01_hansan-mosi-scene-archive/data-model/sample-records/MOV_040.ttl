@@ -1,0 +1,36 @@
+@prefix hm: <https://w3id.org/hansan-mosi/id/> .
+@prefix hmv: <https://w3id.org/hansan-mosi/vocab#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+hm:MOV_040 a hmv:Movement ;
+    hmv:ACTS_ON_MATERIAL hm:MAT_006,
+        hm:MAT_009,
+        hm:MAT_010 ;
+    hmv:BELONGS_TO_PROCESS hm:PRC_010 ;
+    hmv:IS_RECORDED_IN_ITEM hm:ITM_008,
+        hm:ITM_009 ;
+    hmv:OPERATES_TOOL hm:TOL_012,
+        hm:TOL_030 ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:description "씨실을 넣은 뒤 바디집을 몸 쪽으로 당겨 바디가 씨실을 이미 형성된 직물 방향으로 밀착시키도록 한다." ;
+    hmv:display_name "바디치기" ;
+    hmv:id "MOV_040" ;
+    hmv:material_refs hm:MAT_006,
+        hm:MAT_009,
+        hm:MAT_010 ;
+    hmv:movement_id "MOV_040" ;
+    hmv:movement_phase <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EB%B0%94%EB%94%94%EC%B9%98%EA%B8%B0> ;
+    hmv:movement_type <https://w3id.org/hansan-mosi/vocab/Movement/movement_type/%EB%B0%98%EB%B3%B5> ;
+    hmv:name "바디치기" ;
+    hmv:phase_sequence 4 ;
+    hmv:process_ref hm:PRC_010 ;
+    hmv:record_status "active" ;
+    hmv:record_version "v4" ;
+    hmv:schema_version "4차" ;
+    hmv:source_row 43 ;
+    hmv:source_sheet "Movement" ;
+    hmv:tool_refs hm:TOL_012,
+        hm:TOL_030 ;
+    hmv:uri "https://w3id.org/hansan-mosi/id/MOV_040"^^xsd:anyURI ;
+    hmv:uuid "9012ccd2-7f33-5024-ad09-859f1fbc806d" .
+

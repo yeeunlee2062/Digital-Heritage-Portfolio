@@ -1,0 +1,35 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix hm: <https://w3id.org/hansan-mosi/id/> .
+@prefix hmv: <https://w3id.org/hansan-mosi/vocab#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+hm:AST_005 a hmv:Asset ;
+    dcterms:license <https://www.kogl.or.kr/info/licenseType0.do> ;
+    hmv:CONSISTS_OF_ITEM hm:ITM_008 ;
+    hmv:IS_GENERATED_FROM_PERFORMANCE hm:PER_003 ;
+    hmv:IS_PRODUCED_BY_DIGITAL_PROJECT hm:DGP_002 ;
+    hmv:IS_SUBJECT_TO_LICENCE hm:LIC_002 ;
+    hmv:IS_SUBJECT_TO_RIGHT hm:RGT_001,
+        hm:RGT_002,
+        hm:RGT_003,
+        hm:RGT_004,
+        hm:RGT_005,
+        hm:RGT_006 ;
+    hmv:asset_id "AST_005" ;
+    hmv:asset_type <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/4D> ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:description "32대 카메라로 촬영한 약 27초 분량의 베짜기 시연을 복원해 0.9532배 축척 보정을 거쳐 쓰는 실시간 재생용 4D 시퀀스" ;
+    hmv:digital_project_ref hm:DGP_002 ;
+    hmv:display_name "베짜기 시연 실시간 재생용 4D 시퀀스" ;
+    hmv:id "AST_005" ;
+    hmv:item_refs hm:ITM_008 ;
+    hmv:performance_refs hm:PER_003 ;
+    hmv:record_status "active" ;
+    hmv:record_version "v4.3" ;
+    hmv:schema_version "4차" ;
+    hmv:source_row 8 ;
+    hmv:source_sheet "Asset" ;
+    hmv:title "베짜기 시연 실시간 재생용 4D 시퀀스" ;
+    hmv:uri "https://w3id.org/hansan-mosi/id/AST_005"^^xsd:anyURI ;
+    hmv:uuid "dc1111f0-7cae-5081-a8a4-c85aff359ce1" .
+

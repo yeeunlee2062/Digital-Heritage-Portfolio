@@ -1,0 +1,4324 @@
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix hmv: <https://w3id.org/hansan-mosi/vocab#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+hmv:ACTS_IN_MOVEMENT a owl:ObjectProperty ;
+    rdfs:label "acts in movement"@en,
+        "동작에 작용하다"@ko ;
+    rdfs:comment "Tool → Movement: 도구가 특정 Movement에서 직접 기능하는 역방향 의미 관계이며 Tool에는 별도 Movement FK를 저장하지 않음"@ko ;
+    rdfs:domain hmv:Tool ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Movement ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_operates_tool" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "도구가 특정 Movement에서 직접 기능하는 역방향 의미 관계이며 Tool에는 별도 Movement FK를 저장하지 않음" ;
+    hmv:schemaRow 23 ;
+    hmv:schema_relation_row 23 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Movement.tool_refs" .
+
+hmv:ACTS_ON_MATERIAL a owl:ObjectProperty ;
+    rdfs:label "acts on material"@en,
+        "재료에 작용하다"@ko ;
+    rdfs:comment "Movement → Materials: 특정 동작이 재료의 위치, 배열, 장력 또는 상태에 직접 영향을 주는 관계이며 실제 FK는 Movement.material_refs에 저장"@ko ;
+    rdfs:domain hmv:Movement ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Materials ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 동작이 재료의 위치, 배열, 장력 또는 상태에 직접 영향을 주는 관계이며 실제 FK는 Movement.material_refs에 저장" ;
+    hmv:schemaRow 24 ;
+    hmv:schema_relation_row 24 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Movement.material_refs" .
+
+hmv:APPLIES_TO_ASSET a owl:ObjectProperty ;
+    rdfs:label "applies to asset"@en,
+        "적용되다"@ko ;
+    rdfs:comment "Licence → Asset: 특정 이용허락 조건이 하나 이상의 디지털 애셋에 적용되는 관계"@ko,
+        "Right → Asset: 특정 권리가 하나 이상의 디지털 애셋에 적용되는 직접 관계이며 실제 FK는 Right.asset_refs에 저장"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Asset ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:schemaRow 50,
+        54 ;
+    hmv:schema_version "4차" .
+
+hmv:ARISES_FROM_PERFORMANCE a owl:ObjectProperty ;
+    rdfs:label "arises from performance"@en,
+        "실연에서 발생하다"@ko ;
+    rdfs:comment "Right → Performance: 특정 권리가 어느 실연 사건과 관련하여 발생하였는지를 나타내는 관계"@ko ;
+    rdfs:domain hmv:Right ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Performance ;
+    hmv:assertion_status "DERIVED_PATH" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "shared_asset_path_inverse" ;
+    hmv:relationship_context "권리 맥락" ;
+    hmv:relationship_definition "특정 권리가 어느 실연 사건과 관련하여 발생하였는지를 나타내는 관계" ;
+    hmv:schemaRow 49 ;
+    hmv:schema_relation_row 49 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Performance.asset_refs ∩ Right.asset_refs" .
+
+hmv:BELONGS_TO_ASSET a owl:ObjectProperty ;
+    rdfs:label "belongs to asset"@en,
+        "애셋에 속하다"@ko ;
+    rdfs:comment "Item → Asset: 개별 파일 또는 서비스 표현이 특정 Asset의 구성요소가 되는 관계"@ko ;
+    rdfs:domain hmv:Item ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Asset ;
+    rdfs:subPropertyOf dcterms:isPartOf ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "개별 파일 또는 서비스 표현이 특정 Asset의 구성요소가 되는 관계" ;
+    hmv:schemaRow 39 ;
+    hmv:schema_relation_row 39 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Item.asset_ref" .
+
+hmv:BELONGS_TO_PROCESS a owl:ObjectProperty ;
+    rdfs:label "belongs to process"@en,
+        "공정에 속하다"@ko ;
+    rdfs:comment "Movement → Process: 개별 동작이 특정 제작공정의 수행 단위로 포함되는 직접 관계이며 실제 FK는 Movement.process_ref에 저장"@ko ;
+    rdfs:domain hmv:Movement ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Process ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "개별 동작이 특정 제작공정의 수행 단위로 포함되는 직접 관계이며 실제 FK는 Movement.process_ref에 저장" ;
+    hmv:schemaRow 15 ;
+    hmv:schema_relation_row 15 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Movement.process_ref" .
+
+hmv:CONCERNS_PROCESS a owl:ObjectProperty ;
+    rdfs:label "concerns process"@en,
+        "대상으로 하다"@ko ;
+    rdfs:comment "Performance → Process: 제작공정을 실제로 수행하거나 기록한 Performance를 해당 Process와 연결하는 관계이며, 인터뷰·구술처럼 공정이 수행되지 않은 사건에는 적용하지 않음"@ko ;
+    rdfs:domain hmv:Performance ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Process ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "행위적 맥락" ;
+    hmv:relationship_definition "제작공정을 실제로 수행하거나 기록한 Performance를 해당 Process와 연결하는 관계이며, 인터뷰·구술처럼 공정이 수행되지 않은 사건에는 적용하지 않음" ;
+    hmv:schemaRow 31 ;
+    hmv:schema_relation_row 31 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Performance.process_refs" .
+
+hmv:CONSISTS_OF_ITEM a owl:ObjectProperty ;
+    rdfs:label "consists of item"@en,
+        "아이템으로 구성되다"@ko ;
+    rdfs:comment "Asset → Item: 논리적인 디지털 애셋이 하나 이상의 파일 또는 서비스 표현 Item으로 구성되는 관계"@ko ;
+    rdfs:domain hmv:Asset ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Item ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "논리적인 디지털 애셋이 하나 이상의 파일 또는 서비스 표현 Item으로 구성되는 관계" ;
+    hmv:schemaRow 38 ;
+    hmv:schema_relation_row 38 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Asset.item_refs" .
+
+hmv:CONSISTS_OF_MOVEMENT a owl:ObjectProperty ;
+    rdfs:label "consists of movement"@en,
+        "동작으로 구성되다"@ko ;
+    rdfs:comment "Process → Movement: 하나의 제작공정이 하나 이상의 세부 수행동작으로 구성되는 의미 관계이며 실제 FK는 Movement.process_ref에서 한 방향으로 저장"@ko ;
+    rdfs:domain hmv:Process ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Movement ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_belongs_to_process" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "하나의 제작공정이 하나 이상의 세부 수행동작으로 구성되는 의미 관계이며 실제 FK는 Movement.process_ref에서 한 방향으로 저장" ;
+    hmv:schemaRow 14 ;
+    hmv:schema_relation_row 14 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Movement.process_ref" .
+
+hmv:CONTRIBUTES_TO_PRODUCTION a owl:ObjectProperty ;
+    rdfs:label "contributes to production"@en,
+        "생산에 참여하다"@ko ;
+    rdfs:comment "Agent → DigitalProject: 제작사, 대학 또는 연구기관 등의 Agent가 디지털 프로젝트의 촬영, 제작 또는 데이터 생산에 참여하는 관계"@ko ;
+    rdfs:domain hmv:Agent ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:DigitalProject ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_has_producer" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "제작사, 대학 또는 연구기관 등의 Agent가 디지털 프로젝트의 촬영, 제작 또는 데이터 생산에 참여하는 관계" ;
+    hmv:schemaRow 40 ;
+    hmv:schema_relation_row 40 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "DigitalProject.producer_agent_refs" .
+
+hmv:CORRESPONDS_TO_AGENT a owl:ObjectProperty ;
+    rdfs:label "corresponds to agent"@en,
+        "주체에 해당하다"@ko ;
+    rdfs:comment "Transmitter → Agent: 전승자 역할 레코드가 특정 개인 또는 조직 Agent와 동일한 주체임을 나타내는 관계"@ko ;
+    rdfs:domain hmv:Transmitter ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Agent ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "유산적 맥락" ;
+    hmv:relationship_definition "전승자 역할 레코드가 특정 개인 또는 조직 Agent와 동일한 주체임을 나타내는 관계" ;
+    hmv:schemaRow 10 ;
+    hmv:schema_relation_row 10 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Transmitter.agent_ref" .
+
+hmv:DESIGNATES a owl:ObjectProperty ;
+    rdfs:label "designates"@en,
+        "대상으로 하다"@ko ;
+    rdfs:comment "Designation → Heritage: 지정 또는 등재 정보가 특정 무형유산을 대상으로 하는 관계"@ko ;
+    rdfs:domain hmv:Designation ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Heritage ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "유산적 맥락" ;
+    hmv:relationship_definition "지정 또는 등재 정보가 특정 무형유산을 대상으로 하는 관계" ;
+    hmv:schemaRow 5 ;
+    hmv:schema_relation_row 5 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Designation.heritage_ref" .
+
+hmv:GENERATES_ASSET a owl:ObjectProperty ;
+    rdfs:label "generates asset"@en,
+        "애셋을 생성하다"@ko ;
+    rdfs:comment "Performance → Asset: 특정 실연 또는 촬영 사건으로부터 디지털 애셋이 직접 생성되는 관계"@ko ;
+    rdfs:domain hmv:Performance ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Asset ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "특정 실연 또는 촬영 사건으로부터 디지털 애셋이 직접 생성되는 관계" ;
+    hmv:schemaRow 34 ;
+    hmv:schema_relation_row 34 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Performance.asset_refs" .
+
+hmv:GENERATES_RIGHT a owl:ObjectProperty ;
+    rdfs:label "generates right"@en,
+        "권리를 발생시키다"@ko ;
+    rdfs:comment "Performance → Right: 실연 참여로 인해 초상권, 실연자의 인격권 또는 저작인접재산권 등이 발생하는 관계"@ko ;
+    rdfs:domain hmv:Performance ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Right ;
+    hmv:assertion_status "DERIVED_PATH" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "shared_asset_path" ;
+    hmv:relationship_context "권리 맥락" ;
+    hmv:relationship_definition "실연 참여로 인해 초상권, 실연자의 인격권 또는 저작인접재산권 등이 발생하는 관계" ;
+    hmv:schemaRow 48 ;
+    hmv:schema_relation_row 48 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Performance.asset_refs ∩ Right.asset_refs" .
+
+hmv:GRANTS_LICENCE a owl:ObjectProperty ;
+    rdfs:label "grants licence"@en,
+        "이용을 허락하다"@ko ;
+    rdfs:comment "Agent → Licence: 권리자 또는 적법한 권한을 가진 Agent가 다른 주체에게 이용 권한을 부여하는 관계"@ko ;
+    rdfs:domain hmv:Agent ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Licence ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_has_grantor" ;
+    hmv:relationship_context "이용허락 맥락" ;
+    hmv:relationship_definition "권리자 또는 적법한 권한을 가진 Agent가 다른 주체에게 이용 권한을 부여하는 관계" ;
+    hmv:schemaRow 56 ;
+    hmv:schema_relation_row 56 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Licence.grantor_refs" .
+
+hmv:HAS_DESIGNATION a owl:ObjectProperty ;
+    rdfs:label "has designation"@en,
+        "지정 및 등재 정보를 가지다"@ko ;
+    rdfs:comment "Heritage → Designation: 특정 무형유산이 국가무형유산 지정 또는 유네스코 등재와 같은 지정 및 등재 정보를 가지는 관계"@ko ;
+    rdfs:domain hmv:Heritage ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Designation ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "유산적 맥락" ;
+    hmv:relationship_definition "특정 무형유산이 국가무형유산 지정 또는 유네스코 등재와 같은 지정 및 등재 정보를 가지는 관계" ;
+    hmv:schemaRow 4 ;
+    hmv:schema_relation_row 4 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Heritage.designation_refs" .
+
+hmv:HAS_GRANTEE a owl:ObjectProperty ;
+    rdfs:label "has grantee"@en,
+        "이용주체를 가지다"@ko ;
+    rdfs:comment "Licence → Agent: 해당 Licence에 따라 디지털 애셋을 이용할 수 있는 Agent를 연결하는 관계"@ko ;
+    rdfs:domain hmv:Licence ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Agent ;
+    hmv:definitionStatus "DEFINED_WITHOUT_INSTANCE" ;
+    hmv:schemaRow 59 .
+
+hmv:HAS_GRANTOR a owl:ObjectProperty ;
+    rdfs:label "has grantor"@en,
+        "허락주체를 가지다"@ko ;
+    rdfs:comment "Licence → Agent: 해당 Licence를 설정하거나 부여한 Agent를 연결하는 관계"@ko ;
+    rdfs:domain hmv:Licence ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Agent ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "이용허락 맥락" ;
+    hmv:relationship_definition "해당 Licence를 설정하거나 부여한 Agent를 연결하는 관계" ;
+    hmv:schemaRow 57 ;
+    hmv:schema_relation_row 57 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Licence.grantor_refs" .
+
+hmv:HAS_MANAGER a owl:ObjectProperty ;
+    rdfs:label "has manager"@en,
+        "관리주체를 가지다"@ko ;
+    rdfs:comment "DigitalProject → Agent: 디지털 프로젝트가 관리 담당 Agent와 연결되는 관계"@ko ;
+    rdfs:domain hmv:DigitalProject ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Agent ;
+    rdfs:subPropertyOf prov:wasAssociatedWith ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "디지털 프로젝트가 관리 담당 Agent와 연결되는 관계" ;
+    hmv:schemaRow 43 ;
+    hmv:schema_relation_row 43 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "DigitalProject.manager_agent_refs" .
+
+hmv:HAS_PARENT_MATERIAL a owl:ObjectProperty ;
+    rdfs:label "has parent material"@en,
+        "상위재료를 가지다"@ko ;
+    rdfs:comment "Materials → Materials: 특정 재료가 물질적 계통 또는 직조 기능상 상위 재료와 연결되는 관계"@ko ;
+    rdfs:domain hmv:Materials ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Materials ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 재료가 물질적 계통 또는 직조 기능상 상위 재료와 연결되는 관계" ;
+    hmv:schemaRow 18 ;
+    hmv:schema_relation_row 18 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Materials.parent_material_ref" .
+
+hmv:HAS_PERFORMER a owl:ObjectProperty ;
+    rdfs:label "has performer"@en,
+        "실연자를 가지다"@ko ;
+    rdfs:comment "Performance → Transmitter: 특정 실연 사건에 하나 이상의 전승자가 실연자로 참여하는 관계"@ko ;
+    rdfs:domain hmv:Performance ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Transmitter ;
+    rdfs:subPropertyOf prov:wasAssociatedWith ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "행위적 맥락" ;
+    hmv:relationship_definition "특정 실연 사건에 하나 이상의 전승자가 실연자로 참여하는 관계" ;
+    hmv:schemaRow 30 ;
+    hmv:schema_relation_row 30 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Performance.transmitter_refs" .
+
+hmv:HAS_PROCESS a owl:ObjectProperty ;
+    rdfs:label "has process"@en,
+        "제작공정을 가지다"@ko ;
+    rdfs:comment "Heritage → Process: 무형유산의 제작 및 실연 절차가 하나 이상의 Process로 구성되는 관계"@ko ;
+    rdfs:domain hmv:Heritage ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Process ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "무형유산의 제작 및 실연 절차가 하나 이상의 Process로 구성되는 관계" ;
+    hmv:schemaRow 12 ;
+    hmv:schema_relation_row 12 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Heritage.process_refs" .
+
+hmv:HAS_PRODUCER a owl:ObjectProperty ;
+    rdfs:label "has producer"@en,
+        "생산주체를 가지다"@ko ;
+    rdfs:comment "DigitalProject → Agent: 디지털 프로젝트가 하나 이상의 생산 담당 Agent와 연결되는 관계"@ko ;
+    rdfs:domain hmv:DigitalProject ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Agent ;
+    rdfs:subPropertyOf prov:wasAssociatedWith ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "디지털 프로젝트가 하나 이상의 생산 담당 Agent와 연결되는 관계" ;
+    hmv:schemaRow 41 ;
+    hmv:schema_relation_row 41 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "DigitalProject.producer_agent_refs" .
+
+hmv:HAS_RELATED_PLACE a owl:ObjectProperty ;
+    rdfs:label "has related place"@en,
+        "관련 공간을 가지다"@ko ;
+    rdfs:comment "Heritage → Place: 무형유산의 전승, 실연, 교육 또는 기록과 관련된 장소가 연결되는 관계"@ko ;
+    rdfs:domain hmv:Heritage ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Place ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "유산적 맥락" ;
+    hmv:relationship_definition "무형유산의 전승, 실연, 교육 또는 기록과 관련된 장소가 연결되는 관계" ;
+    hmv:schemaRow 8 ;
+    hmv:schema_relation_row 8 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Heritage.place_refs" .
+
+hmv:HAS_TRANSMITTER a owl:ObjectProperty ;
+    rdfs:label "has transmitter"@en,
+        "전승자를 가지다"@ko ;
+    rdfs:comment "Heritage → Transmitter: 특정 무형유산에 보유자, 전승교육사 또는 이수자 등의 전승자가 연계되는 관계"@ko ;
+    rdfs:domain hmv:Heritage ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Transmitter ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "유산적 맥락" ;
+    hmv:relationship_definition "특정 무형유산에 보유자, 전승교육사 또는 이수자 등의 전승자가 연계되는 관계" ;
+    hmv:schemaRow 6 ;
+    hmv:schema_relation_row 6 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Heritage.transmitter_refs" .
+
+hmv:HAS_TRANSMITTER_ROLE a owl:ObjectProperty ;
+    rdfs:label "has transmitter role"@en,
+        "전승자 역할을 가지다"@ko ;
+    rdfs:comment "Agent → Transmitter: 개인 또는 조직 Agent가 특정 무형유산의 전승자 역할을 가지는 관계"@ko ;
+    rdfs:domain hmv:Agent ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Transmitter ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_corresponds_to_agent" ;
+    hmv:relationship_context "유산적 맥락" ;
+    hmv:relationship_definition "개인 또는 조직 Agent가 특정 무형유산의 전승자 역할을 가지는 관계" ;
+    hmv:schemaRow 11 ;
+    hmv:schema_relation_row 11 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Transmitter.agent_ref" .
+
+hmv:HOLDS_RIGHT a owl:ObjectProperty ;
+    rdfs:label "holds right"@en,
+        "권리를 보유하다"@ko ;
+    rdfs:comment "Agent → Right: 개인, 전승자, 제작사 또는 공공기관 등의 Agent가 특정 법적 권리를 보유하는 관계"@ko ;
+    rdfs:domain hmv:Agent ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Right ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_is_held_by" ;
+    hmv:relationship_context "권리 맥락" ;
+    hmv:relationship_definition "개인, 전승자, 제작사 또는 공공기관 등의 Agent가 특정 법적 권리를 보유하는 관계" ;
+    hmv:schemaRow 46 ;
+    hmv:schema_relation_row 46 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Right.holder_refs" .
+
+hmv:INCLUDES_COMPONENT a owl:ObjectProperty ;
+    rdfs:label "includes component"@en,
+        "구성요소로 포함하다"@ko ;
+    rdfs:comment "Tool → Tool: 하나의 Tool이 다른 Tool을 구조적인 하위 구성요소로 포함하는 관계"@ko ;
+    rdfs:domain hmv:Tool ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Tool ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_is_component_of" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "하나의 Tool이 다른 Tool을 구조적인 하위 구성요소로 포함하는 관계" ;
+    hmv:schemaRow 16 ;
+    hmv:schema_relation_row 16 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Tool.parent_tool_ref" .
+
+hmv:INCLUDES_PERFORMANCE a owl:ObjectProperty ;
+    rdfs:label "includes performance"@en,
+        "실연을 포함하다"@ko ;
+    rdfs:comment "DigitalProject → Performance: 디지털 프로젝트가 기록 또는 촬영하는 하나 이상의 실연 사건을 포함하는 관계"@ko ;
+    rdfs:domain hmv:DigitalProject ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Performance ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "디지털 프로젝트가 기록 또는 촬영하는 하나 이상의 실연 사건을 포함하는 관계" ;
+    hmv:schemaRow 33 ;
+    hmv:schema_relation_row 33 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "DigitalProject.performance_refs" .
+
+hmv:IS_ACTED_ON_BY_MOVEMENT a owl:ObjectProperty ;
+    rdfs:label "is acted on by movement"@en,
+        "동작의 대상이 되다"@ko ;
+    rdfs:comment "Materials → Movement: 재료가 특정 세부동작의 직접 대상이 되는 역방향 의미 관계이며 Materials에는 별도 Movement FK를 저장하지 않음"@ko ;
+    rdfs:domain hmv:Materials ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Movement ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_acts_on_material" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "재료가 특정 세부동작의 직접 대상이 되는 역방향 의미 관계이며 Materials에는 별도 Movement FK를 저장하지 않음" ;
+    hmv:schemaRow 25 ;
+    hmv:schema_relation_row 25 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Movement.material_refs" .
+
+hmv:IS_BASED_ON_RIGHT a owl:ObjectProperty ;
+    rdfs:label "is based on right"@en,
+        "근거로 하다"@ko ;
+    rdfs:comment "Licence → Right: 이용허락이 하나 이상의 Right를 법적 또는 권리적 근거로 성립하는 관계"@ko ;
+    rdfs:domain hmv:Licence ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Right ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "권리 맥락" ;
+    hmv:relationship_definition "이용허락이 하나 이상의 Right를 법적 또는 권리적 근거로 성립하는 관계" ;
+    hmv:schemaRow 52 ;
+    hmv:schema_relation_row 52 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Licence.right_refs" .
+
+hmv:IS_COMPONENT_OF a owl:ObjectProperty ;
+    rdfs:label "is component of"@en,
+        "구성요소에 속하다"@ko ;
+    rdfs:comment "Tool → Tool: 특정 베틀 부재 또는 도구가 다른 Tool의 하위 구성요소가 되는 관계"@ko ;
+    rdfs:domain hmv:Tool ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Tool ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 베틀 부재 또는 도구가 다른 Tool의 하위 구성요소가 되는 관계" ;
+    hmv:schemaRow 17 ;
+    hmv:schema_relation_row 17 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Tool.parent_tool_ref" .
+
+hmv:IS_GENERATED_FROM_PERFORMANCE a owl:ObjectProperty ;
+    rdfs:label "is generated from performance"@en,
+        "실연에서 생성되다"@ko ;
+    rdfs:comment "Asset → Performance: 해당 애셋이 어떤 실연 또는 촬영 사건으로부터 파생되었는지를 나타내는 관계"@ko ;
+    rdfs:domain hmv:Asset ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Performance ;
+    rdfs:subPropertyOf prov:wasGeneratedBy ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "해당 애셋이 어떤 실연 또는 촬영 사건으로부터 파생되었는지를 나타내는 관계" ;
+    hmv:schemaRow 35 ;
+    hmv:schema_relation_row 35 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Asset.performance_refs" .
+
+hmv:IS_HELD_BY a owl:ObjectProperty ;
+    rdfs:label "is held by"@en,
+        "권리자에게 귀속되다"@ko ;
+    rdfs:comment "Right → Agent: 특정 권리가 하나 이상의 Agent에게 귀속되는 관계"@ko ;
+    rdfs:domain hmv:Right ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Agent ;
+    rdfs:subPropertyOf dcterms:rightsHolder ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "권리 맥락" ;
+    hmv:relationship_definition "특정 권리가 하나 이상의 Agent에게 귀속되는 관계" ;
+    hmv:schemaRow 47 ;
+    hmv:schema_relation_row 47 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Right.holder_refs" .
+
+hmv:IS_PART_OF_DIGITAL_PROJECT a owl:ObjectProperty ;
+    rdfs:label "is part of digital project"@en,
+        "디지털작업에 포함되다"@ko ;
+    rdfs:comment "Performance → DigitalProject: 특정 실연 사건이 하나의 기록화 또는 디지털화 프로젝트 안에서 수행되는 관계"@ko ;
+    rdfs:domain hmv:Performance ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:DigitalProject ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "특정 실연 사건이 하나의 기록화 또는 디지털화 프로젝트 안에서 수행되는 관계" ;
+    hmv:schemaRow 32 ;
+    hmv:schema_relation_row 32 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Performance.digital_project_ref" .
+
+hmv:IS_PROCESS_OF a owl:ObjectProperty ;
+    rdfs:label "is process of"@en,
+        "구성공정이다"@ko ;
+    rdfs:comment "Process → Heritage: 특정 Process가 해당 무형유산의 제작 및 전승 과정에 포함되는 관계"@ko ;
+    rdfs:domain hmv:Process ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Heritage ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 Process가 해당 무형유산의 제작 및 전승 과정에 포함되는 관계" ;
+    hmv:schemaRow 13 ;
+    hmv:schema_relation_row 13 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Process.heritage_ref" .
+
+hmv:IS_PRODUCED_BY_DIGITAL_PROJECT a owl:ObjectProperty ;
+    rdfs:label "is produced by digital project"@en,
+        "디지털작업에서 생산되다"@ko ;
+    rdfs:comment "Asset → DigitalProject: 애셋이 특정 기록화 또는 디지털화 프로젝트의 결과물로 생성되는 관계"@ko ;
+    rdfs:domain hmv:Asset ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:DigitalProject ;
+    rdfs:subPropertyOf prov:wasGeneratedBy ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "애셋이 특정 기록화 또는 디지털화 프로젝트의 결과물로 생성되는 관계" ;
+    hmv:schemaRow 37 ;
+    hmv:schema_relation_row 37 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Asset.digital_project_ref" .
+
+hmv:IS_RECORDED_IN_ITEM a owl:ObjectProperty ;
+    rdfs:label "is recorded in item"@en,
+        "4D 아이템으로 기록되다"@ko ;
+    rdfs:comment "Movement → Item: Movement가 실제 동작을 포함하는 4D Item에 기록 또는 재생되는 역방향 관계이며, 정적 참조 Item에는 적용하지 않음"@ko ;
+    rdfs:domain hmv:Movement ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Item ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_references_movement" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "Movement가 실제 동작을 포함하는 4D Item에 기록 또는 재생되는 역방향 관계이며, 정적 참조 Item에는 적용하지 않음" ;
+    hmv:schemaRow 45 ;
+    hmv:schema_relation_row 45 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Item.volumetric4d.movement_refs" .
+
+hmv:IS_RELATED_TO_HERITAGE a owl:ObjectProperty ;
+    rdfs:label "is related to heritage"@en,
+        "관련되다"@ko ;
+    rdfs:comment "Place → Heritage: 특정 장소가 해당 무형유산의 전승, 실연 또는 관리 활동과 관련되는 관계"@ko ;
+    rdfs:domain hmv:Place ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Heritage ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "유산적 맥락" ;
+    hmv:relationship_definition "특정 장소가 해당 무형유산의 전승, 실연 또는 관리 활동과 관련되는 관계" ;
+    hmv:schemaRow 9 ;
+    hmv:schema_relation_row 9 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Place.heritage_ref" .
+
+hmv:IS_SUBJECT_TO_LICENCE a owl:ObjectProperty ;
+    rdfs:label "is subject to licence"@en,
+        "이용허락의 적용을 받다"@ko ;
+    rdfs:comment "Asset → Licence: 디지털 애셋의 활용이 특정 Licence의 범위 및 조건에 의해 제한 또는 허용되는 관계"@ko ;
+    rdfs:domain hmv:Asset ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Licence ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_licence_applies_to_asset" ;
+    hmv:relationship_context "이용허락 맥락" ;
+    hmv:relationship_definition "디지털 애셋의 활용이 특정 Licence의 범위 및 조건에 의해 제한 또는 허용되는 관계" ;
+    hmv:schemaRow 55 ;
+    hmv:schema_relation_row 55 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Licence.asset_refs" .
+
+hmv:IS_SUBJECT_TO_RIGHT a owl:ObjectProperty ;
+    rdfs:label "is subject to right"@en,
+        "권리의 적용을 받다"@ko ;
+    rdfs:comment "Asset → Right: 디지털 애셋이 특정 권리의 적용 대상이 되는 역방향 의미 관계이며 Asset에는 별도 Right FK를 저장하지 않음"@ko ;
+    rdfs:domain hmv:Asset ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Right ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_right_applies_to_asset" ;
+    hmv:relationship_context "권리 맥락" ;
+    hmv:relationship_definition "디지털 애셋이 특정 권리의 적용 대상이 되는 역방향 의미 관계이며 Asset에는 별도 Right FK를 저장하지 않음" ;
+    hmv:schemaRow 51 ;
+    hmv:schema_relation_row 51 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Right.asset_refs" .
+
+hmv:IS_SUBMATERIAL_OF a owl:ObjectProperty ;
+    rdfs:label "is submaterial of"@en,
+        "하위재료로 구분되다"@ko ;
+    rdfs:comment "Materials → Materials: 특정 재료가 상위 재료의 기능적 또는 물질적 하위 유형으로 구분되는 관계"@ko ;
+    rdfs:domain hmv:Materials ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Materials ;
+    hmv:assertion_status "DERIVED_SEMANTIC_ALIAS" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "schema_alias_of_parent_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 재료가 상위 재료의 기능적 또는 물질적 하위 유형으로 구분되는 관계" ;
+    hmv:schemaRow 19 ;
+    hmv:schema_relation_row 19 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Materials.parent_material_ref" .
+
+hmv:IS_USED_IN_PROCESS a owl:ObjectProperty ;
+    rdfs:label "is used in process"@en,
+        "공정에 사용되다"@ko ;
+    rdfs:comment "Tool → Process: 도구가 어느 제작공정에서 사용되는지를 나타내는 역방향 파생 관계이며 Movement.process_ref와 Movement.tool_refs를 통해 도출"@ko ;
+    rdfs:domain hmv:Tool ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Process ;
+    hmv:assertion_status "DERIVED_PATH" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "movement_bridge_inverse" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "도구가 어느 제작공정에서 사용되는지를 나타내는 역방향 파생 관계이며 Movement.process_ref와 Movement.tool_refs를 통해 도출" ;
+    hmv:schemaRow 21 ;
+    hmv:schema_relation_row 21 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Movement.process_ref + Movement.tool_refs" .
+
+hmv:MANAGES a owl:ObjectProperty ;
+    rdfs:label "manages"@en,
+        "관리하다"@ko ;
+    rdfs:comment "Agent → DigitalProject: 기관 Agent가 디지털 프로젝트 또는 그 산출 자원의 관리 책임을 가지는 관계"@ko ;
+    rdfs:domain hmv:Agent ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:DigitalProject ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_has_manager" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "기관 Agent가 디지털 프로젝트 또는 그 산출 자원의 관리 책임을 가지는 관계" ;
+    hmv:schemaRow 42 ;
+    hmv:schema_relation_row 42 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "DigitalProject.manager_agent_refs" .
+
+hmv:OPERATES_TOOL a owl:ObjectProperty ;
+    rdfs:label "operates tool"@en,
+        "작동시키다"@ko ;
+    rdfs:comment "Movement → Tool: 특정 동작에서 직접 조작하거나 작동시키는 도구와의 직접 관계이며 실제 FK는 Movement.tool_refs에 저장"@ko ;
+    rdfs:domain hmv:Movement ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Tool ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 동작에서 직접 조작하거나 작동시키는 도구와의 직접 관계이며 실제 FK는 Movement.tool_refs에 저장" ;
+    hmv:schemaRow 22 ;
+    hmv:schema_relation_row 22 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Movement.tool_refs" .
+
+hmv:PARTICIPATES_IN a owl:ObjectProperty ;
+    rdfs:label "participates in"@en,
+        "참여하다"@ko ;
+    rdfs:comment "Agent → Performance: 개인 또는 조직 Agent가 특정 실연, 촬영 또는 기록 활동에 참여하는 관계"@ko ;
+    rdfs:domain hmv:Agent ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Performance ;
+    hmv:assertion_status "DERIVED_PATH" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "transmitter_agent_path" ;
+    hmv:relationship_context "행위적 맥락" ;
+    hmv:relationship_definition "개인 또는 조직 Agent가 특정 실연, 촬영 또는 기록 활동에 참여하는 관계" ;
+    hmv:schemaRow 28 ;
+    hmv:schema_relation_row 28 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Performance.transmitter_refs + Transmitter.agent_ref" .
+
+hmv:PERFORMS_IN a owl:ObjectProperty ;
+    rdfs:label "performs in"@en,
+        "실연하다"@ko ;
+    rdfs:comment "Transmitter → Performance: 전승자가 특정 Performance에서 무형유산의 기술 또는 행위를 직접 실연하는 관계"@ko ;
+    rdfs:domain hmv:Transmitter ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Performance ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_has_performer" ;
+    hmv:relationship_context "행위적 맥락" ;
+    hmv:relationship_definition "전승자가 특정 Performance에서 무형유산의 기술 또는 행위를 직접 실연하는 관계" ;
+    hmv:schemaRow 29 ;
+    hmv:schema_relation_row 29 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Performance.transmitter_refs" .
+
+hmv:PRODUCES_ASSET a owl:ObjectProperty ;
+    rdfs:label "produces asset"@en,
+        "애셋을 생산하다"@ko ;
+    rdfs:comment "DigitalProject → Asset: 하나의 디지털화 또는 기록화 프로젝트가 디지털 애셋을 산출하는 관계"@ko ;
+    rdfs:domain hmv:DigitalProject ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Asset ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "하나의 디지털화 또는 기록화 프로젝트가 디지털 애셋을 산출하는 관계" ;
+    hmv:schemaRow 36 ;
+    hmv:schema_relation_row 36 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "DigitalProject.asset_refs" .
+
+hmv:PRODUCES_MATERIAL a owl:ObjectProperty ;
+    rdfs:label "produces material"@en,
+        "산출재료를 생성하다"@ko ;
+    rdfs:comment "Process → Materials: 특정 공정 수행 이후 생성되거나 상태가 변화한 재료와의 직접 관계이며 실제 FK는 Process.output_material_refs에 저장"@ko ;
+    rdfs:domain hmv:Process ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Materials ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 공정 수행 이후 생성되거나 상태가 변화한 재료와의 직접 관계이며 실제 FK는 Process.output_material_refs에 저장" ;
+    hmv:schemaRow 27 ;
+    hmv:schema_relation_row 27 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Process.output_material_refs" .
+
+hmv:RECEIVES_LICENCE a owl:ObjectProperty ;
+    rdfs:label "receives licence"@en,
+        "이용권한을 부여받다"@ko ;
+    rdfs:comment "Agent → Licence: 연구기관, 박물관, 기업 또는 개인 등의 Agent가 특정 Licence에 따라 이용 권한을 부여받는 관계"@ko ;
+    rdfs:domain hmv:Agent ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Licence ;
+    hmv:definitionStatus "DEFINED_WITHOUT_INSTANCE" ;
+    hmv:schemaRow 58 .
+
+hmv:REFERENCES_MOVEMENT a owl:ObjectProperty ;
+    rdfs:label "references movement"@en,
+        "관련 동작을 가지다"@ko ;
+    rdfs:comment "Item → Movement: 실제 동작을 포함하는 4D Item을 해당 Movement와 연결하는 관계이며, 정적 참조 Item에는 적용하지 않음"@ko ;
+    rdfs:domain hmv:Item ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Movement ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "디지털 맥락" ;
+    hmv:relationship_definition "실제 동작을 포함하는 4D Item을 해당 Movement와 연결하는 관계이며, 정적 참조 Item에는 적용하지 않음" ;
+    hmv:schemaRow 44 ;
+    hmv:schema_relation_row 44 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Item.volumetric4d.movement_refs" .
+
+hmv:SUPPORTS_LICENCE a owl:ObjectProperty ;
+    rdfs:label "supports licence"@en,
+        "이용허락의 근거가 되다"@ko ;
+    rdfs:comment "Right → Licence: 특정 권리가 Licence 설정의 근거가 되는 관계"@ko ;
+    rdfs:domain hmv:Right ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Licence ;
+    hmv:assertion_status "DERIVED_INVERSE" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "inverse_of_is_based_on_right" ;
+    hmv:relationship_context "권리 맥락" ;
+    hmv:relationship_definition "특정 권리가 Licence 설정의 근거가 되는 관계" ;
+    hmv:schemaRow 53 ;
+    hmv:schema_relation_row 53 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Licence.right_refs" .
+
+hmv:TRANSMITS a owl:ObjectProperty ;
+    rdfs:label "transmits"@en,
+        "전승하다"@ko ;
+    rdfs:comment "Transmitter → Heritage: 전승자가 특정 무형유산 종목의 기술 또는 지식을 전승하는 관계"@ko ;
+    rdfs:domain hmv:Transmitter ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Heritage ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "유산적 맥락" ;
+    hmv:relationship_definition "전승자가 특정 무형유산 종목의 기술 또는 지식을 전승하는 관계" ;
+    hmv:schemaRow 7 ;
+    hmv:schema_relation_row 7 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Transmitter.heritage_ref" .
+
+hmv:USES_AS_INPUT_MATERIAL a owl:ObjectProperty ;
+    rdfs:label "uses as input material"@en,
+        "입력재료로 사용하다"@ko ;
+    rdfs:comment "Process → Materials: 특정 공정 시작 시 투입되는 재료와의 직접 관계이며 실제 FK는 Process.input_material_refs에 저장"@ko ;
+    rdfs:domain hmv:Process ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Materials ;
+    hmv:assertion_status "ASSERTED" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "direct_reference" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 공정 시작 시 투입되는 재료와의 직접 관계이며 실제 FK는 Process.input_material_refs에 저장" ;
+    hmv:schemaRow 26 ;
+    hmv:schema_relation_row 26 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Process.input_material_refs" .
+
+hmv:USES_TOOL a owl:ObjectProperty ;
+    rdfs:label "uses tool"@en,
+        "사용하다"@ko ;
+    rdfs:comment "Process → Tool: 특정 제작공정에서 사용되는 도구를 나타내는 파생 관계이며 해당 Process에 속한 Movement.tool_refs를 집계하여 도출"@ko ;
+    rdfs:domain hmv:Process ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:range hmv:Tool ;
+    hmv:assertion_status "DERIVED_PATH" ;
+    hmv:dataset_id "HANSAN_MOSI_V4" ;
+    hmv:definitionStatus "MATERIALIZED" ;
+    hmv:derivation_basis "movement_bridge" ;
+    hmv:relationship_context "상호작용 맥락" ;
+    hmv:relationship_definition "특정 제작공정에서 사용되는 도구를 나타내는 파생 관계이며 해당 Process에 속한 Movement.tool_refs를 집계하여 도출" ;
+    hmv:schemaRow 20 ;
+    hmv:schema_relation_row 20 ;
+    hmv:schema_version "4차" ;
+    hmv:source_fields "Movement.process_ref + Movement.tool_refs" .
+
+hmv:access.contact a owl:ObjectProperty ;
+    rdfs:label "접근 문의처"@ko ;
+    rdfs:comment "Item: 요청 시 제공 아이템의 문의처(주체 레코드)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P30)" ;
+    hmv:inputType "Item: ID" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:access.contact_name a owl:DatatypeProperty ;
+    rdfs:label "접근 문의처 이름"@ko ;
+    rdfs:comment "Item: 문의처 주체의 이름(KG 주체 레코드의 이름)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P30)" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:access.delivery a owl:DatatypeProperty ;
+    rdfs:label "전달 방식"@ko ;
+    rdfs:comment "Item: 요청이 승인된 뒤 데이터를 전달하는 방식"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P30)" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:access.evidence a owl:DatatypeProperty ;
+    rdfs:label "접근 조건 근거"@ko ;
+    rdfs:comment "Item: 접근 조건을 정한 근거"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P30)" ;
+    hmv:inputType "Item: text" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:access.note a owl:DatatypeProperty ;
+    rdfs:label "접근 방법"@ko ;
+    rdfs:comment "Item: 데이터에 이르는 방법(내려받기, 원 소장처, 요청 절차)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:accessRights ;
+    hmv:fieldSource "시스템 생성(P30)" ;
+    hmv:inputType "Item: text" ;
+    hmv:requirement "Item: 필수" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:access.status a owl:DatatypeProperty ;
+    rdfs:label "접근 상태"@ko ;
+    rdfs:comment "Item: open(공개 파일 또는 원 소장처에서 받음) 또는 on_request(요청 시 제공)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:accessRights ;
+    hmv:fieldSource "시스템 생성(P30)" ;
+    hmv:inputType "Item: enum" ;
+    hmv:requirement "Item: 필수" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:address a owl:DatatypeProperty ;
+    rdfs:label "주소"@ko ;
+    rdfs:comment "Place: 공간의 도로명, 지번 등 상세 주소"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:spatial ;
+    skos:relatedMatch crm:E53_Place ;
+    hmv:cidocCrmMapping "Place: E53 Place" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Place: string" ;
+    hmv:requirement "Place: 선택" ;
+    hmv:usedInClass hmv:Place .
+
+hmv:agent_id a owl:DatatypeProperty ;
+    rdfs:label "주체ID"@ko ;
+    rdfs:comment "Agent: 디지털화 및 권리관계에 참여하는 개인 또는 조직을 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Agent: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: string" ;
+    hmv:requirement "Agent: 필수" ;
+    hmv:usedInClass hmv:Agent .
+
+hmv:agent_ref a owl:ObjectProperty ;
+    rdfs:label "주체참조"@ko ;
+    rdfs:comment "Transmitter: 해당 전승자 역할을 수행하는 개인 또는 조직의 Agent ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E39_Actor ;
+    hmv:cidocCrmMapping "Transmitter: E39 Actor" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Transmitter: string" ;
+    hmv:requirement "Transmitter: 필수" ;
+    hmv:usedInClass hmv:Transmitter .
+
+hmv:agent_type a owl:ObjectProperty ;
+    rdfs:label "주체유형"@ko ;
+    rdfs:comment "Agent: 주체를 개인 또는 조직으로 구분하는 기본 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Agent: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: string" ;
+    hmv:requirement "Agent: 필수" ;
+    hmv:usedInClass hmv:Agent .
+
+hmv:agreement_document_url a owl:ObjectProperty ;
+    rdfs:label "근거계약링크"@ko ;
+    rdfs:comment "Right: 근거계약유형에 해당하는 실물 계약서 또는 동의서를 관리하는 외부 문서 저장소의 접근 링크"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:references ;
+    skos:relatedMatch crm:E73_Information_Object ;
+    hmv:cidocCrmMapping "Right: E73 Information Object" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: URL" ;
+    hmv:requirement "Right: 선택" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:agreement_type a owl:ObjectProperty ;
+    rdfs:label "근거계약유형"@ko ;
+    rdfs:comment "Right: 재산권 양도계약, 이용허락계약, 초상 및 음성 이용동의, 공동소유 합의, 소유권 이전계약 등 권리 상태의 계약 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Right: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: string" ;
+    hmv:requirement "Right: 선택" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:alternative_name a owl:DatatypeProperty ;
+    rdfs:label "이칭"@ko ;
+    rdfs:comment "Agent: 영문명, 약칭 또는 기타 통용 명칭"@ko,
+        "Tool: 전통베틀 부재의 통용 이칭과 서천 지역에서 사용되는 명칭"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:alternative ;
+    skos:relatedMatch crm:E41_Appellation ;
+    hmv:cidocCrmMapping "Agent: E41 Appellation",
+        "Tool: E41 Appellation" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: array<string>",
+        "Tool: string" ;
+    hmv:requirement "Agent: 선택",
+        "Tool: 선택" ;
+    hmv:usedInClass hmv:Agent,
+        hmv:Tool .
+
+hmv:anchor a owl:DatatypeProperty ;
+    rdfs:label "부재 앵커"@ko ;
+    rdfs:comment "사용자 주석 anchors.json"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:annotated_on a owl:DatatypeProperty ;
+    rdfs:label "주석 일자"@ko ;
+    rdfs:comment "동작 주석(segments.json)이 REFERENCES_MOVEMENT 관계에 붙이는 속성(rdf:Statement 로 내보냄)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:annotation_evidence a owl:DatatypeProperty ;
+    rdfs:label "주석 근거"@ko ;
+    rdfs:comment "동작 주석(segments.json)이 REFERENCES_MOVEMENT 관계에 붙이는 속성(rdf:Statement 로 내보냄)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:assertion_status a owl:AnnotationProperty ;
+    rdfs:label "단언 상태"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:asset_id a owl:DatatypeProperty ;
+    rdfs:label "애셋ID"@ko ;
+    rdfs:comment "Asset: 논리적 디지털 애셋의 고유 식별자"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Asset: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Asset: string" ;
+    hmv:requirement "Asset: 필수" ;
+    hmv:usedInClass hmv:Asset .
+
+hmv:asset_ref a owl:ObjectProperty ;
+    rdfs:label "소속애셋"@ko ;
+    rdfs:comment "Item: 아이템이 속한 상위 디지털 애셋의 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E73_Information_Object ;
+    hmv:cidocCrmMapping "Item: E73 Information Object" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 필수" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:asset_refs a owl:ObjectProperty ;
+    rdfs:label "산출애셋"@ko,
+        "적용애셋"@ko ;
+    rdfs:comment "DigitalProject: 해당 디지털화 사업에서 생산된 애셋 ID 목록"@ko,
+        "Licence: 해당 이용허락이 적용되는 디지털 애셋의 ID 목록"@ko,
+        "Performance: 해당 실연 또는 촬영 사건으로부터 직접 생성된 디지털 애셋의 ID 목록"@ko,
+        "Right: 해당 권리가 적용되는 디지털 애셋의 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E73_Information_Object ;
+    hmv:cidocCrmMapping "DigitalProject: E73 Information Object",
+        "Licence: E73 Information Object (참조 후보)",
+        "Performance: E73 Information Object",
+        "Right: E73 Information Object (참조 후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "DigitalProject: array<ID>",
+        "Licence: array<ID>",
+        "Performance: array<ID>",
+        "Right: array<ID>" ;
+    hmv:requirement "DigitalProject: 선택",
+        "Licence: 필수",
+        "Performance: 선택",
+        "Right: 필수" ;
+    hmv:usedInClass hmv:DigitalProject,
+        hmv:Licence,
+        hmv:Performance,
+        hmv:Right .
+
+hmv:asset_type a owl:ObjectProperty ;
+    rdfs:label "애셋유형"@ko ;
+    rdfs:comment "Asset: 이미지, 영상, 문서, 3D 모델, 4D 볼류메트릭 등의 자료 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Asset: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Asset: string" ;
+    hmv:requirement "Asset: 필수" ;
+    hmv:usedInClass hmv:Asset .
+
+hmv:attribution_required a owl:DatatypeProperty ;
+    rdfs:label "출처표시여부"@ko ;
+    rdfs:comment "Licence: 애셋 이용 시 권리자 또는 출처 표시가 필요한지 여부"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:rights ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Licence: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: boolean" ;
+    hmv:requirement "Licence: 선택" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:cidocCrmMapping a owl:AnnotationProperty ;
+    rdfs:label "CIDOC-CRM 대응(스키마 시트)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:classification a owl:ObjectProperty ;
+    rdfs:label "공정분류"@ko,
+        "분류"@ko ;
+    rdfs:comment "Heritage: 유산의 상위 유형과 세부 분류를 나타내는 분류어 목록"@ko,
+        "Process: 제사, 정경, 제직준비 및 제직으로 제작 단계의 기능적 범주를 구분하는 값"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Heritage: E55 Type",
+        "Process: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: array<string>",
+        "Process: string" ;
+    hmv:requirement "Heritage: 선택",
+        "Process: 필수" ;
+    hmv:usedInClass hmv:Heritage,
+        hmv:Process .
+
+hmv:commercial_use_allowed a owl:DatatypeProperty ;
+    rdfs:label "상업적 사용여부"@ko ;
+    rdfs:comment "Licence: 영리 목적의 애셋 이용을 허용하는지 여부"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:accessRights ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Licence: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: boolean" ;
+    hmv:requirement "Licence: 선택" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:component_type a owl:ObjectProperty ;
+    rdfs:label "요소유형"@ko ;
+    rdfs:comment "Tool: 제작도구, 구조부재, 작동부재, 연결부재, 개구부재, 장력부재 등 기능과 구조에 따른 구분"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Tool: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Tool: string" ;
+    hmv:requirement "Tool: 필수" ;
+    hmv:usedInClass hmv:Tool .
+
+hmv:confirmed_at a owl:DatatypeProperty ;
+    rdfs:label "확인 일자"@ko ;
+    rdfs:comment "동작 주석(segments.json)이 REFERENCES_MOVEMENT 관계에 붙이는 속성(rdf:Statement 로 내보냄)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:confirmed_by a owl:DatatypeProperty ;
+    rdfs:label "확인자"@ko ;
+    rdfs:comment "동작 주석(segments.json)이 REFERENCES_MOVEMENT 관계에 붙이는 속성(rdf:Statement 로 내보냄)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:coordinates a owl:DatatypeProperty ;
+    rdfs:label "위경도"@ko ;
+    rdfs:comment "Place: 위도, 경도 위치 좌표로 현재 표기는 도분 기호를 포함한 문자열"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:spatial ;
+    skos:relatedMatch crm:E53_Place ;
+    hmv:cidocCrmMapping "Place: E53 Place" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Place: string" ;
+    hmv:requirement "Place: 선택" ;
+    hmv:usedInClass hmv:Place .
+
+hmv:cycle_order a owl:DatatypeProperty ;
+    rdfs:label "반복 순서"@ko ;
+    rdfs:comment "동작 주석(segments.json)이 REFERENCES_MOVEMENT 관계에 붙이는 속성(rdf:Statement 로 내보냄)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:dataset_id a owl:AnnotationProperty,
+        owl:DatatypeProperty ;
+    rdfs:label "데이터셋 ID"@ko ;
+    rdfs:comment "KG 데이터셋 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "KG 재생성 스크립트" .
+
+hmv:date a owl:DatatypeProperty ;
+    rdfs:label "실연일자"@ko ;
+    rdfs:comment "Performance: 실연 또는 촬영이 수행된 날짜로 ISO 형식 정규화 권장"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:date ;
+    skos:relatedMatch crm:E52_Time-Span ;
+    hmv:cidocCrmMapping "Performance: E52 Time-Span" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Performance: date" ;
+    hmv:requirement "Performance: 선택" ;
+    hmv:usedInClass hmv:Performance .
+
+hmv:definitionStatus a owl:AnnotationProperty ;
+    rdfs:label "관계정의 상태"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:derivation_basis a owl:AnnotationProperty ;
+    rdfs:label "도출 근거"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:derivative_use_allowed a owl:DatatypeProperty ;
+    rdfs:label "2차적 활용가능여부"@ko ;
+    rdfs:comment "Licence: 변형, 편집 또는 파생 콘텐츠 제작을 허용하는지 여부"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:accessRights ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Licence: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: boolean" ;
+    hmv:requirement "Licence: 선택" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:description a owl:DatatypeProperty ;
+    rdfs:label "공정설명"@ko,
+        "권리설명"@ko,
+        "동작설명"@ko,
+        "라이선스설명"@ko,
+        "설명"@ko,
+        "실연설명"@ko,
+        "애셋설명"@ko,
+        "요소세부설명"@ko,
+        "재료설명"@ko,
+        "주체설명"@ko ;
+    rdfs:comment "Agent: 해당 개인 또는 조직의 일반적 성격과 활동 맥락을 설명하는 서술"@ko,
+        "Asset: 자산의 기록대상과 생산방법 및 구성 특성을 명사형 한 줄로 서술"@ko,
+        "DigitalProject: 디지털 작업의 목적, 범위 및 기술적 맥락에 관한 설명"@ko,
+        "Heritage: 유산의 역사와 제작과정 및 전승의 특성을 설명하는 서술"@ko,
+        "Item: 해당 파일의 대상과 내용 및 역할을 명사형 한 줄로 서술"@ko,
+        "Licence: 이용허락의 적용 맥락과 범위에 대한 보충 설명"@ko,
+        "Materials: 재료의 특징과 제작공정 및 직조동작에서 수행하는 기능을 기술한 설명"@ko,
+        "Movement: 실연자의 행위와 작동 도구 및 대상 재료의 변화를 기술한 설명"@ko,
+        "Performance: 실연 목적과 실연 범위 및 촬영 특징에 관한 설명"@ko,
+        "Process: 공정의 수행 방식과 입력재료 및 산출재료의 변화를 기술한 설명"@ko,
+        "Right: 권리의 적용 조건, 보유 상태, 권리이전 경위 또는 예외사항을 보충하여 기술한 설명"@ko,
+        "Tool: 도구와 부재의 구조, 기능 및 제작과정에서의 사용 목적을 기술한 설명"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:description ;
+    skos:relatedMatch crm:E62_String ;
+    hmv:cidocCrmMapping "Agent: E62 String",
+        "Asset: E62 String",
+        "DigitalProject: E62 String",
+        "Heritage: E62 String",
+        "Item: E62 String",
+        "Licence: E62 String",
+        "Materials: E62 String",
+        "Movement: E62 String",
+        "Performance: E62 String",
+        "Process: E62 String",
+        "Right: E62 String",
+        "Tool: E62 String" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: text",
+        "Asset: text",
+        "DigitalProject: text",
+        "Heritage: text",
+        "Item: text",
+        "Licence: text",
+        "Materials: text",
+        "Movement: text",
+        "Performance: text",
+        "Process: text",
+        "Right: text",
+        "Tool: text" ;
+    hmv:requirement "Agent: 선택",
+        "Asset: 선택",
+        "DigitalProject: 선택",
+        "Heritage: 선택",
+        "Item: 선택",
+        "Licence: 선택",
+        "Materials: 선택",
+        "Movement: 선택",
+        "Performance: 선택",
+        "Process: 선택",
+        "Right: 선택",
+        "Tool: 선택" ;
+    hmv:usedInClass hmv:Agent,
+        hmv:Asset,
+        hmv:DigitalProject,
+        hmv:Heritage,
+        hmv:Item,
+        hmv:Licence,
+        hmv:Materials,
+        hmv:Movement,
+        hmv:Performance,
+        hmv:Process,
+        hmv:Right,
+        hmv:Tool .
+
+hmv:designation_date a owl:DatatypeProperty ;
+    rdfs:label "지정일"@ko ;
+    rdfs:comment "Designation: 지정 또는 등재가 이루어진 날짜로 ISO 날짜 표기 권장"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:date ;
+    skos:relatedMatch crm:E52_Time-Span ;
+    hmv:cidocCrmMapping "Designation: E52 Time-Span" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Designation: date" ;
+    hmv:requirement "Designation: 선택" ;
+    hmv:usedInClass hmv:Designation .
+
+hmv:designation_id a owl:DatatypeProperty ;
+    rdfs:label "지정ID"@ko ;
+    rdfs:comment "Designation: 국내 지정 DKR과 유네스코 등재 DUE를 구분하는 식별자"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Designation: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Designation: string" ;
+    hmv:requirement "Designation: 필수" ;
+    hmv:usedInClass hmv:Designation .
+
+hmv:designation_reason a owl:DatatypeProperty ;
+    rdfs:label "등재사유"@ko ;
+    rdfs:comment "Designation: 지정 및 등재의 취지와 문화유산적 가치에 관한 근거"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:description ;
+    skos:relatedMatch crm:E62_String ;
+    hmv:cidocCrmMapping "Designation: E62 String" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Designation: text" ;
+    hmv:requirement "Designation: 선택" ;
+    hmv:usedInClass hmv:Designation .
+
+hmv:designation_refs a owl:ObjectProperty ;
+    rdfs:label "지정사항"@ko ;
+    rdfs:comment "Heritage: 해당 종목의 국내 및 유네스코 지정 내역에 대한 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    hmv:cidocCrmMapping "Heritage: (지정 행위 모델링 필요)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: array<ID>" ;
+    hmv:requirement "Heritage: 선택" ;
+    hmv:usedInClass hmv:Heritage .
+
+hmv:designation_url a owl:ObjectProperty ;
+    rdfs:label "등재서류 URL"@ko ;
+    rdfs:comment "Designation: 지정 및 등재 의결서나 공식 안내 페이지의 접근 주소"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Designation: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Designation: URL" ;
+    hmv:requirement "Designation: 선택" ;
+    hmv:usedInClass hmv:Designation .
+
+hmv:digital_project_id a owl:DatatypeProperty ;
+    rdfs:label "디지털작업ID"@ko ;
+    rdfs:comment "DigitalProject: 기록화 또는 디지털화 사업의 고유 식별자"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "DigitalProject: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "DigitalProject: string" ;
+    hmv:requirement "DigitalProject: 필수" ;
+    hmv:usedInClass hmv:DigitalProject .
+
+hmv:digital_project_ref a owl:ObjectProperty ;
+    rdfs:label "관련디지털작업"@ko,
+        "소속디지털작업"@ko ;
+    rdfs:comment "Asset: 애셋을 생산, 수집한 디지털화 사업 ID"@ko,
+        "Performance: 실연을 기록, 관리하는 디지털화 사업 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E7_Activity ;
+    hmv:cidocCrmMapping "Asset: E7 Activity",
+        "Performance: E7 Activity" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Asset: string",
+        "Performance: string" ;
+    hmv:requirement "Asset: 필수",
+        "Performance: 선택" ;
+    hmv:usedInClass hmv:Asset,
+        hmv:Performance .
+
+hmv:display_name a owl:DatatypeProperty ;
+    rdfs:label "표시명"@ko ;
+    rdfs:comment "KG 재생성 스크립트가 만든 표시명"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf rdfs:label ;
+    hmv:fieldSource "KG 재생성 스크립트" .
+
+hmv:external_identifiers a owl:ObjectProperty ;
+    rdfs:label "외부식별정보"@ko ;
+    rdfs:comment "Agent: 기관 홈페이지, ORCID, ISNI 등 외부에서 주체를 식별하거나 연결할 수 있는 값"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Agent: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: array<string>" ;
+    hmv:requirement "Agent: 선택" ;
+    hmv:usedInClass hmv:Agent .
+
+hmv:external_url a owl:ObjectProperty ;
+    rdfs:label "외부 URL"@ko ;
+    rdfs:comment "Item: 외부 열람, 서비스 페이지에 접근하는 URL"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Item: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: URL" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:fieldSource a owl:AnnotationProperty ;
+    rdfs:label "필드 출처"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:file_size a owl:DatatypeProperty ;
+    rdfs:label "아이템크기"@ko ;
+    rdfs:comment "Item: 현재 DB에 단위와 함께 기록한 용량으로 수치 정규화 시 byte 분리 권장"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:fixity.bytes a owl:DatatypeProperty ;
+    rdfs:label "실제 파일 크기(바이트)"@ko ;
+    rdfs:comment "Item: 검사한 파일 사본의 바이트 수"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: integer" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:fixity.checked_at a owl:DatatypeProperty ;
+    rdfs:label "검사일"@ko ;
+    rdfs:comment "Item: 체크섬과 포맷 검사를 한 날"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:date ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: date" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:fixity.checked_copy a owl:DatatypeProperty ;
+    rdfs:label "검사한 사본"@ko ;
+    rdfs:comment "Item: 원본(DB 저장경로) 또는 웹 서비스본"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:fixity.checked_file a owl:DatatypeProperty ;
+    rdfs:label "검사한 파일 위치"@ko ;
+    rdfs:comment "Item: 검사한 파일의 위치(외장 드라이브 또는 assets_local 기준)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:fixity.sha256 a owl:DatatypeProperty ;
+    rdfs:label "체크섬(SHA-256)"@ko ;
+    rdfs:comment "Item: 검사한 파일 사본의 SHA-256(16진수 64자)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:fixity.size_check a owl:DatatypeProperty ;
+    rdfs:label "DB 용량 대조"@ko ;
+    rdfs:comment "Item: DB 의 아이템크기와 실제 바이트 수 비교 결과"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:format a owl:ObjectProperty ;
+    rdfs:label "아이템형식"@ko ;
+    rdfs:comment "Item: 파일 개수와 폴더 설명을 제외한 순수 포맷 토큰"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:format ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 필수" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:format_check.detail a owl:DatatypeProperty ;
+    rdfs:label "포맷 검사 내용"@ko ;
+    rdfs:comment "Item: 검사 내용, 검사하지 못한 이유, DB 값과의 대조"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:description ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: text" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:format_check.status a owl:DatatypeProperty ;
+    rdfs:label "포맷 검사 결과"@ko ;
+    rdfs:comment "Item: valid(표준 검증기 통과), valid_structure(구조 검사만 통과), invalid, not_checked(파일 없음 또는 도구 없음)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: enum" ;
+    hmv:requirement "Item: 필수" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:format_check.tool a owl:DatatypeProperty ;
+    rdfs:label "포맷 검사 도구"@ko ;
+    rdfs:comment "Item: 검사에 쓴 도구와 판"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:frame_basis a owl:DatatypeProperty ;
+    rdfs:label "프레임 기준"@ko ;
+    rdfs:comment "동작 주석(segments.json)이 REFERENCES_MOVEMENT 관계에 붙이는 속성(rdf:Statement 로 내보냄)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:gender a owl:ObjectProperty ;
+    rdfs:label "성별"@ko ;
+    rdfs:comment "Agent: Agent가 개인인 경우 기록하는 성별 정보"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Agent: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: string" ;
+    hmv:requirement "Agent: 조건부" ;
+    hmv:usedInClass hmv:Agent .
+
+hmv:grantee_refs a owl:DatatypeProperty ;
+    rdfs:label "이용주체"@ko ;
+    rdfs:comment "Licence: 허용된 범위에서 애셋을 이용할 수 있는 특정 Agent 또는 일반사용자와 같은 이용자 범주"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E39_Actor ;
+    hmv:cidocCrmMapping "Licence: E39 Actor 또는 이용자 범주" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: array<ID|string>" ;
+    hmv:requirement "Licence: 필수" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:grantor_refs a owl:ObjectProperty ;
+    rdfs:label "허락주체"@ko ;
+    rdfs:comment "Licence: 권리를 보유하거나 적법한 권한을 바탕으로 이용을 허락하는 Agent ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E39_Actor ;
+    hmv:cidocCrmMapping "Licence: E39 Actor (참조 후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: array<ID>" ;
+    hmv:requirement "Licence: 필수" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:heritage_id a owl:DatatypeProperty ;
+    rdfs:label "종목ID"@ko ;
+    rdfs:comment "Heritage: 한산모시짜기 유산 종목을 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Heritage: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: string" ;
+    hmv:requirement "Heritage: 필수" ;
+    hmv:usedInClass hmv:Heritage .
+
+hmv:heritage_ref a owl:ObjectProperty ;
+    rdfs:label "대상종목"@ko,
+        "연계유산"@ko,
+        "전승종목"@ko,
+        "지정대상"@ko ;
+    rdfs:comment "Designation: 해당 지정이 적용되는 무형유산 종목 참조"@ko,
+        "Place: 공간에 연계된 무형유산 종목 ID로 DB 열명은 '종목'"@ko,
+        "Process: 공정이 속한 무형유산 종목의 고유 ID"@ko,
+        "Transmitter: 해당 전승자가 연계되는 무형유산 종목 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E7_Activity ;
+    hmv:cidocCrmMapping "Designation: (무형유산 개념 매핑 필요)",
+        "Place: (무형유산 개념 매핑 필요)",
+        "Process: E7 Activity (참조 후보)",
+        "Transmitter: (무형유산 개념 매핑 필요)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Designation: string",
+        "Place: string",
+        "Process: string",
+        "Transmitter: string" ;
+    hmv:requirement "Designation: 필수",
+        "Place: 필수",
+        "Process: 필수",
+        "Transmitter: 필수" ;
+    hmv:usedInClass hmv:Designation,
+        hmv:Place,
+        hmv:Process,
+        hmv:Transmitter .
+
+hmv:holder_refs a owl:ObjectProperty ;
+    rdfs:label "권리자"@ko ;
+    rdfs:comment "Right: 해당 권리를 보유하는 개인 또는 조직의 Agent ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:rightsHolder ;
+    skos:relatedMatch crm:E39_Actor ;
+    hmv:cidocCrmMapping "Right: E39 Actor (참조 후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: array<ID>" ;
+    hmv:requirement "Right: 필수" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:holder_type a owl:ObjectProperty ;
+    rdfs:label "보유구분"@ko ;
+    rdfs:comment "Transmitter: 보유자, 명예보유자, 전승교육사, 이수자 등 현재 등록된 전승 자격"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Transmitter: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Transmitter: string" ;
+    hmv:requirement "Transmitter: 선택" ;
+    hmv:usedInClass hmv:Transmitter .
+
+hmv:id a owl:DatatypeProperty ;
+    rdfs:label "ID"@ko ;
+    rdfs:comment "KG 노드 ID(원천 DB 의 ID)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    hmv:fieldSource "KG 재생성 스크립트" .
+
+hmv:image.bit_depth a owl:DatatypeProperty ;
+    rdfs:label "비트심도"@ko ;
+    rdfs:comment "Item: 이미지 채널당 저장 비트 정밀도"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:image.color_space a owl:ObjectProperty ;
+    rdfs:label "색공간"@ko ;
+    rdfs:comment "Item: 픽셀 색상 표현에 사용한 색공간 또는 채널 구분"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:format ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:image.resolution a owl:DatatypeProperty ;
+    rdfs:label "이미지해상도"@ko ;
+    rdfs:comment "Item: 이미지의 픽셀 가로, 세로 크기"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 조건부" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:image_size a owl:DatatypeProperty ;
+    rdfs:label "화면용 사진 크기"@ko ;
+    rdfs:comment "P28 화면용 축소본의 [가로, 세로] 픽셀"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:image_url a owl:DatatypeProperty ;
+    rdfs:label "화면용 사진"@ko ;
+    rdfs:comment "P28 기록화 사진 웹 축소본(긴 변 1400px, assets_local 기준 경로)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:inputType a owl:AnnotationProperty ;
+    rdfs:label "입력 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:input_material_refs a owl:ObjectProperty ;
+    rdfs:label "입력재료"@ko ;
+    rdfs:comment "Process: 공정 시작 시 투입되거나 공정의 작용 대상이 되는 재료 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E19_Physical_Object ;
+    hmv:cidocCrmMapping "Process: E19 Physical Object (참조 후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Process: array<ID>" ;
+    hmv:requirement "Process: 필수" ;
+    hmv:usedInClass hmv:Process .
+
+hmv:item_id a owl:DatatypeProperty ;
+    rdfs:label "아이템ID"@ko ;
+    rdfs:comment "Item: 독립적으로 식별되는 파일 또는 서비스 표현의 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Item: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 필수" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:item_refs a owl:ObjectProperty ;
+    rdfs:label "구성아이템"@ko ;
+    rdfs:comment "Asset: 하나의 애셋을 구성하는 실제 파일, 서비스 표현의 Item ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E73_Information_Object ;
+    hmv:cidocCrmMapping "Asset: E73 Information Object" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Asset: array<ID>" ;
+    hmv:requirement "Asset: 선택" ;
+    hmv:usedInClass hmv:Asset .
+
+hmv:keywords a owl:ObjectProperty ;
+    rdfs:label "키워드"@ko ;
+    rdfs:comment "Designation: 해당 지정 항목의 주제 및 활동 관련 검색어"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:subject ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Designation: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Designation: array<string>" ;
+    hmv:requirement "Designation: 선택" ;
+    hmv:usedInClass hmv:Designation .
+
+hmv:legal_basis a owl:DatatypeProperty ;
+    rdfs:label "법률근거"@ko ;
+    rdfs:comment "Right: 권리의 보유, 이용 또는 이전을 설명하는 법률과 제도적 근거"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:rights ;
+    skos:relatedMatch crm:E62_String ;
+    hmv:cidocCrmMapping "Right: E62 String" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: array<string>" ;
+    hmv:requirement "Right: 선택" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:licence_id a owl:DatatypeProperty ;
+    rdfs:label "이용허락ID"@ko ;
+    rdfs:comment "Licence: 개별 이용허락 상태를 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Licence: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: string" ;
+    hmv:requirement "Licence: 필수" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:licence_type a owl:ObjectProperty ;
+    rdfs:label "라이선스유형"@ko ;
+    rdfs:comment "Licence: 공공누리 제0유형, 공공누리 제1유형부터 제4유형, CCL, 별도계약 또는 제한적 이용허락 등 적용되는 라이선스 체계"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:license ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Licence: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: string" ;
+    hmv:requirement "Licence: 필수" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:licence_uri a owl:ObjectProperty ;
+    rdfs:label "라이선스 URI"@ko ;
+    rdfs:comment "Licence: 라이선스 유형의 공식 안내 페이지 URI"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:license ;
+    hmv:fieldSource "시스템 생성(P27)" ;
+    hmv:inputType "Licence: URL" ;
+    hmv:requirement "Licence: 필수" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:licence_uri_evidence a owl:DatatypeProperty ;
+    rdfs:label "라이선스 URI 근거"@ko ;
+    rdfs:comment "Licence: 공식 URI 를 확인한 근거"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P27)" ;
+    hmv:inputType "Licence: text" ;
+    hmv:requirement "Licence: 선택" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:location a owl:DatatypeProperty ;
+    rdfs:label "소재지·활동지역"@ko ;
+    rdfs:comment "Agent: 기관 소재지 또는 개인과 단체의 주요 활동 지역"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:spatial ;
+    skos:relatedMatch crm:E53_Place ;
+    hmv:cidocCrmMapping "Agent: E53 Place" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: string" ;
+    hmv:requirement "Agent: 선택" ;
+    hmv:usedInClass hmv:Agent .
+
+hmv:manager_agent_refs a owl:ObjectProperty ;
+    rdfs:label "관리주체"@ko ;
+    rdfs:comment "DigitalProject: 프로젝트 또는 산출 디지털 자원의 관리 책임을 가지는 Agent ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:contributor ;
+    skos:relatedMatch crm:E39_Actor ;
+    hmv:cidocCrmMapping "DigitalProject: E39 Actor" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "DigitalProject: array<ID>" ;
+    hmv:requirement "DigitalProject: 선택" ;
+    hmv:usedInClass hmv:DigitalProject .
+
+hmv:managing_org a owl:DatatypeProperty ;
+    rdfs:label "관리기관"@ko ;
+    rdfs:comment "Place: 공간을 관리, 운영하는 기관"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:contributor ;
+    skos:relatedMatch crm:E74_Group ;
+    hmv:cidocCrmMapping "Place: E74 Group" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Place: string" ;
+    hmv:requirement "Place: 선택" ;
+    hmv:usedInClass hmv:Place .
+
+hmv:material_id a owl:DatatypeProperty ;
+    rdfs:label "재료ID"@ko ;
+    rdfs:comment "Materials: 재료의 물질적 또는 직조 기능상 구분을 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Materials: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Materials: string" ;
+    hmv:requirement "Materials: 필수" ;
+    hmv:usedInClass hmv:Materials .
+
+hmv:material_refs a owl:ObjectProperty ;
+    rdfs:label "대상재료"@ko ;
+    rdfs:comment "Movement: 해당 동작이 직접 다루거나 상태와 배열에 영향을 주는 재료 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E19_Physical_Object ;
+    hmv:cidocCrmMapping "Movement: E19 Physical Object (참조 후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Movement: array<ID>" ;
+    hmv:requirement "Movement: 선택" ;
+    hmv:usedInClass hmv:Movement .
+
+hmv:material_type a owl:ObjectProperty ;
+    rdfs:label "재료분류"@ko ;
+    rdfs:comment "Materials: 원재료, 중간재, 직조 역할 또는 완성재로 구분하는 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Materials: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Materials: string" ;
+    hmv:requirement "Materials: 필수" ;
+    hmv:usedInClass hmv:Materials .
+
+hmv:media_type a owl:ObjectProperty ;
+    rdfs:label "아이템유형"@ko ;
+    rdfs:comment "Item: 영상, 이미지, 문서, 3D 메시, 4D 볼류메트릭 등 자원 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 필수" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:mime_type a owl:DatatypeProperty ;
+    rdfs:label "미디어 유형(MIME)"@ko ;
+    rdfs:comment "Item: IANA 등록 미디어 유형. 등록 유형이 없는 형식은 비움."@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:format ;
+    hmv:fieldSource "시스템 생성(P26)" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.bounding_box a owl:DatatypeProperty ;
+    rdfs:label "3D바운딩박스"@ko ;
+    rdfs:comment "Item: 3D 자산이 차지하는 공간 범위 또는 각 축 치수"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.coordinate_system a owl:DatatypeProperty ;
+    rdfs:label "3D좌표계"@ko ;
+    rdfs:comment "Item: 3D 자료에 적용된 좌표축과 원점 방향 규약"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.has_texture_mapping a owl:DatatypeProperty ;
+    rdfs:label "텍스처매핑여부"@ko ;
+    rdfs:comment "Item: 3D 모델에 텍스처가 매핑되었는지 여부"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:format ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: boolean" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.mapping_source_ref a owl:DatatypeProperty ;
+    rdfs:label "매핑소스참조"@ko ;
+    rdfs:comment "Item: 텍스처 또는 메시 생성 시 참조한 원본 Item, 파일 정보"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E73_Information_Object ;
+    hmv:cidocCrmMapping "Item: E73 Information Object" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.point_count a owl:DatatypeProperty ;
+    rdfs:label "포인트수"@ko ;
+    rdfs:comment "Item: 포인트 클라우드 또는 Gaussian 수의 총합"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: integer" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.point_density a owl:DatatypeProperty ;
+    rdfs:label "점밀도"@ko ;
+    rdfs:comment "Item: 공간당 포인트 분포 밀도 및 관련 계산값"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.polygon_count a owl:DatatypeProperty ;
+    rdfs:label "폴리곤수"@ko ;
+    rdfs:comment "Item: 메시의 폴리곤 수"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: integer" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.representation a owl:ObjectProperty ;
+    rdfs:label "표현구조"@ko ;
+    rdfs:comment "Item: 3D 데이터를 표현하는 기하 구조의 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 조건부" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.scale a owl:DatatypeProperty ;
+    rdfs:label "스케일"@ko ;
+    rdfs:comment "Item: 실물 대비 공간 스케일 및 축척 보정 정보"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.spatial_unit a owl:DatatypeProperty ;
+    rdfs:label "3D공간단위"@ko ;
+    rdfs:comment "Item: 3D 좌표의 실제 크기와 단위"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.subtype a owl:ObjectProperty ;
+    rdfs:label "세부유형"@ko ;
+    rdfs:comment "Item: 3D 데이터의 구체적 용도, 유형 구분"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:model3d.triangle_count a owl:DatatypeProperty ;
+    rdfs:label "삼각형수"@ko ;
+    rdfs:comment "Item: 삼각형 메시 요소 수"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: integer" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:motion_data_ref a owl:DatatypeProperty ;
+    rdfs:label "모션데이터"@ko ;
+    rdfs:comment "Process: 공정에 연계할 4D 기록 또는 시간 구간의 참조값으로 현재 DB에서는 미연결 상태"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E73_Information_Object ;
+    hmv:cidocCrmMapping "Process: E73 Information Object" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Process: string" ;
+    hmv:requirement "Process: 선택" ;
+    hmv:usedInClass hmv:Process .
+
+hmv:movement_id a owl:DatatypeProperty ;
+    rdfs:label "동작ID"@ko ;
+    rdfs:comment "Movement: 개별 세부 동작을 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Movement: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Movement: string" ;
+    hmv:requirement "Movement: 필수" ;
+    hmv:usedInClass hmv:Movement .
+
+hmv:movement_phase a owl:ObjectProperty ;
+    rdfs:label "동작단계"@ko ;
+    rdfs:comment "Movement: UI에서 직물짜기 동작을 제직 준비 및 장력 설정, 날실개구, 씨실투입, 바디치기, 날실풀기 및 직물감기로 묶는 탐색 단계"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Movement: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Movement: string" ;
+    hmv:requirement "Movement: 선택" ;
+    hmv:usedInClass hmv:Movement .
+
+hmv:movement_type a owl:ObjectProperty ;
+    rdfs:label "동작유형"@ko ;
+    rdfs:comment "Movement: 직물짜기 세부 동작을 준비, 반복 또는 조절로 구분하는 기능적 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Movement: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Movement: string" ;
+    hmv:requirement "Movement: 선택" ;
+    hmv:usedInClass hmv:Movement .
+
+hmv:name a owl:DatatypeProperty ;
+    rdfs:label "공간명"@ko,
+        "공정명"@ko,
+        "동작명"@ko,
+        "아이템명"@ko,
+        "요소명칭"@ko,
+        "재료명"@ko,
+        "주체명"@ko ;
+    rdfs:comment "Agent: 개인의 성명 또는 기관·단체의 공식 명칭"@ko,
+        "Item: 아이템을 식별하는 표시명으로 수량, 포맷 괄호 표현을 분리한 이름"@ko,
+        "Materials: 공정에 투입되거나 산출되는 재료 및 직조 역할의 명칭"@ko,
+        "Movement: 제작공정 안에서 수행되는 구체적 행위의 명칭"@ko,
+        "Place: 전수, 실연, 전시 공간의 명칭"@ko,
+        "Process: 전통 제작 절차를 구분하는 공정의 명칭"@ko,
+        "Tool: 제작도구 또는 전통베틀 세부 부재의 통용 명칭"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:title ;
+    skos:relatedMatch crm:E41_Appellation ;
+    hmv:cidocCrmMapping "Agent: E41 Appellation",
+        "Item: E41 Appellation",
+        "Materials: E41 Appellation",
+        "Movement: E41 Appellation",
+        "Place: E41 Appellation",
+        "Process: E41 Appellation",
+        "Tool: E41 Appellation" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: string",
+        "Item: string",
+        "Materials: string",
+        "Movement: string",
+        "Place: string",
+        "Process: string",
+        "Tool: string" ;
+    hmv:requirement "Agent: 필수",
+        "Item: 필수",
+        "Materials: 필수",
+        "Movement: 필수",
+        "Place: 필수",
+        "Process: 필수",
+        "Tool: 필수" ;
+    hmv:usedInClass hmv:Agent,
+        hmv:Item,
+        hmv:Materials,
+        hmv:Movement,
+        hmv:Place,
+        hmv:Process,
+        hmv:Tool .
+
+hmv:name.en a owl:DatatypeProperty ;
+    rdfs:label "영문명"@ko ;
+    rdfs:comment "Heritage: 유산 명칭의 영문 표기"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:title ;
+    skos:relatedMatch crm:E41_Appellation ;
+    hmv:cidocCrmMapping "Heritage: E41 Appellation" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: string" ;
+    hmv:requirement "Heritage: 선택" ;
+    hmv:usedInClass hmv:Heritage .
+
+hmv:name.hanja a owl:DatatypeProperty ;
+    rdfs:label "한자명"@ko ;
+    rdfs:comment "Heritage: 유산 명칭의 한자 표기"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:title ;
+    skos:relatedMatch crm:E41_Appellation ;
+    hmv:cidocCrmMapping "Heritage: E41 Appellation" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: string" ;
+    hmv:requirement "Heritage: 선택" ;
+    hmv:usedInClass hmv:Heritage .
+
+hmv:name.ko a owl:DatatypeProperty ;
+    rdfs:label "명칭"@ko ;
+    rdfs:comment "Heritage: 국가무형유산의 공식 국문 명칭"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:title ;
+    skos:relatedMatch crm:E41_Appellation ;
+    hmv:cidocCrmMapping "Heritage: E41 Appellation" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: string" ;
+    hmv:requirement "Heritage: 필수" ;
+    hmv:usedInClass hmv:Heritage .
+
+hmv:noncommercial_use_allowed a owl:DatatypeProperty ;
+    rdfs:label "비상업적 이용여부"@ko ;
+    rdfs:comment "Licence: 비영리 목적의 애셋 이용을 허용하는지 여부"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:accessRights ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Licence: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: boolean" ;
+    hmv:requirement "Licence: 선택" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:organization_type a owl:ObjectProperty ;
+    rdfs:label "기관유형"@ko ;
+    rdfs:comment "Agent: Agent가 조직인 경우 제작사, 공공기관, 교육기관, 연구기관, 민간기업 등 조직의 세부 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Agent: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Agent: string" ;
+    hmv:requirement "Agent: 조건부" ;
+    hmv:usedInClass hmv:Agent .
+
+hmv:output_material_refs a owl:ObjectProperty ;
+    rdfs:label "산출재료"@ko ;
+    rdfs:comment "Process: 공정 수행 이후 산출되거나 기능과 상태가 변화한 재료 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E19_Physical_Object ;
+    hmv:cidocCrmMapping "Process: E19 Physical Object (참조 후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Process: array<ID>" ;
+    hmv:requirement "Process: 필수" ;
+    hmv:usedInClass hmv:Process .
+
+hmv:parent_material_ref a owl:ObjectProperty ;
+    rdfs:label "상위재료"@ko ;
+    rdfs:comment "Materials: 재료의 물질적 계통 또는 직조 역할의 상위 개념을 참조하는 ID이며 제작에 따른 상태 변화는 Process의 입력재료와 산출재료 관계로 표현"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Materials: E55 Type (참조 후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Materials: string" ;
+    hmv:requirement "Materials: 선택" ;
+    hmv:usedInClass hmv:Materials .
+
+hmv:parent_tool_ref a owl:ObjectProperty ;
+    rdfs:label "상위도구"@ko ;
+    rdfs:comment "Tool: 구조체와 하위 부재 또는 연결 부품 사이의 포함 관계를 나타내는 상위 도구 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:isPartOf ;
+    skos:relatedMatch crm:E22_Human-Made_Object ;
+    hmv:cidocCrmMapping "Tool: E22 Human-Made Object (후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Tool: string" ;
+    hmv:requirement "Tool: 선택" ;
+    hmv:usedInClass hmv:Tool .
+
+hmv:performance_id a owl:DatatypeProperty ;
+    rdfs:label "실연ID"@ko ;
+    rdfs:comment "Performance: 실연, 시연 사건을 구분하는 고유 식별자"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Performance: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Performance: string" ;
+    hmv:requirement "Performance: 필수" ;
+    hmv:usedInClass hmv:Performance .
+
+hmv:performance_refs a owl:ObjectProperty ;
+    rdfs:label "관련실연"@ko ;
+    rdfs:comment "Asset: 해당 애셋이 직접 생성되거나 파생된 실연 또는 촬영 사건의 ID 목록"@ko,
+        "DigitalProject: 해당 디지털화 사업과 관련된 실연 사건의 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E7_Activity ;
+    hmv:cidocCrmMapping "Asset: E7 Activity",
+        "DigitalProject: E7 Activity" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Asset: array<ID>",
+        "DigitalProject: array<ID>" ;
+    hmv:requirement "Asset: 선택",
+        "DigitalProject: 선택" ;
+    hmv:usedInClass hmv:Asset,
+        hmv:DigitalProject .
+
+hmv:phase_sequence a owl:DatatypeProperty ;
+    rdfs:label "단계순서"@ko ;
+    rdfs:comment "Movement: 직물짜기 UI 탐색 단계의 표시 순서를 나타내는 값"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Movement: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Movement: integer" ;
+    hmv:requirement "Movement: 선택" ;
+    hmv:usedInClass hmv:Movement .
+
+hmv:photos a owl:DatatypeProperty ;
+    rdfs:label "기록화 사진 주석"@ko ;
+    rdfs:comment "사용자가 /admin/photos 에서 고른 공정·전승자별 기록화 사진(대표, 묶음)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:place_id a owl:DatatypeProperty ;
+    rdfs:label "공간ID"@ko ;
+    rdfs:comment "Place: 전승 공간 레코드를 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Place: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Place: string" ;
+    hmv:requirement "Place: 필수" ;
+    hmv:usedInClass hmv:Place .
+
+hmv:place_refs a owl:ObjectProperty ;
+    rdfs:label "공간정보"@ko ;
+    rdfs:comment "Heritage: 전승, 교육 및 기록화와 관련된 공간 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E53_Place ;
+    hmv:cidocCrmMapping "Heritage: E53 Place" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: array<ID>" ;
+    hmv:requirement "Heritage: 선택" ;
+    hmv:usedInClass hmv:Heritage .
+
+hmv:preview_at a owl:DatatypeProperty ;
+    rdfs:label "대표 이미지 시각"@ko ;
+    rdfs:comment "P29 영상 프레임 시각, 문서 쪽, 화면 시점 등"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:preview_evidence a owl:DatatypeProperty ;
+    rdfs:label "대표 이미지 근거"@ko ;
+    rdfs:comment "P29 대표 이미지를 만든 방법과 원본 파일, 시각"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:preview_kind a owl:DatatypeProperty ;
+    rdfs:label "대표 이미지 종류"@ko ;
+    rdfs:comment "P29 frame(영상 프레임), image(폴더의 첫 이미지), page(문서 첫 쪽), render(웹 재생본 화면)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:preview_size a owl:DatatypeProperty ;
+    rdfs:label "대표 이미지 크기"@ko ;
+    rdfs:comment "P29 대표 이미지의 [가로, 세로] 픽셀"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:preview_source a owl:DatatypeProperty ;
+    rdfs:label "대표 이미지 원본"@ko ;
+    rdfs:comment "P29 대표 이미지를 만든 원본 파일(DB 저장경로 기준) 또는 웹 재생본"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:preview_thumb_url a owl:DatatypeProperty ;
+    rdfs:label "목록용 대표 이미지"@ko ;
+    rdfs:comment "P29 대표 이미지 목록용(긴 변 480px)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:preview_url a owl:DatatypeProperty ;
+    rdfs:label "대표 이미지"@ko ;
+    rdfs:comment "P29 3D·4D·영상·문서 아이템의 웹 표시용 대표 이미지(긴 변 1400px, assets_local 기준 경로)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:process_id a owl:DatatypeProperty ;
+    rdfs:label "공정ID"@ko ;
+    rdfs:comment "Process: 개별 제작공정을 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Process: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Process: string" ;
+    hmv:requirement "Process: 필수" ;
+    hmv:usedInClass hmv:Process .
+
+hmv:process_ref a owl:ObjectProperty ;
+    rdfs:label "소속공정"@ko ;
+    rdfs:comment "Movement: 개별 동작이 속하는 제작공정의 ID로 직물짜기 관련 MOV_035부터 MOV_042까지는 모두 PRC_010을 참조"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E29_Design_or_Procedure ;
+    hmv:cidocCrmMapping "Movement: E29 Design or Procedure" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Movement: string" ;
+    hmv:requirement "Movement: 필수" ;
+    hmv:usedInClass hmv:Movement .
+
+hmv:process_refs a owl:ObjectProperty ;
+    rdfs:label "과정정보"@ko,
+        "실연공정"@ko ;
+    rdfs:comment "Heritage: 종목을 구성하는 전체 제작공정의 ID 목록"@ko,
+        "Performance: 구술채록을 제외한 기록화실연 또는 공개실연의 경우 입력"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E29_Design_or_Procedure ;
+    hmv:cidocCrmMapping "Heritage: E29 Design or Procedure",
+        "Performance: E29 Design or Procedure" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: array<ID>",
+        "Performance: array<ID>" ;
+    hmv:requirement "Heritage: 선택",
+        "Performance: 조건부" ;
+    hmv:usedInClass hmv:Heritage,
+        hmv:Performance .
+
+hmv:producer_agent_refs a owl:ObjectProperty ;
+    rdfs:label "생산주체"@ko ;
+    rdfs:comment "DigitalProject: 디지털 데이터를 촬영, 제작 또는 생산한 개인과 기관의 Agent ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:contributor ;
+    skos:relatedMatch crm:E39_Actor ;
+    hmv:cidocCrmMapping "DigitalProject: E39 Actor" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "DigitalProject: array<ID>" ;
+    hmv:requirement "DigitalProject: 선택" ;
+    hmv:usedInClass hmv:DigitalProject .
+
+hmv:production_year a owl:DatatypeProperty ;
+    rdfs:label "생산년도"@ko ;
+    rdfs:comment "DigitalProject: 디지털 작업이 수행되거나 주요 산출물이 생산된 연도"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:date ;
+    skos:relatedMatch crm:E52_Time-Span ;
+    hmv:cidocCrmMapping "DigitalProject: E52 Time-Span" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "DigitalProject: year" ;
+    hmv:requirement "DigitalProject: 선택" ;
+    hmv:usedInClass hmv:DigitalProject .
+
+hmv:recognized_date a owl:DatatypeProperty ;
+    rdfs:label "인정일"@ko ;
+    rdfs:comment "Transmitter: 전승자 자격을 인정받은 날짜"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:date ;
+    skos:relatedMatch crm:E52_Time-Span ;
+    hmv:cidocCrmMapping "Transmitter: E52 Time-Span" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Transmitter: date" ;
+    hmv:requirement "Transmitter: 선택" ;
+    hmv:usedInClass hmv:Transmitter .
+
+hmv:record_status a owl:DatatypeProperty ;
+    rdfs:label "레코드 상태"@ko ;
+    rdfs:comment "active(현재 판에 있음) 또는 withdrawn(원천에서 삭제되어 메타데이터만 보존)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P25)" ;
+    hmv:inputType "*: enum" ;
+    hmv:requirement "*: 필수" .
+
+hmv:record_version a owl:DatatypeProperty ;
+    rdfs:label "레코드 버전"@ko ;
+    rdfs:comment "레코드 내용이 마지막으로 바뀐 KG 판(스키마 4차 판끼리 비교: v4, v4.1, v4.2, v4.3)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(P25)" ;
+    hmv:inputType "*: string" ;
+    hmv:requirement "*: 필수" .
+
+hmv:regions a owl:DatatypeProperty ;
+    rdfs:label "부재 영역"@ko ;
+    rdfs:comment "사용자 주석 regions.json"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:relationship_context a owl:AnnotationProperty ;
+    rdfs:label "관계 맥락"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:relationship_definition a owl:AnnotationProperty ;
+    rdfs:label "관계 정의"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:relationship_en a owl:AnnotationProperty ;
+    rdfs:label "관계어 영문"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:relationship_ko a owl:AnnotationProperty ;
+    rdfs:label "관계어 국문"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:release_reason a owl:DatatypeProperty ;
+    rdfs:label "해제 사유"@ko ;
+    rdfs:comment "Transmitter: 해제일이 존재하는 경우의 해제 이유"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:description ;
+    skos:relatedMatch crm:E62_String ;
+    hmv:cidocCrmMapping "Transmitter: E62 String" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Transmitter: string" ;
+    hmv:requirement "Transmitter: 선택" ;
+    hmv:usedInClass hmv:Transmitter .
+
+hmv:released_date a owl:DatatypeProperty ;
+    rdfs:label "해제일"@ko ;
+    rdfs:comment "Transmitter: 인정 자격이 종료되거나 해제된 날짜로 미해제 시 공란"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:date ;
+    skos:relatedMatch crm:E52_Time-Span ;
+    hmv:cidocCrmMapping "Transmitter: E52 Time-Span" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Transmitter: date" ;
+    hmv:requirement "Transmitter: 선택" ;
+    hmv:usedInClass hmv:Transmitter .
+
+hmv:repeated a owl:DatatypeProperty ;
+    rdfs:label "반복 여부"@ko ;
+    rdfs:comment "동작 주석(segments.json)이 REFERENCES_MOVEMENT 관계에 붙이는 속성(rdf:Statement 로 내보냄)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:requirement a owl:AnnotationProperty ;
+    rdfs:label "필수 여부"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:right_id a owl:DatatypeProperty ;
+    rdfs:label "권리ID"@ko ;
+    rdfs:comment "Right: 개별 권리 상태를 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Right: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: string" ;
+    hmv:requirement "Right: 필수" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:right_refs a owl:ObjectProperty ;
+    rdfs:label "근거권리"@ko ;
+    rdfs:comment "Licence: 이용허락의 법적 또는 권리적 근거가 확인된 경우 연결하는 Right 레코드의 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:rights ;
+    skos:relatedMatch crm:E30_Right ;
+    hmv:cidocCrmMapping "Licence: E30 Right (참조 후보)" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: array<ID>" ;
+    hmv:requirement "Licence: 선택" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:right_scope a owl:ObjectProperty ;
+    rdfs:label "권리범위"@ko ;
+    rdfs:comment "Right: 복제, 배포, 방송, 전송, 전시, AI 활용 등 해당 권리의 구체적 권능 또는 범위"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:accessRights ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Right: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: array<string>" ;
+    hmv:requirement "Right: 선택" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:right_type a owl:ObjectProperty ;
+    rdfs:label "권리유형"@ko ;
+    rdfs:comment "Right: 초상권, 음성 관련 권리, 실연자 인격권, 실연자 재산적 저작인접권, 저작재산권, 소유권 등 구체적 권리유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Right: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: string" ;
+    hmv:requirement "Right: 필수" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:role a owl:ObjectProperty ;
+    rdfs:label "공간역할"@ko,
+        "아이템역할"@ko ;
+    rdfs:comment "Item: RAW, MASTER, SERVICE 중 하나로 분류되는 제작, 배포 단계의 역할"@ko,
+        "Place: 전수교육관, 전수관 등 공간의 활용 기능"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type",
+        "Place: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: enum",
+        "Place: string" ;
+    hmv:requirement "Item: 필수",
+        "Place: 선택" ;
+    hmv:usedInClass hmv:Item,
+        hmv:Place .
+
+hmv:scene_placement a owl:DatatypeProperty ;
+    rdfs:label "장면 배치"@ko ;
+    rdfs:comment "사용자 주석 placement.json"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:schemaRow a owl:AnnotationProperty ;
+    rdfs:label "스키마 관계정의 행"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:schema_relation_row a owl:AnnotationProperty ;
+    rdfs:label "스키마 관계정의 행"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:schema_version a owl:AnnotationProperty,
+        owl:DatatypeProperty ;
+    rdfs:label "스키마 판"@ko ;
+    rdfs:comment "레코드가 따르는 스키마 판"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "KG 재생성 스크립트" .
+
+hmv:sdg_refs a owl:ObjectProperty ;
+    rdfs:label "지속가능발전목표"@ko ;
+    rdfs:comment "Designation: 관련 지속가능발전목표의 코드 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:subject ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Designation: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Designation: array<string>" ;
+    hmv:requirement "Designation: 선택" ;
+    hmv:usedInClass hmv:Designation .
+
+hmv:segments a owl:DatatypeProperty ;
+    rdfs:label "동작 구간"@ko ;
+    rdfs:comment "동작 주석(segments.json)이 REFERENCES_MOVEMENT 관계에 붙이는 속성(rdf:Statement 로 내보냄)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:sequence a owl:DatatypeProperty ;
+    rdfs:label "공정순서"@ko ;
+    rdfs:comment "Process: 한산모시짜기 전체 제작과정에서 공정이 수행되는 순서"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Process: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Process: integer" ;
+    hmv:requirement "Process: 필수" ;
+    hmv:usedInClass hmv:Process .
+
+hmv:share_ratio a owl:DatatypeProperty ;
+    rdfs:label "지분율"@ko ;
+    rdfs:comment "Right: 복수의 권리주체가 공동으로 권리를 보유하는 경우 개별 주체의 권리 지분"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Right: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: number" ;
+    hmv:requirement "Right: 선택" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:source_fields a owl:AnnotationProperty ;
+    rdfs:label "원천 필드"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:source_row a owl:DatatypeProperty ;
+    rdfs:label "원천 행"@ko ;
+    rdfs:comment "레코드를 읽은 DB 시트의 행 번호"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "KG 재생성 스크립트" .
+
+hmv:source_sheet a owl:DatatypeProperty ;
+    rdfs:label "원천 시트"@ko ;
+    rdfs:comment "레코드를 읽은 DB 시트"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "KG 재생성 스크립트" .
+
+hmv:specialty a owl:ObjectProperty ;
+    rdfs:label "기예능"@ko ;
+    rdfs:comment "Transmitter: 전승자가 보유하거나 실연하는 구체적 기예능"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:subject ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Transmitter: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Transmitter: string" ;
+    hmv:requirement "Transmitter: 선택" ;
+    hmv:usedInClass hmv:Transmitter .
+
+hmv:storage_path a owl:DatatypeProperty ;
+    rdfs:label "저장경로"@ko ;
+    rdfs:comment "Item: 파일 또는 파일 묶음이 저장된 내부 경로 정보"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Item: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:structure a owl:DatatypeProperty ;
+    rdfs:label "구조도 대조"@ko ;
+    rdfs:comment "P24 전통베틀 구조도 대조"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:thumbnail_url a owl:DatatypeProperty ;
+    rdfs:label "목록용 사진"@ko ;
+    rdfs:comment "P28 기록화 사진 목록용 축소본(긴 변 480px)"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:title a owl:DatatypeProperty ;
+    rdfs:label "디지털작업명"@ko,
+        "실연명"@ko,
+        "애셋명"@ko ;
+    rdfs:comment "Asset: 파일 확장자와 수량 괄호를 제외한 논리적 자산 명칭"@ko,
+        "DigitalProject: 디지털화 사업 또는 기록화 프로젝트의 공식 명칭"@ko,
+        "Performance: 기록화 또는 공개시연, 디지털 촬영 실연의 명칭"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:title ;
+    skos:relatedMatch crm:E41_Appellation ;
+    hmv:cidocCrmMapping "Asset: E41 Appellation",
+        "DigitalProject: E41 Appellation",
+        "Performance: E41 Appellation" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Asset: string",
+        "DigitalProject: string",
+        "Performance: string" ;
+    hmv:requirement "Asset: 필수",
+        "DigitalProject: 필수",
+        "Performance: 필수" ;
+    hmv:usedInClass hmv:Asset,
+        hmv:DigitalProject,
+        hmv:Performance .
+
+hmv:tool_id a owl:DatatypeProperty ;
+    rdfs:label "도구ID"@ko ;
+    rdfs:comment "Tool: 도구와 전통베틀 구성요소를 식별하는 고유 ID"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Tool: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Tool: string" ;
+    hmv:requirement "Tool: 필수" ;
+    hmv:usedInClass hmv:Tool .
+
+hmv:tool_refs a owl:ObjectProperty ;
+    rdfs:label "사용도구"@ko ;
+    rdfs:comment "Movement: 해당 동작에서 직접 설치하거나 조작하거나 작동하는 도구와 베틀 부재의 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E22_Human-Made_Object ;
+    hmv:cidocCrmMapping "Movement: E22 Human-Made Object" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Movement: array<ID>" ;
+    hmv:requirement "Movement: 선택" ;
+    hmv:usedInClass hmv:Movement .
+
+hmv:transferability a owl:ObjectProperty ;
+    rdfs:label "양도가능여부"@ko ;
+    rdfs:comment "Right: 권리 자체의 양도 가능성을 가능, 불가 또는 조건부로 구분하는 값"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:rights ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Right: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: string" ;
+    hmv:requirement "Right: 필수" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:transmitter_id a owl:DatatypeProperty ;
+    rdfs:label "전승자ID"@ko ;
+    rdfs:comment "Transmitter: 무형유산 전승자 역할 레코드의 고유 식별자"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Transmitter: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Transmitter: string" ;
+    hmv:requirement "Transmitter: 필수" ;
+    hmv:usedInClass hmv:Transmitter .
+
+hmv:transmitter_refs a owl:ObjectProperty ;
+    rdfs:label "전승자정보"@ko,
+        "참여실연자"@ko ;
+    rdfs:comment "Heritage: 해당 종목을 전승하는 보유자 및 이수자 등 전승자 ID 목록"@ko,
+        "Performance: 실연에 참가한 전승자들의 ID 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E39_Actor ;
+    hmv:cidocCrmMapping "Heritage: E39 Actor",
+        "Performance: E39 Actor" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Heritage: array<ID>",
+        "Performance: array<ID>" ;
+    hmv:requirement "Heritage: 선택",
+        "Performance: 선택" ;
+    hmv:usedInClass hmv:Heritage,
+        hmv:Performance .
+
+hmv:transmitter_types a owl:DatatypeProperty ;
+    rdfs:label "전승자 유형 설명"@ko ;
+    rdfs:comment "P23"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:transmitter_types_evidence a owl:DatatypeProperty ;
+    rdfs:label "전승자 유형 설명 근거"@ko ;
+    rdfs:comment "P23 근거"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:type a owl:DatatypeProperty ;
+    rdfs:label "실연유형"@ko ;
+    rdfs:comment "Performance: 실연 유형 (기록화실연, 공개실연, 구술채록) 입력"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Performance: string" ;
+    hmv:usedInClass hmv:Performance .
+
+hmv:uri a owl:DatatypeProperty ;
+    rdfs:label "영속 식별자(URI)"@ko ;
+    rdfs:comment "레코드의 영속 HTTP URI(base_uri + id/ + ID). 한번 정하면 바꾸지 않는다."@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    hmv:fieldSource "시스템 생성(P25)" ;
+    hmv:inputType "*: URI" ;
+    hmv:requirement "*: 필수" .
+
+hmv:url a owl:ObjectProperty ;
+    rdfs:label "URL"@ko ;
+    rdfs:comment "Place: 관련 기관 또는 공간의 공식 온라인 주소"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    skos:relatedMatch crm:E42_Identifier ;
+    hmv:cidocCrmMapping "Place: E42 Identifier" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Place: URL" ;
+    hmv:requirement "Place: 선택" ;
+    hmv:usedInClass hmv:Place .
+
+hmv:use_conditions a owl:DatatypeProperty ;
+    rdfs:label "이용조건"@ko ;
+    rdfs:comment "Licence: 라이선스유형과 이용유형만으로 표현하기 어려운 추가 조건과 제한사항"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:accessRights ;
+    skos:relatedMatch crm:E62_String ;
+    hmv:cidocCrmMapping "Licence: E62 String" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: text" ;
+    hmv:requirement "Licence: 선택" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:use_types a owl:ObjectProperty ;
+    rdfs:label "이용유형"@ko ;
+    rdfs:comment "Licence: 공공저작물 이용, 기록, 연구, 교육, 전시, 온라인 공개, AI 활용 등 구체적 이용 목적 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:accessRights ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Licence: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Licence: array<string>" ;
+    hmv:requirement "Licence: 필수" ;
+    hmv:usedInClass hmv:Licence .
+
+hmv:usedInClass a owl:AnnotationProperty ;
+    rdfs:label "쓰는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:uuid a owl:DatatypeProperty ;
+    rdfs:label "UUID"@ko ;
+    rdfs:comment "레코드 URI 로 만든 UUID 버전 5. 전역 고유 식별자."@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:identifier ;
+    hmv:fieldSource "시스템 생성(P25)" ;
+    hmv:inputType "*: string" ;
+    hmv:requirement "*: 필수" .
+
+hmv:validity_period a owl:DatatypeProperty ;
+    rdfs:label "권리유효기간"@ko ;
+    rdfs:comment "Right: 계약 또는 권리 상태에 적용되는 시작일과 종료일의 범위"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:valid ;
+    skos:relatedMatch crm:E52_Time-Span ;
+    hmv:cidocCrmMapping "Right: E52 Time-Span" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Right: string" ;
+    hmv:requirement "Right: 선택" ;
+    hmv:usedInClass hmv:Right .
+
+hmv:venue a owl:DatatypeProperty ;
+    rdfs:label "실연장소"@ko ;
+    rdfs:comment "Performance: 실연이 수행된 장소의 기관명 또는 공간명"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:spatial ;
+    skos:relatedMatch crm:E53_Place ;
+    hmv:cidocCrmMapping "Performance: E53 Place" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Performance: string" ;
+    hmv:requirement "Performance: 선택" ;
+    hmv:usedInClass hmv:Performance .
+
+hmv:verification_status a owl:DatatypeProperty ;
+    rdfs:label "확인 필요 사항"@ko ;
+    rdfs:comment "확인 전 값의 확인 내용"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:video.codec a owl:ObjectProperty ;
+    rdfs:label "영상코덱"@ko ;
+    rdfs:comment "Item: 영상 압축 방식 또는 인코딩 코덱"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:format ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:video.duration a owl:DatatypeProperty ;
+    rdfs:label "영상재생시간"@ko ;
+    rdfs:comment "Item: 영상 클립이나 파일 묶음의 재생 길이로 hh:mm:ssmmm 표기"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: timecode" ;
+    hmv:requirement "Item: 조건부" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:video.frame_rate a owl:DatatypeProperty ;
+    rdfs:label "영상프레임률"@ko ;
+    rdfs:comment "Item: 영상의 초당 프레임 수로 묶음은 대표, 통합 수치 기재"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: number" ;
+    hmv:requirement "Item: 조건부" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:video.has_narration a owl:DatatypeProperty ;
+    rdfs:label "해설유무"@ko ;
+    rdfs:comment "Item: 영상의 해설 음성 또는 해설 정보 존재 여부"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: boolean" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:video.has_subtitles a owl:DatatypeProperty ;
+    rdfs:label "자막유무"@ko ;
+    rdfs:comment "Item: 영상에 포함된 자막의 존재 여부"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: boolean" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:video.resolution a owl:DatatypeProperty ;
+    rdfs:label "영상해상도"@ko ;
+    rdfs:comment "Item: 영상의 프레임 가로, 세로 해상도"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 조건부" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:video.script_ref a owl:DatatypeProperty ;
+    rdfs:label "대본참조"@ko ;
+    rdfs:comment "Item: 영상과 연계되는 대본 또는 해설 기록의 참조"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E73_Information_Object ;
+    hmv:cidocCrmMapping "Item: E73 Information Object" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.bounding_box a owl:DatatypeProperty ;
+    rdfs:label "4D바운딩박스"@ko ;
+    rdfs:comment "Item: 시간에 따른 3D 데이터의 공간적 범위"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.coordinate_system a owl:DatatypeProperty ;
+    rdfs:label "4D좌표계"@ko ;
+    rdfs:comment "Item: 4D 재구성에서 사용한 좌표축 및 기준 규약"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.duration a owl:DatatypeProperty ;
+    rdfs:label "4D재생시간"@ko ;
+    rdfs:comment "Item: 4D 시퀀스의 시작, 끝 구간을 포함한 재생 길이"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: timecode" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.frame_index_basis a owl:DatatypeProperty ;
+    rdfs:label "프레임인덱스기준"@ko ;
+    rdfs:comment "Item: 첫 프레임 번호와 텍스처 프레임 대응 규칙"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E73_Information_Object ;
+    hmv:cidocCrmMapping "Item: E73 Information Object" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.frame_rate a owl:DatatypeProperty ;
+    rdfs:label "4D프레임률"@ko ;
+    rdfs:comment "Item: 4D 시퀀스의 초당 3D 프레임 수"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: number" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.gaussian_properties a owl:DatatypeProperty ;
+    rdfs:label "Gaussian 세부 특성"@ko ;
+    rdfs:comment "Item: 4D 또는 Gaussian 기반 데이터에서 Gaussian 표현 방식, 렌더링, 압축 및 구현 특성을 보충하여 기록하는 정보"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:description ;
+    skos:relatedMatch crm:E62_String ;
+    hmv:cidocCrmMapping "Item: E62 String" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: text" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.mesh_properties a owl:DatatypeProperty ;
+    rdfs:label "Mesh 세부 특성"@ko ;
+    rdfs:comment "Item: 4D 메시 시퀀스의 텍스처 해상도, 내장 또는 외부 연결 방식, 압축 및 메시 표현 특성을 기록하는 정보"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:description ;
+    skos:relatedMatch crm:E62_String ;
+    hmv:cidocCrmMapping "Item: E62 String" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: text" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.movement_refs a owl:ObjectProperty ;
+    rdfs:label "동작구간"@ko ;
+    rdfs:comment "Item: 실제 동작을 포함하는 4D Item에는 해당 Movement ID를 반드시 입력한다. T-포즈, 직기 정지 촬영 및 공간 기준자료처럼 동작을 포함하지 않는 정적 참조 Item에는 적용하지 않는다."@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:relation ;
+    skos:relatedMatch crm:E7_Activity ;
+    hmv:cidocCrmMapping "Item: E7 Activity" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: array<ID>" ;
+    hmv:requirement "Item: 조건부" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.playback_characteristics a owl:DatatypeProperty ;
+    rdfs:label "재생특성"@ko ;
+    rdfs:comment "Item: 실시간 또는 오프라인 재생 방식, 사용 엔진, 플러그인, 프레임과 텍스처 연동 방식 등 실행 환경을 기록하는 정보"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:description ;
+    skos:relatedMatch crm:E62_String ;
+    hmv:cidocCrmMapping "Item: E62 String" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: text" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.spatial_unit a owl:DatatypeProperty ;
+    rdfs:label "4D공간단위"@ko ;
+    rdfs:comment "Item: 4D 재구성 좌표의 단위와 축척 상태"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.temporal_representation a owl:ObjectProperty ;
+    rdfs:label "시간표현구조"@ko ;
+    rdfs:comment "Item: 시간에 따라 갱신되는 4D 데이터의 표현구조"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:type ;
+    skos:relatedMatch crm:E55_Type ;
+    hmv:cidocCrmMapping "Item: E55 Type" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: string" ;
+    hmv:requirement "Item: 조건부" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:volumetric4d.total_frames a owl:DatatypeProperty ;
+    rdfs:label "총프레임"@ko ;
+    rdfs:comment "Item: 시퀀스에 수록된 3D 프레임의 전체 개수"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:extent ;
+    skos:relatedMatch crm:E54_Dimension ;
+    hmv:cidocCrmMapping "Item: E54 Dimension" ;
+    hmv:fieldSource "스키마 시트 4차" ;
+    hmv:inputType "Item: integer" ;
+    hmv:requirement "Item: 선택" ;
+    hmv:usedInClass hmv:Item .
+
+hmv:weaving_tool_roles a owl:DatatypeProperty ;
+    rdfs:label "도구 역할표"@ko ;
+    rdfs:comment "P21 제직 단계별 도구 역할"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:weaving_tool_roles_evidence a owl:DatatypeProperty ;
+    rdfs:label "도구 역할표 근거"@ko ;
+    rdfs:comment "P21 근거"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:web_image_evidence a owl:DatatypeProperty ;
+    rdfs:label "웹 사진 근거"@ko ;
+    rdfs:comment "P28 축소본을 만든 방법과 원본 파일"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:web_service a owl:DatatypeProperty ;
+    rdfs:label "웹 재생 파일"@ko ;
+    rdfs:comment "P22 4D 통합 뷰어 레이어 파일"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "웹 보조 패치·주석" .
+
+hmv:withdrawn_evidence a owl:DatatypeProperty ;
+    rdfs:label "삭제 근거"@ko ;
+    rdfs:comment "묘비 레코드: 삭제를 확인한 근거"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(fair.json withdrawn)" ;
+    hmv:inputType "*: text" ;
+    hmv:requirement "*: 선택" .
+
+hmv:withdrawn_in a owl:DatatypeProperty ;
+    rdfs:label "삭제한 판"@ko ;
+    rdfs:comment "묘비 레코드: 원천에서 삭제된 KG 판"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    hmv:fieldSource "시스템 생성(fair.json withdrawn)" ;
+    hmv:inputType "*: string" ;
+    hmv:requirement "*: 선택" .
+
+hmv:withdrawn_reason a owl:DatatypeProperty ;
+    rdfs:label "삭제 이유"@ko ;
+    rdfs:comment "묘비 레코드: 삭제 이유"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subPropertyOf dcterms:description ;
+    hmv:fieldSource "시스템 생성(fair.json withdrawn)" ;
+    hmv:inputType "*: text" ;
+    hmv:requirement "*: 선택" .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/agent_type/%EA%B0%9C%EC%9D%B8> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Agent/agent_type> ;
+    skos:prefLabel "개인"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Agent/agent_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/agent_type/%EC%A1%B0%EC%A7%81> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Agent/agent_type> ;
+    skos:prefLabel "조직"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Agent/agent_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/gender/%EC%97%AC%EC%84%B1> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Agent/gender> ;
+    skos:prefLabel "여성"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Agent/gender> .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/organization_type/%EA%B3%B5%EA%B3%B5%EA%B8%B0%EA%B4%80> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Agent/organization_type> ;
+    skos:prefLabel "공공기관"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Agent/organization_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/organization_type/%EA%B5%90%EC%9C%A1%EA%B8%B0%EA%B4%80> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Agent/organization_type> ;
+    skos:prefLabel "교육기관"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Agent/organization_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/organization_type/%EB%AF%BC%EA%B0%84%EA%B8%B0%EC%97%85> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Agent/organization_type> ;
+    skos:prefLabel "민간기업"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Agent/organization_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EA%B8%B0%ED%83%80> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> ;
+    skos:prefLabel "기타"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EB%8D%B0%EC%9D%B4%ED%84%B0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> ;
+    skos:prefLabel "데이터"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EB%AC%B8%EC%84%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> ;
+    skos:prefLabel "문서"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EB%B3%B4%EA%B3%A0%EC%84%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> ;
+    skos:prefLabel "보고서"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EC%98%81%EC%83%81> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> ;
+    skos:prefLabel "영상"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EC%9D%B4%EB%AF%B8%EC%A7%80> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> ;
+    skos:prefLabel "이미지"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type/3D> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> ;
+    skos:prefLabel "3D"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type/4D> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> ;
+    skos:prefLabel "4D"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Asset/asset_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Clothing> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Clothing"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Costumes> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Costumes"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Craft%20workers> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Craft workers"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Drying> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Drying"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Funeral> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Funeral"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Spinning> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Spinning"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Technical%20skills> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Technical skills"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Textile%20arts> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Textile arts"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Traditional%20tools> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Traditional tools"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Weaving> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Weaving"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords/Work%20songs> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/keywords> ;
+    skos:prefLabel "Work songs"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/keywords> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs/SDG12> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> ;
+    skos:prefLabel "SDG12"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs/SDG2> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> ;
+    skos:prefLabel "SDG2"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs/SDG5> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> ;
+    skos:prefLabel "SDG5"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs/SDG8> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> ;
+    skos:prefLabel "SDG8"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> .
+
+<https://w3id.org/hansan-mosi/vocab/Heritage/classification/%EA%B3%B5%EC%98%88> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Heritage/classification> ;
+    skos:prefLabel "공예"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Heritage/classification> .
+
+<https://w3id.org/hansan-mosi/vocab/Heritage/classification/%EB%AC%B4%ED%98%95%EC%9C%A0%EC%82%B0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Heritage/classification> ;
+    skos:prefLabel "무형유산"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Heritage/classification> .
+
+<https://w3id.org/hansan-mosi/vocab/Heritage/classification/%EC%A0%84%ED%86%B5%EA%B8%B0%EC%88%A0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Heritage/classification> ;
+    skos:prefLabel "전통기술"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Heritage/classification> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/4DS> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "4DS"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/ABC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "ABC"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/GLB> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "GLB"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/JPEG> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "JPEG"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/JSON> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "JSON"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/MD> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "MD"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/MOV> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "MOV"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/MP4> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "MP4"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/PDF> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "PDF"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/PLY> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "PLY"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/PNG> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "PNG"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/SPLAT> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "SPLAT"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format/ZIP> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/format> ;
+    skos:prefLabel "ZIP"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/format> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/image.color_space/RGB%20%28%EB%AF%B8%EC%A7%80%EC%A0%95%29> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/image.color_space> ;
+    skos:prefLabel "RGB (미지정)"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/image.color_space> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/image.color_space/RGBA%20%28%EB%AF%B8%EC%A7%80%EC%A0%95%29> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/image.color_space> ;
+    skos:prefLabel "RGBA (미지정)"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/image.color_space> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type/%EB%8D%B0%EC%9D%B4%ED%84%B0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/media_type> ;
+    skos:prefLabel "데이터"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/media_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type/%EB%AC%B8%EC%84%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/media_type> ;
+    skos:prefLabel "문서"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/media_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type/%EC%95%95%EC%B6%95%20%ED%8C%8C%EC%9D%BC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/media_type> ;
+    skos:prefLabel "압축 파일"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/media_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type/%EC%98%81%EC%83%81> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/media_type> ;
+    skos:prefLabel "영상"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/media_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type/%EC%9D%B4%EB%AF%B8%EC%A7%80> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/media_type> ;
+    skos:prefLabel "이미지"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/media_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type/3D%20%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88%20%EC%8A%A4%ED%94%8C%EB%9E%AB> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/media_type> ;
+    skos:prefLabel "3D 가우시안 스플랫"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/media_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type/3D%20%EB%A9%94%EC%8B%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/media_type> ;
+    skos:prefLabel "3D 메시"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/media_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type/4D%20%EB%B3%BC%EB%A5%98%EB%A9%94%ED%8A%B8%EB%A6%AD%20%EB%A9%94%EC%8B%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/media_type> ;
+    skos:prefLabel "4D 볼류메트릭 메시"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/media_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/model3d.representation/GAUSSIAN> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/model3d.representation> ;
+    skos:prefLabel "GAUSSIAN"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/model3d.representation> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/model3d.representation/MESH> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/model3d.representation> ;
+    skos:prefLabel "MESH"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/model3d.representation> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype/3D%EB%8D%B0%EC%9D%B4%ED%84%B0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype> ;
+    skos:prefLabel "3D데이터"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype/3D%EC%95%A0%EC%85%8B> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype> ;
+    skos:prefLabel "3D애셋"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype/3D%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype> ;
+    skos:prefLabel "3D웹서비스"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/video.codec/Apple%20ProRes%20422> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/video.codec> ;
+    skos:prefLabel "Apple ProRes 422"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/video.codec> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/video.codec/H.264%20%28High%29> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/video.codec> ;
+    skos:prefLabel "H.264 (High)"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/video.codec> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/video.codec/HEVC%20%28Main%29> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/video.codec> ;
+    skos:prefLabel "HEVC (Main)"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/video.codec> .
+
+<https://w3id.org/hansan-mosi/vocab/Item/volumetric4d.temporal_representation/MESH_SEQUENCE> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Item/volumetric4d.temporal_representation> ;
+    skos:prefLabel "MESH_SEQUENCE"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Item/volumetric4d.temporal_representation> .
+
+<https://w3id.org/hansan-mosi/vocab/Licence/licence_type/%EA%B3%B5%EA%B3%B5%EB%88%84%EB%A6%AC%20%EC%A0%9C0%EC%9C%A0%ED%98%95> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Licence/licence_type> ;
+    skos:prefLabel "공공누리 제0유형"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Licence/licence_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Licence/licence_type/%EA%B3%B5%EA%B3%B5%EB%88%84%EB%A6%AC%20%EC%A0%9C4%EC%9C%A0%ED%98%95> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Licence/licence_type> ;
+    skos:prefLabel "공공누리 제4유형"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Licence/licence_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Licence/use_types/%EA%B3%B5%EA%B3%B5%EC%A0%80%EC%9E%91%EB%AC%BC%20%EC%9D%B4%EC%9A%A9> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Licence/use_types> ;
+    skos:prefLabel "공공저작물 이용"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Licence/use_types> .
+
+<https://w3id.org/hansan-mosi/vocab/Licence/use_types/AI%20%ED%99%9C%EC%9A%A9> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Licence/use_types> ;
+    skos:prefLabel "AI 활용"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Licence/use_types> .
+
+<https://w3id.org/hansan-mosi/vocab/Materials/material_type/%EC%99%84%EC%84%B1%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Materials/material_type> ;
+    skos:prefLabel "완성재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Materials/material_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Materials/material_type/%EC%9B%90%EC%9E%AC%EB%A3%8C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Materials/material_type> ;
+    skos:prefLabel "원재료"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Materials/material_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Materials/material_type/%EC%A4%91%EA%B0%84%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Materials/material_type> ;
+    skos:prefLabel "중간재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Materials/material_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Materials/material_type/%EC%A7%81%EC%A1%B0%20%EC%97%AD%ED%95%A0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Materials/material_type> ;
+    skos:prefLabel "직조 역할"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Materials/material_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EB%82%A0%EC%8B%A4%EA%B0%9C%EA%B5%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> ;
+    skos:prefLabel "날실개구"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EB%82%A0%EC%8B%A4%ED%92%80%EA%B8%B0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> ;
+    skos:prefLabel "날실풀기"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EB%B0%94%EB%94%94%EC%B9%98%EA%B8%B0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> ;
+    skos:prefLabel "바디치기"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EC%94%A8%EC%8B%A4%ED%88%AC%EC%9E%85> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> ;
+    skos:prefLabel "씨실투입"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EC%A0%9C%EC%A7%81%20%EC%A4%80%EB%B9%84%20%EB%B0%8F%20%EC%9E%A5%EB%A0%A5%20%EC%84%A4%EC%A0%95> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> ;
+    skos:prefLabel "제직 준비 및 장력 설정"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EC%A7%81%EB%AC%BC%EA%B0%90%EA%B8%B0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> ;
+    skos:prefLabel "직물감기"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_type/%EB%B0%98%EB%B3%B5> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_type> ;
+    skos:prefLabel "반복"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_type/%EC%A1%B0%EC%A0%88> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_type> ;
+    skos:prefLabel "조절"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_type/%EC%A4%80%EB%B9%84> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Movement/movement_type> ;
+    skos:prefLabel "준비"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Movement/movement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Place/role/%EC%A0%84%EC%88%98%EA%B4%80> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Place/role> ;
+    skos:prefLabel "전수관"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Place/role> .
+
+<https://w3id.org/hansan-mosi/vocab/Place/role/%EC%A0%84%EC%88%98%EA%B5%90%EC%9C%A1%EA%B4%80> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Place/role> ;
+    skos:prefLabel "전수교육관"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Place/role> .
+
+<https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%95%EA%B2%BD> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Process/classification> ;
+    skos:prefLabel "정경"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Process/classification> .
+
+<https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%9C%EC%82%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Process/classification> ;
+    skos:prefLabel "제사"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Process/classification> .
+
+<https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%9C%EC%A7%81> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Process/classification> ;
+    skos:prefLabel "제직"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Process/classification> .
+
+<https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%9C%EC%A7%81%EC%A4%80%EB%B9%84> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Process/classification> ;
+    skos:prefLabel "제직준비"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Process/classification> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%84%B1%EB%AA%85%ED%91%9C%EC%8B%9C%20%EA%B4%80%EB%A0%A8%20%EB%8F%99%EC%9D%98> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> ;
+    skos:prefLabel "성명표시 관련 동의"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%9D%8C%EC%84%B1%20%EC%9D%B4%EC%9A%A9%EB%8F%99%EC%9D%98> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> ;
+    skos:prefLabel "음성 이용동의"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%A0%80%EC%9E%91%EC%9D%B8%EC%A0%91%EA%B6%8C%20%EC%96%91%EB%8F%84%EA%B3%84%EC%95%BD> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> ;
+    skos:prefLabel "저작인접권 양도계약"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%A0%80%EC%9E%91%EC%9E%AC%EC%82%B0%EA%B6%8C%20%EC%96%91%EB%8F%84%EA%B3%84%EC%95%BD> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> ;
+    skos:prefLabel "저작재산권 양도계약"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%B4%88%EC%83%81%20%EC%9D%B4%EC%9A%A9%EB%8F%99%EC%9D%98> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> ;
+    skos:prefLabel "초상 이용동의"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%ED%8E%B8%EC%A7%91%20%EB%B0%8F%20%EB%B3%80%ED%98%95%20%EB%B2%94%EC%9C%84%20%EB%8F%99%EC%9D%98> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> ;
+    skos:prefLabel "편집 및 변형 범위 동의"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/agreement_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EA%B3%B5%EA%B0%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "공개"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EA%B3%B5%EC%A4%91%EC%86%A1%EC%8B%A0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "공중송신"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EA%B8%B0%EB%A1%9D> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "기록"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EB%85%B9%EC%9D%8C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "녹음"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EB%B0%B0%ED%8F%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "배포"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EB%B3%80%ED%98%95> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "변형"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EB%B3%B5%EC%A0%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "복제"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%84%B1%EB%AA%85%ED%91%9C%EC%8B%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "성명표시"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%A0%84%EC%86%A1> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "전송"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%A0%84%EC%8B%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "전시"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%B4%AC%EC%98%81> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "촬영"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%B6%9C%EC%B2%98%ED%91%9C%EC%8B%9C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "출처표시"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/%ED%8E%B8%EC%A7%91> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "편집"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/2%EC%B0%A8%EC%A0%81%20%ED%99%9C%EC%9A%A9> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "2차적 활용"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope/AI%20%ED%99%9C%EC%9A%A9> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_scope> ;
+    skos:prefLabel "AI 활용"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_scope> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%8B%A4%EC%97%B0%EC%9E%90%EC%9D%98%20%EB%8F%99%EC%9D%BC%EC%84%B1%EC%9C%A0%EC%A7%80%EA%B6%8C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_type> ;
+    skos:prefLabel "실연자의 동일성유지권"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%8B%A4%EC%97%B0%EC%9E%90%EC%9D%98%20%EC%84%B1%EB%AA%85%ED%91%9C%EC%8B%9C%EA%B6%8C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_type> ;
+    skos:prefLabel "실연자의 성명표시권"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%8B%A4%EC%97%B0%EC%9E%90%EC%9D%98%20%EC%9E%AC%EC%82%B0%EC%A0%81%20%EC%A0%80%EC%9E%91%EC%9D%B8%EC%A0%91%EA%B6%8C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_type> ;
+    skos:prefLabel "실연자의 재산적 저작인접권"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%9D%8C%EC%84%B1%20%EC%9D%B4%EC%9A%A9%EC%97%90%20%EA%B4%80%ED%95%9C%20%EC%9D%B8%EA%B2%A9%EC%A0%81%20%EA%B6%8C%EB%A6%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_type> ;
+    skos:prefLabel "음성 이용에 관한 인격적 권리"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%A0%80%EC%9E%91%EC%9E%AC%EC%82%B0%EA%B6%8C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_type> ;
+    skos:prefLabel "저작재산권"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%B4%88%EC%83%81%EA%B6%8C> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/right_type> ;
+    skos:prefLabel "초상권"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/right_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/transferability/%EA%B0%80%EB%8A%A5> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/transferability> ;
+    skos:prefLabel "가능"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/transferability> .
+
+<https://w3id.org/hansan-mosi/vocab/Right/transferability/%EB%B6%88%EA%B0%80> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Right/transferability> ;
+    skos:prefLabel "불가"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Right/transferability> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EA%B0%9C%EA%B5%AC%20%EB%B0%8F%20%EB%82%A0%EC%8B%A4%EC%A0%95%EB%A6%AC%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "개구 및 날실정리부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EA%B0%9C%EA%B5%AC%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "개구부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EA%B5%AC%EC%A1%B0%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "구조부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EA%B5%AC%EC%A1%B0%EC%B2%B4> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "구조체"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EB%82%A0%EC%8B%A4%EA%B3%B5%EA%B8%89%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "날실공급부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EB%82%A0%EC%8B%A4%EB%B0%B0%EC%97%B4%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "날실배열부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EB%82%A0%EC%8B%A4%EB%B3%B4%EC%A1%B0%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "날실보조부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%94%A8%EC%8B%A4%EB%8F%84%EA%B5%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "씨실도구"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%94%A8%EC%8B%A4%EB%8F%84%EA%B5%AC%20%EB%B6%80%ED%92%88> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "씨실도구 부품"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%97%B0%EA%B2%B0%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "연결부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%9E%91%EB%8F%99%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "작동부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%9E%A5%EB%A0%A5%C2%B7%EA%B6%8C%EC%B7%A8%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "장력·권취부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%9E%A5%EB%A0%A5%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "장력부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%A0%9C%EC%9E%91%EB%8F%84%EA%B5%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "제작도구"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%A0%9C%EC%A7%81%EC%A4%80%EB%B9%84%EB%B6%80%EC%9E%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "제직준비부재"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type/%ED%99%95%EC%9D%B8%ED%95%84%EC%9A%94> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Tool/component_type> ;
+    skos:prefLabel "확인필요"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Tool/component_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type/%EB%AA%85%EC%98%88%EB%B3%B4%EC%9C%A0%EC%9E%90> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> ;
+    skos:prefLabel "명예보유자"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type/%EB%B3%B4%EC%9C%A0%EC%9E%90> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> ;
+    skos:prefLabel "보유자"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type/%EC%9D%B4%EC%88%98%EC%9E%90> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> ;
+    skos:prefLabel "이수자"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type/%EC%A0%84%EC%8A%B9%EA%B5%90%EC%9C%A1%EC%82%AC> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> ;
+    skos:prefLabel "전승교육사"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> .
+
+<https://w3id.org/hansan-mosi/vocab/Transmitter/specialty/%EB%AA%A8%EC%8B%9C%EC%A7%9C%EA%B8%B0> a skos:Concept ;
+    skos:inScheme <https://w3id.org/hansan-mosi/vocab/Transmitter/specialty> ;
+    skos:prefLabel "모시짜기"@ko ;
+    skos:topConceptOf <https://w3id.org/hansan-mosi/vocab/Transmitter/specialty> .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/gender> a skos:ConceptScheme ;
+    dcterms:description "Agent가 개인인 경우 기록하는 성별 정보"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Agent/gender/%EC%97%AC%EC%84%B1> ;
+    skos:prefLabel "Agent 성별"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Item/volumetric4d.temporal_representation> a skos:ConceptScheme ;
+    dcterms:description "시간에 따라 갱신되는 4D 데이터의 표현구조"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Item/volumetric4d.temporal_representation/MESH_SEQUENCE> ;
+    skos:prefLabel "Item 시간표현구조"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Transmitter/specialty> a skos:ConceptScheme ;
+    dcterms:description "전승자가 보유하거나 실연하는 구체적 기예능"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Transmitter/specialty/%EB%AA%A8%EC%8B%9C%EC%A7%9C%EA%B8%B0> ;
+    skos:prefLabel "Transmitter 기예능"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/agent_type> a skos:ConceptScheme ;
+    dcterms:description "주체를 개인 또는 조직으로 구분하는 기본 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Agent/agent_type/%EA%B0%9C%EC%9D%B8>,
+        <https://w3id.org/hansan-mosi/vocab/Agent/agent_type/%EC%A1%B0%EC%A7%81> ;
+    skos:prefLabel "Agent 주체유형"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Item/image.color_space> a skos:ConceptScheme ;
+    dcterms:description "픽셀 색상 표현에 사용한 색공간 또는 채널 구분"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Item/image.color_space/RGB%20%28%EB%AF%B8%EC%A7%80%EC%A0%95%29>,
+        <https://w3id.org/hansan-mosi/vocab/Item/image.color_space/RGBA%20%28%EB%AF%B8%EC%A7%80%EC%A0%95%29> ;
+    skos:prefLabel "Item 색공간"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Item/model3d.representation> a skos:ConceptScheme ;
+    dcterms:description "3D 데이터를 표현하는 기하 구조의 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Item/model3d.representation/GAUSSIAN>,
+        <https://w3id.org/hansan-mosi/vocab/Item/model3d.representation/MESH> ;
+    skos:prefLabel "Item 표현구조"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Licence/licence_type> a skos:ConceptScheme ;
+    dcterms:description "공공누리 제0유형, 공공누리 제1유형부터 제4유형, CCL, 별도계약 또는 제한적 이용허락 등 적용되는 라이선스 체계"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Licence/licence_type/%EA%B3%B5%EA%B3%B5%EB%88%84%EB%A6%AC%20%EC%A0%9C0%EC%9C%A0%ED%98%95>,
+        <https://w3id.org/hansan-mosi/vocab/Licence/licence_type/%EA%B3%B5%EA%B3%B5%EB%88%84%EB%A6%AC%20%EC%A0%9C4%EC%9C%A0%ED%98%95> ;
+    skos:prefLabel "Licence 라이선스유형"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Licence/use_types> a skos:ConceptScheme ;
+    dcterms:description "공공저작물 이용, 기록, 연구, 교육, 전시, 온라인 공개, AI 활용 등 구체적 이용 목적 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Licence/use_types/%EA%B3%B5%EA%B3%B5%EC%A0%80%EC%9E%91%EB%AC%BC%20%EC%9D%B4%EC%9A%A9>,
+        <https://w3id.org/hansan-mosi/vocab/Licence/use_types/AI%20%ED%99%9C%EC%9A%A9> ;
+    skos:prefLabel "Licence 이용유형"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Place/role> a skos:ConceptScheme ;
+    dcterms:description "전수교육관, 전수관 등 공간의 활용 기능"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Place/role/%EC%A0%84%EC%88%98%EA%B4%80>,
+        <https://w3id.org/hansan-mosi/vocab/Place/role/%EC%A0%84%EC%88%98%EA%B5%90%EC%9C%A1%EA%B4%80> ;
+    skos:prefLabel "Place 공간역할"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Right/transferability> a skos:ConceptScheme ;
+    dcterms:description "권리 자체의 양도 가능성을 가능, 불가 또는 조건부로 구분하는 값"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Right/transferability/%EA%B0%80%EB%8A%A5>,
+        <https://w3id.org/hansan-mosi/vocab/Right/transferability/%EB%B6%88%EA%B0%80> ;
+    skos:prefLabel "Right 양도가능여부"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Agent/organization_type> a skos:ConceptScheme ;
+    dcterms:description "Agent가 조직인 경우 제작사, 공공기관, 교육기관, 연구기관, 민간기업 등 조직의 세부 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Agent/organization_type/%EA%B3%B5%EA%B3%B5%EA%B8%B0%EA%B4%80>,
+        <https://w3id.org/hansan-mosi/vocab/Agent/organization_type/%EA%B5%90%EC%9C%A1%EA%B8%B0%EA%B4%80>,
+        <https://w3id.org/hansan-mosi/vocab/Agent/organization_type/%EB%AF%BC%EA%B0%84%EA%B8%B0%EC%97%85> ;
+    skos:prefLabel "Agent 기관유형"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Heritage/classification> a skos:ConceptScheme ;
+    dcterms:description "유산의 상위 유형과 세부 분류를 나타내는 분류어 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Heritage/classification/%EA%B3%B5%EC%98%88>,
+        <https://w3id.org/hansan-mosi/vocab/Heritage/classification/%EB%AC%B4%ED%98%95%EC%9C%A0%EC%82%B0>,
+        <https://w3id.org/hansan-mosi/vocab/Heritage/classification/%EC%A0%84%ED%86%B5%EA%B8%B0%EC%88%A0> ;
+    skos:prefLabel "Heritage 분류"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype> a skos:ConceptScheme ;
+    dcterms:description "3D 데이터의 구체적 용도, 유형 구분"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype/3D%EB%8D%B0%EC%9D%B4%ED%84%B0>,
+        <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype/3D%EC%95%A0%EC%85%8B>,
+        <https://w3id.org/hansan-mosi/vocab/Item/model3d.subtype/3D%EC%9B%B9%EC%84%9C%EB%B9%84%EC%8A%A4> ;
+    skos:prefLabel "Item 세부유형"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Item/video.codec> a skos:ConceptScheme ;
+    dcterms:description "영상 압축 방식 또는 인코딩 코덱"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Item/video.codec/Apple%20ProRes%20422>,
+        <https://w3id.org/hansan-mosi/vocab/Item/video.codec/H.264%20%28High%29>,
+        <https://w3id.org/hansan-mosi/vocab/Item/video.codec/HEVC%20%28Main%29> ;
+    skos:prefLabel "Item 영상코덱"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_type> a skos:ConceptScheme ;
+    dcterms:description "직물짜기 세부 동작을 준비, 반복 또는 조절로 구분하는 기능적 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Movement/movement_type/%EB%B0%98%EB%B3%B5>,
+        <https://w3id.org/hansan-mosi/vocab/Movement/movement_type/%EC%A1%B0%EC%A0%88>,
+        <https://w3id.org/hansan-mosi/vocab/Movement/movement_type/%EC%A4%80%EB%B9%84> ;
+    skos:prefLabel "Movement 동작유형"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs> a skos:ConceptScheme ;
+    dcterms:description "관련 지속가능발전목표의 코드 목록"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs/SDG12>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs/SDG2>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs/SDG5>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/sdg_refs/SDG8> ;
+    skos:prefLabel "Designation 지속가능발전목표"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Materials/material_type> a skos:ConceptScheme ;
+    dcterms:description "원재료, 중간재, 직조 역할 또는 완성재로 구분하는 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Materials/material_type/%EC%99%84%EC%84%B1%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Materials/material_type/%EC%9B%90%EC%9E%AC%EB%A3%8C>,
+        <https://w3id.org/hansan-mosi/vocab/Materials/material_type/%EC%A4%91%EA%B0%84%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Materials/material_type/%EC%A7%81%EC%A1%B0%20%EC%97%AD%ED%95%A0> ;
+    skos:prefLabel "Materials 재료분류"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Process/classification> a skos:ConceptScheme ;
+    dcterms:description "제사, 정경, 제직준비 및 제직으로 제작 단계의 기능적 범주를 구분하는 값"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%95%EA%B2%BD>,
+        <https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%9C%EC%82%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%9C%EC%A7%81>,
+        <https://w3id.org/hansan-mosi/vocab/Process/classification/%EC%A0%9C%EC%A7%81%EC%A4%80%EB%B9%84> ;
+    skos:prefLabel "Process 공정분류"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type> a skos:ConceptScheme ;
+    dcterms:description "보유자, 명예보유자, 전승교육사, 이수자 등 현재 등록된 전승 자격"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type/%EB%AA%85%EC%98%88%EB%B3%B4%EC%9C%A0%EC%9E%90>,
+        <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type/%EB%B3%B4%EC%9C%A0%EC%9E%90>,
+        <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type/%EC%9D%B4%EC%88%98%EC%9E%90>,
+        <https://w3id.org/hansan-mosi/vocab/Transmitter/holder_type/%EC%A0%84%EC%8A%B9%EA%B5%90%EC%9C%A1%EC%82%AC> ;
+    skos:prefLabel "Transmitter 보유구분"@ko .
+
+hmv:Designation a owl:Class ;
+    rdfs:label "Designation"@en,
+        "Designation 클래스"@ko ;
+    rdfs:comment "국가무형유산 및 유네스코 지정 및 등재 내역을 종목과 구분하여 관리하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:Place a owl:Class ;
+    rdfs:label "Place"@en,
+        "Place 클래스"@ko ;
+    rdfs:comment "무형유산의 전승, 교육, 실연 공간에 대한 위치와 관리주체 및 기능을 관리하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+<https://w3id.org/hansan-mosi/vocab/Movement/movement_phase> a skos:ConceptScheme ;
+    dcterms:description "UI에서 직물짜기 동작을 제직 준비 및 장력 설정, 날실개구, 씨실투입, 바디치기, 날실풀기 및 직물감기로 묶는 탐색 단계"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EB%82%A0%EC%8B%A4%EA%B0%9C%EA%B5%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EB%82%A0%EC%8B%A4%ED%92%80%EA%B8%B0>,
+        <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EB%B0%94%EB%94%94%EC%B9%98%EA%B8%B0>,
+        <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EC%94%A8%EC%8B%A4%ED%88%AC%EC%9E%85>,
+        <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EC%A0%9C%EC%A7%81%20%EC%A4%80%EB%B9%84%20%EB%B0%8F%20%EC%9E%A5%EB%A0%A5%20%EC%84%A4%EC%A0%95>,
+        <https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EC%A7%81%EB%AC%BC%EA%B0%90%EA%B8%B0> ;
+    skos:prefLabel "Movement 동작단계"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Right/agreement_type> a skos:ConceptScheme ;
+    dcterms:description "재산권 양도계약, 이용허락계약, 초상 및 음성 이용동의, 공동소유 합의, 소유권 이전계약 등 권리 상태의 계약 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%84%B1%EB%AA%85%ED%91%9C%EC%8B%9C%20%EA%B4%80%EB%A0%A8%20%EB%8F%99%EC%9D%98>,
+        <https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%9D%8C%EC%84%B1%20%EC%9D%B4%EC%9A%A9%EB%8F%99%EC%9D%98>,
+        <https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%A0%80%EC%9E%91%EC%9D%B8%EC%A0%91%EA%B6%8C%20%EC%96%91%EB%8F%84%EA%B3%84%EC%95%BD>,
+        <https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%A0%80%EC%9E%91%EC%9E%AC%EC%82%B0%EA%B6%8C%20%EC%96%91%EB%8F%84%EA%B3%84%EC%95%BD>,
+        <https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%EC%B4%88%EC%83%81%20%EC%9D%B4%EC%9A%A9%EB%8F%99%EC%9D%98>,
+        <https://w3id.org/hansan-mosi/vocab/Right/agreement_type/%ED%8E%B8%EC%A7%91%20%EB%B0%8F%20%EB%B3%80%ED%98%95%20%EB%B2%94%EC%9C%84%20%EB%8F%99%EC%9D%98> ;
+    skos:prefLabel "Right 근거계약유형"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_type> a skos:ConceptScheme ;
+    dcterms:description "초상권, 음성 관련 권리, 실연자 인격권, 실연자 재산적 저작인접권, 저작재산권, 소유권 등 구체적 권리유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%8B%A4%EC%97%B0%EC%9E%90%EC%9D%98%20%EB%8F%99%EC%9D%BC%EC%84%B1%EC%9C%A0%EC%A7%80%EA%B6%8C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%8B%A4%EC%97%B0%EC%9E%90%EC%9D%98%20%EC%84%B1%EB%AA%85%ED%91%9C%EC%8B%9C%EA%B6%8C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%8B%A4%EC%97%B0%EC%9E%90%EC%9D%98%20%EC%9E%AC%EC%82%B0%EC%A0%81%20%EC%A0%80%EC%9E%91%EC%9D%B8%EC%A0%91%EA%B6%8C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%9D%8C%EC%84%B1%20%EC%9D%B4%EC%9A%A9%EC%97%90%20%EA%B4%80%ED%95%9C%20%EC%9D%B8%EA%B2%A9%EC%A0%81%20%EA%B6%8C%EB%A6%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%A0%80%EC%9E%91%EC%9E%AC%EC%82%B0%EA%B6%8C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_type/%EC%B4%88%EC%83%81%EA%B6%8C> ;
+    skos:prefLabel "Right 권리유형"@ko .
+
+hmv:Materials a owl:Class ;
+    rdfs:label "Materials"@en,
+        "Materials 클래스"@ko ;
+    rdfs:comment "모시풀, 모시대, 태모시, 모시올, 모시실, 날실, 씨실 및 모시직물의 정체성과 직조 역할을 관리하고 Process의 입력과 산출 및 Movement의 대상재료 관계로 제작 맥락을 연결하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:Tool a owl:Class ;
+    rdfs:label "Tool"@en,
+        "Tool 클래스"@ko ;
+    rdfs:comment "모시 제작에 사용하는 도구와 전통베틀 구조부재의 정체성 및 계층 구조를 관리하는 클래스이며, 공정 및 동작에서의 사용 맥락은 Movement.tool_refs를 통해 연결함"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:Transmitter a owl:Class ;
+    rdfs:label "Transmitter"@en,
+        "Transmitter 클래스"@ko ;
+    rdfs:comment "Agent로 식별되는 개인 또는 단체가 특정 무형유산에서 가지는 전승 자격, 기예능 및 인정·해제 정보를 관리하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:Asset a owl:Class ;
+    rdfs:label "Asset"@en,
+        "Asset 클래스"@ko ;
+    rdfs:comment "디지털화 사업과 특정 실연에서 생산된 논리적 애셋 묶음과 이를 구성하는 Item 파일 표현을 관리하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subClassOf prov:Entity .
+
+hmv:DigitalProject a owl:Class ;
+    rdfs:label "DigitalProject"@en,
+        "Digital Project 클래스"@ko ;
+    rdfs:comment "기록화 사업과 4D 데이터 취득 프로젝트를 관리하고 관련 실연, 산출 애셋 및 생산·관리 Agent를 연결하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subClassOf prov:Activity .
+
+<https://w3id.org/hansan-mosi/vocab/Asset/asset_type> a skos:ConceptScheme ;
+    dcterms:description "이미지, 영상, 문서, 3D 모델, 4D 볼류메트릭 등의 자료 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EA%B8%B0%ED%83%80>,
+        <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EB%8D%B0%EC%9D%B4%ED%84%B0>,
+        <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EB%AC%B8%EC%84%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EB%B3%B4%EA%B3%A0%EC%84%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EC%98%81%EC%83%81>,
+        <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/%EC%9D%B4%EB%AF%B8%EC%A7%80>,
+        <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/3D>,
+        <https://w3id.org/hansan-mosi/vocab/Asset/asset_type/4D> ;
+    skos:prefLabel "Asset 애셋유형"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Item/media_type> a skos:ConceptScheme ;
+    dcterms:description "영상, 이미지, 문서, 3D 메시, 4D 볼류메트릭 등 자원 유형"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Item/media_type/%EB%8D%B0%EC%9D%B4%ED%84%B0>,
+        <https://w3id.org/hansan-mosi/vocab/Item/media_type/%EB%AC%B8%EC%84%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Item/media_type/%EC%95%95%EC%B6%95%20%ED%8C%8C%EC%9D%BC>,
+        <https://w3id.org/hansan-mosi/vocab/Item/media_type/%EC%98%81%EC%83%81>,
+        <https://w3id.org/hansan-mosi/vocab/Item/media_type/%EC%9D%B4%EB%AF%B8%EC%A7%80>,
+        <https://w3id.org/hansan-mosi/vocab/Item/media_type/3D%20%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88%20%EC%8A%A4%ED%94%8C%EB%9E%AB>,
+        <https://w3id.org/hansan-mosi/vocab/Item/media_type/3D%20%EB%A9%94%EC%8B%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Item/media_type/4D%20%EB%B3%BC%EB%A5%98%EB%A9%94%ED%8A%B8%EB%A6%AD%20%EB%A9%94%EC%8B%9C> ;
+    skos:prefLabel "Item 아이템유형"@ko .
+
+hmv:Movement a owl:Class ;
+    rdfs:label "Movement"@en,
+        "Movement 클래스"@ko ;
+    rdfs:comment "제작공정에서 수행되는 세부 행위를 관리하고 UI 탐색 단계, 사용 도구 및 대상 재료를 직접 연결하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:Heritage a owl:Class ;
+    rdfs:label "Heritage"@en,
+        "Heritage 클래스"@ko ;
+    rdfs:comment "무형유산 종목에 대한 식별, 지정, 전승자, 공정, 공간 및 기본 설명을 관리하는 상위 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:Process a owl:Class ;
+    rdfs:label "Process"@en,
+        "Process 클래스"@ko ;
+    rdfs:comment "한산모시짜기의 11개 제작공정을 관리하고 각 공정의 입력재료와 산출재료 및 제작 절차를 구조화하는 클래스이며, 세부동작과 사용도구는 Movement의 참조관계를 통해 역조회함"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:Right a owl:Class ;
+    rdfs:label "Right"@en,
+        "Right 클래스"@ko ;
+    rdfs:comment "디지털 애셋에 적용되는 권리의 보유주체, 계약 근거, 권리유형, 양도가능성 및 권리범위를 관리하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+hmv:Performance a owl:Class ;
+    rdfs:label "Performance"@en,
+        "Performance 클래스"@ko ;
+    rdfs:comment "기록화, 공개시연, 4D 촬영 등 실연 사건의 공정, 디지털작업, 실연자 및 산출 애셋 관계를 관리하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subClassOf prov:Activity .
+
+hmv:Agent a owl:Class ;
+    rdfs:label "Agent"@en,
+        "Agent 클래스"@ko ;
+    rdfs:comment "무형유산의 전승, 실연, 디지털화, 생산, 관리, 권리보유 및 이용허락 과정에 참여하는 개인과 조직을 공통 식별자로 관리하는 상위 주체 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subClassOf prov:Agent .
+
+hmv:Licence a owl:Class ;
+    rdfs:label "Licence"@en,
+        "Licence 클래스"@ko ;
+    rdfs:comment "디지털 애셋에 적용되는 라이선스 체계, 이용 목적, 허락주체, 이용주체 및 이용조건을 관리하고 확인된 Right가 있는 경우 근거권리를 함께 연결하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> .
+
+<https://w3id.org/hansan-mosi/vocab/Designation/keywords> a skos:ConceptScheme ;
+    dcterms:description "해당 지정 항목의 주제 및 활동 관련 검색어"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Clothing>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Costumes>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Craft%20workers>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Drying>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Funeral>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Spinning>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Technical%20skills>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Textile%20arts>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Traditional%20tools>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Weaving>,
+        <https://w3id.org/hansan-mosi/vocab/Designation/keywords/Work%20songs> ;
+    skos:prefLabel "Designation 키워드"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Item/format> a skos:ConceptScheme ;
+    dcterms:description "파일 개수와 폴더 설명을 제외한 순수 포맷 토큰"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Item/format/4DS>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/ABC>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/GLB>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/JPEG>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/JSON>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/MD>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/MOV>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/MP4>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/PDF>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/PLY>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/PNG>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/SPLAT>,
+        <https://w3id.org/hansan-mosi/vocab/Item/format/ZIP> ;
+    skos:prefLabel "Item 아이템형식"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Right/right_scope> a skos:ConceptScheme ;
+    dcterms:description "복제, 배포, 방송, 전송, 전시, AI 활용 등 해당 권리의 구체적 권능 또는 범위"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EA%B3%B5%EA%B0%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EA%B3%B5%EC%A4%91%EC%86%A1%EC%8B%A0>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EA%B8%B0%EB%A1%9D>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EB%85%B9%EC%9D%8C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EB%B0%B0%ED%8F%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EB%B3%80%ED%98%95>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EB%B3%B5%EC%A0%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%84%B1%EB%AA%85%ED%91%9C%EC%8B%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%A0%84%EC%86%A1>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%A0%84%EC%8B%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%B4%AC%EC%98%81>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%EC%B6%9C%EC%B2%98%ED%91%9C%EC%8B%9C>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/%ED%8E%B8%EC%A7%91>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/2%EC%B0%A8%EC%A0%81%20%ED%99%9C%EC%9A%A9>,
+        <https://w3id.org/hansan-mosi/vocab/Right/right_scope/AI%20%ED%99%9C%EC%9A%A9> ;
+    skos:prefLabel "Right 권리범위"@ko .
+
+<https://w3id.org/hansan-mosi/vocab/Tool/component_type> a skos:ConceptScheme ;
+    dcterms:description "제작도구, 구조부재, 작동부재, 연결부재, 개구부재, 장력부재 등 기능과 구조에 따른 구분"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    skos:hasTopConcept <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EA%B0%9C%EA%B5%AC%20%EB%B0%8F%20%EB%82%A0%EC%8B%A4%EC%A0%95%EB%A6%AC%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EA%B0%9C%EA%B5%AC%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EA%B5%AC%EC%A1%B0%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EA%B5%AC%EC%A1%B0%EC%B2%B4>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EB%82%A0%EC%8B%A4%EA%B3%B5%EA%B8%89%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EB%82%A0%EC%8B%A4%EB%B0%B0%EC%97%B4%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EB%82%A0%EC%8B%A4%EB%B3%B4%EC%A1%B0%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%94%A8%EC%8B%A4%EB%8F%84%EA%B5%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%94%A8%EC%8B%A4%EB%8F%84%EA%B5%AC%20%EB%B6%80%ED%92%88>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%97%B0%EA%B2%B0%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%9E%91%EB%8F%99%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%9E%A5%EB%A0%A5%C2%B7%EA%B6%8C%EC%B7%A8%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%9E%A5%EB%A0%A5%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%A0%9C%EC%9E%91%EB%8F%84%EA%B5%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%EC%A0%9C%EC%A7%81%EC%A4%80%EB%B9%84%EB%B6%80%EC%9E%AC>,
+        <https://w3id.org/hansan-mosi/vocab/Tool/component_type/%ED%99%95%EC%9D%B8%ED%95%84%EC%9A%94> ;
+    skos:prefLabel "Tool 요소유형"@ko .
+
+hmv:Item a owl:Class ;
+    rdfs:label "Item"@en,
+        "Item 클래스"@ko ;
+    rdfs:comment "Asset의 물리적 파일 표현과 포맷별 기술 메타데이터를 관리하며 공통, 이미지, 영상, 3D 및 4D 속성을 구분하는 클래스"@ko ;
+    rdfs:isDefinedBy <https://w3id.org/hansan-mosi/vocab> ;
+    rdfs:subClassOf prov:Entity .
+
+<https://w3id.org/hansan-mosi/vocab> a owl:Ontology ;
+    rdfs:label "한산모시짜기 KG 어휘(스키마 4차)"@ko ;
+    dcterms:source "스키마 시트(Google Drive 1xADKySfvjGuJEwBolWe_GdkiMKZMkoG0CqmAfy_tP4Q), KG 패키지 kg_v4_3" ;
+    rdfs:comment "한산모시짜기 원장 DB 와 스키마 시트(4차)의 클래스, 필드, 관계어, 분류어를 RDF 로 옮긴 어휘. 필드의 Dublin Core 대응은 rdfs:subPropertyOf, CIDOC-CRM 대응은 skos:relatedMatch 와 원문(hmv:cidocCrmMapping)으로 둔다."@ko ;
+    owl:versionInfo "v4.3" ;
+    hmv:schema_version "4차" .
+

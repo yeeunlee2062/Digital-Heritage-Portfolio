@@ -1,0 +1,99 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://w3id.org/hansan-mosi/vocab#",
+    "hm": "https://w3id.org/hansan-mosi/id/",
+    "hmv": "https://w3id.org/hansan-mosi/vocab#",
+    "hmc": "https://w3id.org/hansan-mosi/vocab/",
+    "hms": "https://w3id.org/hansan-mosi/shapes#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "spdx": "http://spdx.org/rdf/terms#"
+  },
+  "@id": "hm:MOV_040",
+  "@type": "Movement",
+  "dataset_id": "HANSAN_MOSI_V4",
+  "description": "씨실을 넣은 뒤 바디집을 몸 쪽으로 당겨 바디가 씨실을 이미 형성된 직물 방향으로 밀착시키도록 한다.",
+  "display_name": "바디치기",
+  "id": "MOV_040",
+  "material_refs": [
+    {
+      "@id": "hm:MAT_006"
+    },
+    {
+      "@id": "hm:MAT_009"
+    },
+    {
+      "@id": "hm:MAT_010"
+    }
+  ],
+  "movement_id": "MOV_040",
+  "movement_phase": {
+    "@id": "https://w3id.org/hansan-mosi/vocab/Movement/movement_phase/%EB%B0%94%EB%94%94%EC%B9%98%EA%B8%B0"
+  },
+  "movement_type": {
+    "@id": "https://w3id.org/hansan-mosi/vocab/Movement/movement_type/%EB%B0%98%EB%B3%B5"
+  },
+  "name": "바디치기",
+  "phase_sequence": 4,
+  "process_ref": {
+    "@id": "hm:PRC_010"
+  },
+  "record_status": "active",
+  "record_version": "v4",
+  "schema_version": "4차",
+  "source_row": 43,
+  "source_sheet": "Movement",
+  "tool_refs": [
+    {
+      "@id": "hm:TOL_012"
+    },
+    {
+      "@id": "hm:TOL_030"
+    }
+  ],
+  "uri": {
+    "@value": "https://w3id.org/hansan-mosi/id/MOV_040",
+    "@type": "xsd:anyURI"
+  },
+  "uuid": "9012ccd2-7f33-5024-ad09-859f1fbc806d",
+  "ACTS_ON_MATERIAL": [
+    {
+      "@id": "hm:MAT_006"
+    },
+    {
+      "@id": "hm:MAT_009"
+    },
+    {
+      "@id": "hm:MAT_010"
+    }
+  ],
+  "BELONGS_TO_PROCESS": {
+    "@id": "hm:PRC_010"
+  },
+  "IS_RECORDED_IN_ITEM": [
+    {
+      "@id": "hm:ITM_008"
+    },
+    {
+      "@id": "hm:ITM_009"
+    }
+  ],
+  "OPERATES_TOOL": [
+    {
+      "@id": "hm:TOL_012"
+    },
+    {
+      "@id": "hm:TOL_030"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://w3id.org/hansan-mosi/vocab#",
+    "hm": "https://w3id.org/hansan-mosi/id/",
+    "hmv": "https://w3id.org/hansan-mosi/vocab#",
+    "hmc": "https://w3id.org/hansan-mosi/vocab/",
+    "hms": "https://w3id.org/hansan-mosi/shapes#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "spdx": "http://spdx.org/rdf/terms#"
+  },
+  "@id": "hm:AST_005",
+  "@type": "Asset",
+  "asset_id": "AST_005",
+  "asset_type": {
+    "@id": "https://w3id.org/hansan-mosi/vocab/Asset/asset_type/4D"
+  },
+  "dataset_id": "HANSAN_MOSI_V4",
+  "description": "32대 카메라로 촬영한 약 27초 분량의 베짜기 시연을 복원해 0.9532배 축척 보정을 거쳐 쓰는 실시간 재생용 4D 시퀀스",
+  "digital_project_ref": {
+    "@id": "hm:DGP_002"
+  },
+  "display_name": "베짜기 시연 실시간 재생용 4D 시퀀스",
+  "id": "AST_005",
+  "item_refs": {
+    "@id": "hm:ITM_008"
+  },
+  "performance_refs": {
+    "@id": "hm:PER_003"
+  },
+  "record_status": "active",
+  "record_version": "v4.3",
+  "schema_version": "4차",
+  "source_row": 8,
+  "source_sheet": "Asset",
+  "title": "베짜기 시연 실시간 재생용 4D 시퀀스",
+  "uri": {
+    "@value": "https://w3id.org/hansan-mosi/id/AST_005",
+    "@type": "xsd:anyURI"
+  },
+  "uuid": "dc1111f0-7cae-5081-a8a4-c85aff359ce1",
+  "CONSISTS_OF_ITEM": {
+    "@id": "hm:ITM_008"
+  },
+  "IS_GENERATED_FROM_PERFORMANCE": {
+    "@id": "hm:PER_003"
+  },
+  "IS_PRODUCED_BY_DIGITAL_PROJECT": {
+    "@id": "hm:DGP_002"
+  },
+  "IS_SUBJECT_TO_LICENCE": {
+    "@id": "hm:LIC_002"
+  },
+  "IS_SUBJECT_TO_RIGHT": [
+    {
+      "@id": "hm:RGT_001"
+    },
+    {
+      "@id": "hm:RGT_002"
+    },
+    {
+      "@id": "hm:RGT_003"
+    },
+    {
+      "@id": "hm:RGT_004"
+    },
+    {
+      "@id": "hm:RGT_005"
+    },
+    {
+      "@id": "hm:RGT_006"
+    }
+  ],
+  "dcterms:license": [
+    {
+      "@id": "https://www.kogl.or.kr/info/licenseType0.do"
+    }
+  ]
+}

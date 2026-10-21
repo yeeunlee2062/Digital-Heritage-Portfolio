@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://w3id.org/hansan-mosi/vocab#",
+    "hm": "https://w3id.org/hansan-mosi/id/",
+    "hmv": "https://w3id.org/hansan-mosi/vocab#",
+    "hmc": "https://w3id.org/hansan-mosi/vocab/",
+    "hms": "https://w3id.org/hansan-mosi/shapes#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "spdx": "http://spdx.org/rdf/terms#"
+  }
+}
