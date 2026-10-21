@@ -1,0 +1,60 @@
+{
+  "focal_ids": [
+    "NA0007",
+    "NA0019",
+    "NA0024",
+    "NA0035",
+    "NA0057",
+    "NA0067",
+    "NA0081",
+    "NA0084",
+    "NA0108",
+    "NA0109",
+    "NA0119",
+    "NA0124"
+  ],
+  "profiles": [
+    "er",
+    "cc",
+    "cs",
+    "hi"
+  ],
+  "base_parameters": {
+    "eta": 0.55,
+    "lambda": 0.25,
+    "beta": 0.2,
+    "maxDepth": 3,
+    "topK": 24,
+    "maxPerType": 8
+  },
+  "semantic_correction": {
+    "source": "NA0007",
+    "relation": "DESIGNATED_AS",
+    "remove_targets": [
+      "HR00003",
+      "HR00004",
+      "HR00005",
+      "HR00006"
+    ]
+  },
+  "full_original_counts": {
+    "nodes": 2910,
+    "relations": 3251
+  },
+  "focal_original_counts": {
+    "nodes": 44,
+    "relations": 50
+  },
+  "focal_corrected_counts": {
+    "nodes": 44,
+    "relations": 46
+  },
+  "focal_with_controls_counts": {
+    "nodes": 51,
+    "relations": 51
+  },
+  "ranking_projection_counts": {
+    "nodes": 398,
+    "relations": 618
+  }
+}

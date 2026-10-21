@@ -1,0 +1,11 @@
+Check	Expected_result	Reproducibility_scope
+CQ1	4 focal specimens	Corrected focal graph
+CQ2	1 focal observation	Corrected focal graph
+CQ3	2 heritage nodes (HR00002; HR00007)	Corrected focal graph
+CQ4	23 focal resources	Corrected focal graph
+CQ5	4 specimen-instance-item chains	Corrected focal graph
+CQ6	PR0001; 4 focal specimens and 4 focal instances	Corrected focal graph; the project-wide totals of 538 specimens and 382 instances require the complete graph
+CQ7	Specimen=4; Observation=1; Heritage=2; Resource=23; Instance=4; Item=4	Aggregate consistency check only
+NC1	0 invalid NA0007 designation edges; positive alternative-taxon designation witness exists	Corrected graph with control witnesses
+NC2	RH215 linked to NA0125; not linked to NA0007	Corrected graph with control witnesses
+NC3	OB0092 linked to NA0092 and OB0125 linked to NA0125; neither linked to NA0007	Corrected graph with control witnesses

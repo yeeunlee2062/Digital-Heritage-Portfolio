@@ -1,0 +1,191 @@
+{
+  "config": {
+    "focal_ids": [
+      "NA0007",
+      "NA0019",
+      "NA0024",
+      "NA0035",
+      "NA0057",
+      "NA0067",
+      "NA0081",
+      "NA0084",
+      "NA0108",
+      "NA0109",
+      "NA0119",
+      "NA0124"
+    ],
+    "profiles": [
+      "er",
+      "cc",
+      "cs",
+      "hi"
+    ],
+    "cases": 48,
+    "comparison_pairs": 72
+  },
+  "coverage": {
+    "eligible_mean": 49.333,
+    "eligible_range": [
+      36,
+      78
+    ],
+    "cases_above_K": 48,
+    "returned_mean": 16.75,
+    "cases_returning_K": 8
+  },
+  "table8": {
+    "full": {
+      "overlap5": 0.303,
+      "overlap10": 0.625,
+      "kendall": 0.18
+    },
+    "no_relational_compatibility": {
+      "agreement_overlap10": 0.742,
+      "agreement_kendall": 0.374,
+      "context_overlap5": 1,
+      "context_overlap10": 1,
+      "context_kendall": 1
+    },
+    "no_proximity": {
+      "agreement_overlap10": 0.975,
+      "agreement_kendall": 0.946,
+      "context_overlap5": 0.275,
+      "context_overlap10": 0.608,
+      "context_kendall": 0.144
+    },
+    "no_design_prior": {
+      "agreement_overlap10": 1,
+      "agreement_kendall": 0.979,
+      "context_overlap5": 0.303,
+      "context_overlap10": 0.625,
+      "context_kendall": 0.158
+    },
+    "uniform_affinities": {
+      "agreement_overlap10": 0.742,
+      "agreement_kendall": 0.374,
+      "context_overlap5": 1,
+      "context_overlap10": 1,
+      "context_kendall": 1
+    }
+  },
+  "tableC3": {
+    "depth": {
+      "1": {
+        "jaccard": 0.759,
+        "kendall": null,
+        "mean_size": 12.583,
+        "mean_classes": 4
+      },
+      "2": {
+        "jaccard": 0.911,
+        "kendall": null,
+        "mean_size": 15.167,
+        "mean_classes": 6
+      },
+      "3": {
+        "jaccard": 1,
+        "kendall": 1,
+        "mean_size": 16.75,
+        "mean_classes": 7
+      }
+    },
+    "coefficients": {
+      "0.45/0.3/0.25": {
+        "jaccard": 1,
+        "kendall": 0.91,
+        "mean_size": 16.75,
+        "mean_classes": 7
+      },
+      "0.5/0.28/0.22": {
+        "jaccard": 1,
+        "kendall": 0.955,
+        "mean_size": 16.75,
+        "mean_classes": 7
+      },
+      "0.55/0.25/0.2": {
+        "jaccard": 1,
+        "kendall": 1,
+        "mean_size": 16.75,
+        "mean_classes": 7
+      },
+      "0.6/0.23/0.17": {
+        "jaccard": 1,
+        "kendall": 1,
+        "mean_size": 16.75,
+        "mean_classes": 7
+      },
+      "0.65/0.2/0.15": {
+        "jaccard": 1,
+        "kendall": 0.99,
+        "mean_size": 16.75,
+        "mean_classes": 7
+      }
+    },
+    "quota": {
+      "4": {
+        "jaccard": 0.737,
+        "kendall": null,
+        "mean_size": 12.417,
+        "mean_classes": 7
+      },
+      "6": {
+        "jaccard": 0.868,
+        "kendall": null,
+        "mean_size": 14.583,
+        "mean_classes": 7
+      },
+      "12": {
+        "jaccard": 0.773,
+        "kendall": null,
+        "mean_size": 20.083,
+        "mean_classes": 6.688
+      },
+      "24": {
+        "jaccard": 0.392,
+        "kendall": null,
+        "mean_size": 24,
+        "mean_classes": 3.271
+      }
+    },
+    "affinity_sensitivity": {
+      "10": {
+        "settings": 64,
+        "agreement_overlap5": 0.969,
+        "agreement_overlap10": 0.992,
+        "agreement_kendall": 0.976,
+        "top1_retained_percent": 92.188,
+        "cross_profile_overlap5_range": [
+          0.275,
+          0.356
+        ],
+        "cross_profile_overlap10_range": [
+          0.608,
+          0.642
+        ],
+        "cross_profile_kendall_range": [
+          0.144,
+          0.24
+        ]
+      },
+      "20": {
+        "settings": 64,
+        "agreement_overlap5": 0.945,
+        "agreement_overlap10": 0.978,
+        "agreement_kendall": 0.951,
+        "top1_retained_percent": 89.063,
+        "cross_profile_overlap5_range": [
+          0.275,
+          0.369
+        ],
+        "cross_profile_overlap10_range": [
+          0.603,
+          0.664
+        ],
+        "cross_profile_kendall_range": [
+          0.139,
+          0.287
+        ]
+      }
+    }
+  }
+}
