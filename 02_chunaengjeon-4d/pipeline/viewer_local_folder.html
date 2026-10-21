@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4DGS Sequence Player</title>
+<style>
+  :root { --bg:#1b1c1f; --panel:#26282c; --text:#e8e8ea; --muted:#9a9ca3; --accent:#e0a63c; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--text);
+    font:14px/1.4 system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif; overflow:hidden; }
+  #c { position:fixed; inset:0; width:100%; height:100%; display:block; touch-action:none; }
+  #ui { position:fixed; left:0; right:0; bottom:0; padding:10px 16px; display:flex; gap:10px; align-items:center;
+    background:linear-gradient(transparent, rgba(0,0,0,.55)); flex-wrap:wrap; }
+  button, label.btn { background:var(--panel); color:var(--text); border:1px solid #3a3d43; border-radius:6px;
+    padding:6px 12px; cursor:pointer; font:inherit; }
+  button:hover, label.btn:hover { border-color:var(--accent); }
+  #seek { flex:1; min-width:160px; accent-color:var(--accent); }
+  #stat { color:var(--muted); font-variant-numeric:tabular-nums; min-width:220px; }
+  #drop { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
+    pointer-events:none; color:var(--muted); padding:16px; }
+  #drop b { color:var(--text); }
+  #help { position:fixed; top:10px; left:16px; color:var(--muted); font-size:12px; }
+  input[type=file] { display:none; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="drop"><div><b>4DGS 시퀀스 플레이어</b><br><br>
+  아래 <b>폴더 열기</b>로 <code>frame_XXXXX.gsq</code> 와 <code>manifest.json</code> 이 든 폴더를 선택하세요.<br>
+  (로컬 웹서버로 열었다면 <code>?src=폴더경로</code> 로 바로 재생됩니다)</div></div>
+<div id="help">좌클릭 드래그: 회전 · 우클릭/Shift 드래그: 이동 · 휠: 줌 · Space: 재생/정지 · ←/→: 프레임 이동 · B: 배경</div>
+<div id="ui">
+  <label class="btn">폴더 열기<input id="dir" type="file" webkitdirectory multiple></label>
+  <button id="play">⏸</button>
+  <input id="seek" type="range" min="0" max="0" value="0">
+  <span id="stat">—</span>
+</div>
+<script>
+"use strict";
+// ---------------------------------------------------------------- worker: decode + sort
+const workerSrc = `
+const WS = 100; // metres -> centimetres inside the renderer (keeps covariances in half-float range)
+let n = 0, pos = null, texdata = null;
+function decode(buf) {
+  const dv = new DataView(buf);
+  n = dv.getUint32(4, true);
+  const pmin = [0,1,2].map(i => dv.getFloat32(8 + 4*i, true));
+  const pmax = [0,1,2].map(i => dv.getFloat32(20 + 4*i, true));
+  const smin = dv.getFloat32(32, true), smax = dv.getFloat32(36, true);
+  let o = 40;
+  const qp = new Uint16Array(buf, o, n*3); o += n*6;
+  const qs = new Uint8Array(buf, o, n*3); o += n*3;
+  const qr = new Int8Array(buf, o, n*4); o += n*4;
+  const qc = new Uint8Array(buf, o, n*4);
+  pos = new Float32Array(n*3);
+  const W = 2048, H = Math.ceil((2*n) / W);
+  texdata = new Uint32Array(W * H * 4);
+  const tf = new Float32Array(texdata.buffer);
+  const tb = new Uint8Array(texdata.buffer);
+  const half = (x) => { // float -> half bits
+    f32[0] = x; const b = u32[0];
+    const s = (b >>> 16) & 0x8000, e = ((b >>> 23) & 0xff) - 112, m = b & 0x7fffff;
+    if (e <= 0) return s; if (e >= 31) return s | 0x7c00;
+    return s | (e << 10) | (m >>> 13);
+  };
+  const f32 = new Float32Array(1), u32 = new Uint32Array(f32.buffer);
+  const ds = (smax - smin) / 255;
+  for (let i = 0; i < n; i++) {
+    const x = WS * (pmin[0] + qp[3*i] / 65535 * (pmax[0]-pmin[0]));
+    const y = WS * (pmin[1] + qp[3*i+1] / 65535 * (pmax[1]-pmin[1]));
+    const z = WS * (pmin[2] + qp[3*i+2] / 65535 * (pmax[2]-pmin[2]));
+    pos[3*i] = x; pos[3*i+1] = y; pos[3*i+2] = z;
+    tf[8*i] = x; tf[8*i+1] = y; tf[8*i+2] = z;
+    tb[32*i+12] = qc[4*i]; tb[32*i+13] = qc[4*i+1]; tb[32*i+14] = qc[4*i+2]; tb[32*i+15] = qc[4*i+3];
+    const sx = WS * Math.exp(smin + qs[3*i]*ds), sy = WS * Math.exp(smin + qs[3*i+1]*ds), sz = WS * Math.exp(smin + qs[3*i+2]*ds);
+    let w = qr[4*i], a = qr[4*i+1], b = qr[4*i+2], c = qr[4*i+3];
+    const l = Math.hypot(w, a, b, c) || 1; w /= l; a /= l; b /= l; c /= l;
+    // R * S
+    const M = [
+      (1 - 2*(b*b + c*c)) * sx, (2*(a*b + w*c)) * sx, (2*(a*c - w*b)) * sx,
+      (2*(a*b - w*c)) * sy, (1 - 2*(a*a + c*c)) * sy, (2*(b*c + w*a)) * sy,
+      (2*(a*c + w*b)) * sz, (2*(b*c - w*a)) * sz, (1 - 2*(a*a + b*b)) * sz ];
+    const s0 = M[0]*M[0] + M[3]*M[3] + M[6]*M[6], s1 = M[0]*M[1] + M[3]*M[4] + M[6]*M[7],
+          s2 = M[0]*M[2] + M[3]*M[5] + M[6]*M[8], s3 = M[1]*M[1] + M[4]*M[4] + M[7]*M[7],
+          s4 = M[1]*M[2] + M[4]*M[5] + M[7]*M[8], s5 = M[2]*M[2] + M[5]*M[5] + M[8]*M[8];
+    texdata[8*i+4] = half(s0) | (half(s1) << 16);
+    texdata[8*i+5] = half(s2) | (half(s3) << 16);
+    texdata[8*i+6] = half(s4) | (half(s5) << 16);
+  }
+  return { texdata, W, H };
+}
+let sizes = null, counts = null, starts = null, lastView = null;
+function sort(view) {
+  if (!pos) return null;
+  if (!sizes || sizes.length < n) sizes = new Int32Array(n);
+  let mn = Infinity, mx = -Infinity;
+  for (let i = 0; i < n; i++) {
+    const d = view[2]*pos[3*i] + view[6]*pos[3*i+1] + view[10]*pos[3*i+2];
+    const k = (d * 4096) | 0; sizes[i] = k; if (k < mn) mn = k; if (k > mx) mx = k;
+  }
+  const B = 65536, inv = (B - 1) / Math.max(mx - mn, 1);
+  counts = new Uint32Array(B);
+  for (let i = 0; i < n; i++) { sizes[i] = ((sizes[i] - mn) * inv) | 0; counts[sizes[i]]++; }
+  starts = new Uint32Array(B);
+  for (let i = 1; i < B; i++) starts[i] = starts[i-1] + counts[i-1];
+  const idx = new Uint32Array(n);
+  for (let i = 0; i < n; i++) idx[starts[sizes[i]]++] = i;  // nearest first (front-to-back)
+  return idx;
+}
+onmessage = (e) => {
+  const m = e.data;
+  if (m.frame) {
+    const t = decode(m.frame.buf);
+    const idx = sort(m.view);
+    postMessage({ tex: t.texdata, W: t.W, H: t.H, idx, n, frameId: m.frame.id }, [t.texdata.buffer, idx.buffer]);
+  } else if (m.view) {
+    const idx = sort(m.view);
+    if (idx) postMessage({ idx, n }, [idx.buffer]);
+  }
+};`;
+const worker = new Worker(URL.createObjectURL(new Blob([workerSrc], { type: "text/javascript" })));
+const showErr = (msg) => { const d = document.getElementById("drop"); d.style.display = "flex"; d.textContent = "오류: " + msg; };
+worker.onerror = (e) => showErr("worker: " + e.message);
+addEventListener("error", (e) => showErr(e.message));
+addEventListener("unhandledrejection", (e) => showErr(String(e.reason)));
+
+// ---------------------------------------------------------------- GL
+const canvas = document.getElementById("c");
+const gl = canvas.getContext("webgl2", { antialias: false, premultipliedAlpha: true, alpha: true });
+const vs = `#version 300 es
+precision highp float; precision highp int;
+uniform highp usampler2D u_tex; uniform mat4 projection, view; uniform vec2 focal, viewport;
+in vec2 position; in int index; out vec4 vColor; out vec2 vPosition;
+void main () {
+  uvec4 cen = texelFetch(u_tex, ivec2((uint(index) & 0x3ffu) << 1, uint(index) >> 10), 0);
+  vec4 cam = view * vec4(uintBitsToFloat(cen.xyz), 1);
+  vec4 pos2d = projection * cam;
+  float clip = 1.2 * pos2d.w;
+  if (pos2d.z < -clip || pos2d.x < -clip || pos2d.x > clip || pos2d.y < -clip || pos2d.y > clip) {
+    gl_Position = vec4(0., 0., 2., 1.); return; }
+  uvec4 cov = texelFetch(u_tex, ivec2(((uint(index) & 0x3ffu) << 1) | 1u, uint(index) >> 10), 0);
+  vec2 u1 = unpackHalf2x16(cov.x), u2 = unpackHalf2x16(cov.y), u3 = unpackHalf2x16(cov.z);
+  mat3 Vrk = mat3(u1.x, u1.y, u2.x, u1.y, u2.y, u3.x, u2.x, u3.x, u3.y);
+  mat3 J = mat3(focal.x / cam.z, 0., -(focal.x * cam.x) / (cam.z * cam.z),
+                0., -focal.y / cam.z, (focal.y * cam.y) / (cam.z * cam.z), 0., 0., 0.);
+  mat3 T = transpose(mat3(view)) * J;
+  mat3 cov2d = transpose(T) * Vrk * T;
+  cov2d[0][0] += 0.3; cov2d[1][1] += 0.3;  // anti-aliasing low-pass, as in 3DGS
+  float mid = (cov2d[0][0] + cov2d[1][1]) / 2.0;
+  float radius = length(vec2((cov2d[0][0] - cov2d[1][1]) / 2.0, cov2d[0][1]));
+  float l1 = mid + radius, l2 = mid - radius;
+  if (l2 < 0.0) { gl_Position = vec4(0., 0., 2., 1.); return; }
+  vec2 dv = normalize(vec2(cov2d[0][1], l1 - cov2d[0][0]));
+  // quad corner p in [-2,2] maps to pixel offset p*|axis|/2 and is weighted exp(-|p|^2),
+  // so |axis| = sqrt(8*lambda) gives the true gaussian exp(-r^2 / (2*lambda))
+  vec2 major = min(sqrt(8.0 * l1), 2048.0) * dv;
+  vec2 minor = min(sqrt(8.0 * l2), 2048.0) * vec2(dv.y, -dv.x);
+  vColor = vec4((cen.w) & 0xffu, (cen.w >> 8) & 0xffu, (cen.w >> 16) & 0xffu, (cen.w >> 24) & 0xffu) / 255.0;
+  vPosition = position;
+  vec2 c = vec2(pos2d) / pos2d.w;
+  gl_Position = vec4(c + position.x * major / viewport + position.y * minor / viewport, 0.0, 1.0);
+}`;
+const fs = `#version 300 es
+precision highp float; in vec4 vColor; in vec2 vPosition; out vec4 fragColor;
+void main () { float A = -dot(vPosition, vPosition); if (A < -4.0) discard;
+  float B = exp(A) * vColor.a; fragColor = vec4(B * vColor.rgb, B); }`;
+function sh(type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(s); return s; }
+const prog = gl.createProgram();
+gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+gl.linkProgram(prog); gl.useProgram(prog);
+gl.disable(gl.DEPTH_TEST); gl.enable(gl.BLEND);
+gl.blendFuncSeparate(gl.ONE_MINUS_DST_ALPHA, gl.ONE, gl.ONE_MINUS_DST_ALPHA, gl.ONE);
+gl.blendEquationSeparate(gl.FUNC_ADD, gl.FUNC_ADD);
+const U = (n) => gl.getUniformLocation(prog, n);
+const quad = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-2, -2, 2, -2, 2, 2, -2, 2]), gl.STATIC_DRAW);
+const aPos = gl.getAttribLocation(prog, "position"); gl.enableVertexAttribArray(aPos);
+gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.uniform1i(U("u_tex"), 0);
+const idxBuf = gl.createBuffer(); const aIdx = gl.getAttribLocation(prog, "index");
+gl.bindBuffer(gl.ARRAY_BUFFER, idxBuf); gl.enableVertexAttribArray(aIdx);
+gl.vertexAttribIPointer(aIdx, 1, gl.INT, false, 0, 0); gl.vertexAttribDivisor(aIdx, 1);
+let drawN = 0;
+
+// ---------------------------------------------------------------- camera (OpenCV convention, world is Y-down)
+// renderer units are centimetres (see WS in the worker)
+const cam = { yaw: Math.PI, pitch: 0.15, dist: 400, target: [-30, -85, -45], fov: 0.65 };
+function viewMatrix() {
+  const { yaw, pitch, dist, target: t } = cam;
+  const eye = [t[0] + dist * Math.sin(yaw) * Math.cos(pitch), t[1] - dist * Math.sin(pitch), t[2] + dist * Math.cos(yaw) * Math.cos(pitch)];
+  let z = [t[0]-eye[0], t[1]-eye[1], t[2]-eye[2]]; const zl = Math.hypot(...z); z = z.map(v => v / zl);
+  const up = [0, -1, 0];
+  let x = [z[1]*up[2]-z[2]*up[1], z[2]*up[0]-z[0]*up[2], z[0]*up[1]-z[1]*up[0]]; const xl = Math.hypot(...x); x = x.map(v => v / xl);
+  const y = [z[1]*x[2]-z[2]*x[1], z[2]*x[0]-z[0]*x[2], z[0]*x[1]-z[1]*x[0]];
+  const tr = (r) => -(r[0]*eye[0] + r[1]*eye[1] + r[2]*eye[2]);
+  // column-major
+  return [x[0], y[0], z[0], 0, x[1], y[1], z[1], 0, x[2], y[2], z[2], 0, tr(x), tr(y), tr(z), 1];
+}
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.round(innerWidth * dpr); canvas.height = Math.round(innerHeight * dpr);
+}
+addEventListener("resize", resize); resize();
+
+let viewDirty = true;
+function sendView() { worker.postMessage({ view: viewMatrix() }); viewDirty = false; }
+let drag = null;
+canvas.addEventListener("contextmenu", e => e.preventDefault());
+canvas.addEventListener("pointerdown", e => { drag = { x: e.clientX, y: e.clientY, pan: e.button === 2 || e.shiftKey }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener("pointerup", () => drag = null);
+canvas.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+  if (drag.pan) {
+    const v = viewMatrix(), s = cam.dist * 0.0015;
+    for (let k = 0; k < 3; k++) cam.target[k] -= (v[4*k] * dx + v[4*k+1] * dy) * s;
+  } else { cam.yaw -= dx * 0.008; cam.pitch = Math.max(-1.5, Math.min(1.5, cam.pitch + dy * 0.008)); }
+  viewDirty = true;
+});
+canvas.addEventListener("wheel", e => { e.preventDefault(); cam.dist *= e.deltaY > 0 ? 1.1 : 0.9; viewDirty = true; }, { passive: false });
+
+// ---------------------------------------------------------------- sequence source + prefetch
+let frames = [], fps = 30, cur = 0, playing = true, loadFrame = null, bgLight = false;
+const cache = new Map(), inflight = new Map(); const CACHE = 45;
+function fetchFrame(i) {
+  if (cache.has(i) || inflight.has(i)) return;
+  const p = loadFrame(i).then(buf => { cache.set(i, buf); inflight.delete(i);
+    while (cache.size > CACHE) { let far = null, fd = -1;
+      for (const k of cache.keys()) { const d = (k - cur + frames.length) % frames.length; if (d > fd) { fd = d; far = k; } }
+      cache.delete(far); } });
+  inflight.set(i, p);
+}
+async function startSequence(list, loader, manifest) {
+  frames = list; loadFrame = loader; cur = 0; cache.clear(); inflight.clear();
+  if (manifest) { fps = manifest.fps || 30; if (manifest.center) cam.target = manifest.center.map(v => v * 100); }
+  document.getElementById("drop").style.display = "none";
+  const seek = document.getElementById("seek"); seek.max = frames.length - 1; seek.value = 0;
+  requestFrame(0);
+}
+let busy = false, shownFrame = -1, wanted = 0, lastAdvance = performance.now();
+async function requestFrame(i) {
+  wanted = i;
+  if (busy) return;
+  fetchFrame(i);
+  if (!cache.has(i)) { await inflight.get(i); if (wanted !== i) return requestFrame(wanted); }
+  busy = true;
+  const buf = cache.get(i).slice(0);
+  worker.postMessage({ frame: { buf, id: i }, view: viewMatrix() }, [buf]);
+}
+worker.onmessage = (e) => {
+  const m = e.data;
+  if (m.tex) {
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32UI, m.W, m.H, 0, gl.RGBA_INTEGER, gl.UNSIGNED_INT, m.tex);
+    shownFrame = m.frameId; busy = false;
+    if (wanted !== shownFrame) requestFrame(wanted);
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, idxBuf); gl.bufferData(gl.ARRAY_BUFFER, m.idx, gl.DYNAMIC_DRAW);
+  drawN = m.n;
+};
+
+// folder picker
+document.getElementById("dir").addEventListener("change", async (e) => {
+  const files = [...e.target.files];
+  const gsq = files.filter(f => /frame_\d+\.gsq$/.test(f.name)).sort((a, b) => a.name < b.name ? -1 : 1);
+  const mf = files.find(f => f.name === "manifest.json");
+  const manifest = mf ? JSON.parse(await mf.text()) : null;
+  if (!gsq.length) { alert("frame_XXXXX.gsq 파일이 없습니다."); return; }
+  startSequence(gsq, i => gsq[i].arrayBuffer(), manifest);
+});
+// ?src=<url folder> (when served over http)
+const src = new URLSearchParams(location.search).get("src");
+if (src) fetch(src.replace(/\/$/, "") + "/manifest.json").then(r => r.json()).then(man =>
+  startSequence(man.frames, i => fetch(src.replace(/\/$/, "") + "/" + man.frames[i]).then(r => r.arrayBuffer()), man));
+
+// controls
+const playBtn = document.getElementById("play");
+function setPlaying(p) { playing = p; playBtn.textContent = p ? "⏸" : "▶"; }
+playBtn.onclick = () => setPlaying(!playing);
+document.getElementById("seek").addEventListener("input", e => { cur = +e.target.value; requestFrame(cur); });
+addEventListener("keydown", e => {
+  if (!frames.length) return;
+  if (e.code === "Space") { setPlaying(!playing); e.preventDefault(); }
+  else if (e.code === "ArrowRight") { cur = (cur + 1) % frames.length; requestFrame(cur); }
+  else if (e.code === "ArrowLeft") { cur = (cur - 1 + frames.length) % frames.length; requestFrame(cur); }
+  else if (e.code === "KeyB") { bgLight = !bgLight; }
+});
+
+// ---------------------------------------------------------------- loop
+let fpsCount = 0, fpsT = performance.now(), shownFps = 0, lastShown = -1;
+function frameLoop(now) {
+  if (frames.length) {
+    for (let k = 1; k <= 30; k++) fetchFrame((cur + k) % frames.length);
+    if (playing && now - lastAdvance >= 1000 / fps && shownFrame === cur && !busy) {
+      const nx = (cur + 1) % frames.length;
+      if (cache.has(nx)) { cur = nx; lastAdvance = now; requestFrame(cur); document.getElementById("seek").value = cur; }
+    }
+    if (viewDirty && !busy) sendView();
+  }
+  if (shownFrame !== lastShown) { fpsCount++; lastShown = shownFrame; }
+  if (now - fpsT > 1000) { shownFps = fpsCount; fpsCount = 0; fpsT = now; }
+  const w = canvas.width, h = canvas.height, f = h / (2 * Math.tan(cam.fov / 2));
+  gl.viewport(0, 0, w, h);
+  const bg = bgLight ? 0.92 : 0.106;
+  document.body.style.background = bgLight ? "#ebebeb" : "#1b1c1f";
+  gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+  const zn = 5, zf = 10000;
+  gl.uniformMatrix4fv(U("projection"), false, [2*f/w, 0, 0, 0, 0, -2*f/h, 0, 0, 0, 0, zf/(zf-zn), 1, 0, 0, -(zf*zn)/(zf-zn), 0]);
+  gl.uniformMatrix4fv(U("view"), false, viewMatrix());
+  gl.uniform2fv(U("focal"), [f, f]); gl.uniform2fv(U("viewport"), [w, h]);
+  if (drawN) gl.drawArraysInstanced(gl.TRIANGLE_FAN, 0, 4, drawN);
+  if (frames.length) document.getElementById("stat").textContent =
+    `frame ${shownFrame + 1} / ${frames.length} · ${shownFps} fps · ${(drawN / 1000).toFixed(0)}k splats`;
+  requestAnimationFrame(frameLoop);
+}
+requestAnimationFrame(frameLoop);
+</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ko" data-theme="dark" data-workspace="split">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>춘앵전 4D · Chunaengjeon Volumetric Heritage Lab</title>
+<meta name="description" content="A scene-centred volumetric digital heritage workstation and editorial archive linking 4D Gaussian Splatting records of the Joseon court dance Chunaengjeon (1828) to its relational knowledge base.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<!-- ==========================================================================
+     TOP WORKSTATION BAR (nexu-io/open-design linear-app + warm-editorial)
+     ========================================================================== -->
+<header class="top" data-od-id="header">
+  <div class="brand">
+    <div class="brand-seal" aria-hidden="true">
+      <span class="seal-hanja">春鶯囀</span>
+      <span class="seal-year mono">1828</span>
+    </div>
+    <div class="brand-copy">
+      <div class="brand-title-row">
+        <h1 data-i18n="title">4D로 보는 춘앵전</h1>
+        <span class="badge-archive mono">4DGS · HOLOSYS 32-CAM</span>
+        <span class="badge-status mono"><i class="status-dot"></i>IoU 0.960</span>
+      </div>
+      <p class="sub" data-i18n="subtitle">볼류메트릭 기록을 장면 중심으로 해설하는 디지털 헤리티지 워크스테이션</p>
+    </div>
+  </div>
+
+  <!-- Center Workspace Mode Switcher (Emil Kowalski clip-path dual-layer tabs) -->
+  <div class="ws-switcher" id="wsSwitcher" role="group" aria-label="Workspace Layout Mode">
+    <div class="ws-tabs-base">
+      <button type="button" class="ws-btn" data-ws="split" aria-pressed="true">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><line x1="8.5" y1="2.5" x2="8.5" y2="13.5"/></svg>
+        <span data-i18n="wsSplit">스튜디오 분할</span>
+      </button>
+      <button type="button" class="ws-btn" data-ws="cinema" aria-pressed="false">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><circle cx="8" cy="8" r="2.5"/></svg>
+        <span data-i18n="wsCinema">4D 시네마</span>
+      </button>
+      <button type="button" class="ws-btn" data-ws="editorial" aria-pressed="false">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 3.5h11M2.5 6.8h11M2.5 10.2h7M2.5 13h9"/></svg>
+        <span data-i18n="wsEditorial">에디토리얼 도록</span>
+      </button>
+    </div>
+    <div class="ws-tabs-overlay" id="wsOverlay" aria-hidden="true">
+      <div class="ws-btn active-copy">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><line x1="8.5" y1="2.5" x2="8.5" y2="13.5"/></svg>
+        <span data-i18n="wsSplit">스튜디오 분할</span>
+      </div>
+      <div class="ws-btn active-copy">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><circle cx="8" cy="8" r="2.5"/></svg>
+        <span data-i18n="wsCinema">4D 시네마</span>
+      </div>
+      <div class="ws-btn active-copy">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 3.5h11M2.5 6.8h11M2.5 10.2h7M2.5 13h9"/></svg>
+        <span data-i18n="wsEditorial">에디토리얼 도록</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="top-actions" aria-label="Workstation Controls">
+    <!-- Linear-style Command Palette Trigger -->
+    <button type="button" id="cmdTrigger" class="cmd-trigger" title="Open Command Palette (⌘K or /)">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+      <span data-i18n="cmdPlaceholder">춤사위 · 해설 · 카메라 검색…</span>
+      <kbd class="mono">⌘K</kbd>
+    </button>
+
+    <!-- Design System Theme Switcher (Linear Dark vs Warm Editorial Paper) -->
+    <button type="button" id="themeToggle" class="theme-btn" title="Switch Design System: Studio Dark (Linear) / Archival Paper (Warm Editorial)">
+      <svg id="themeIconDark" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65"><path d="M13.5 9.8A5.8 5.8 0 016.2 2.5a5.8 5.8 0 107.3 7.3z"/></svg>
+      <span id="themeLabel" class="mono">Linear Dark</span>
+    </button>
+
+    <!-- Language Switcher -->
+    <div class="seg" role="group" aria-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+
+    <a class="link-ext" href="https://github.com/yeeunlee2062/Digital-Heritage-Portfolio/tree/main/02_chunaengjeon-4d" target="_blank" rel="noopener">
+      <span data-i18n="source">GitHub</span>
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11L11 5M11 5H6M11 5V10"/></svg>
+    </a>
+  </nav>
+</header>
+
+<!-- ==========================================================================
+     MAIN WORKSPACE GRID
+     ========================================================================== -->
+<main class="layout" id="mainLayout" data-od-id="workspace">
+
+  <!-- 1. 3D VOLUMETRIC STAGE (webgl-experience + Apple HIG translucent HUD) -->
+  <section class="stage" aria-labelledby="stage-title" data-od-id="stage">
+    <canvas id="c" aria-label="4D Gaussian Splatting volumetric stage"></canvas>
+    <div id="msg" class="msg" role="status" aria-live="polite"></div>
+
+    <!-- WebGL Experience Hero Overlay (visible in Cinema 4D mode) -->
+    <div class="cinema-overlay" id="cinemaOverlay" aria-hidden="true">
+      <p class="cinema-kicker mono">CHUNAENGJEON · 1828 COURT DANCE IN 4DGS</p>
+      <h2 class="cinema-h1" id="cinemaTitle">화문석 위에서 피어나는 봄 꾀꼬리의 정재</h2>
+      <p class="cinema-sub" id="cinemaSub">32대 동기화 HOLOSYS 카메라와 프레임별 3D Gaussian Splatting(20만 서펠 초기화, IoU 0.960)으로 복원한 볼류메트릭 무보</p>
+    </div>
+
+    <!-- Top-Left Telemetry Plate + Interactive 32-Camera Radar -->
+    <div class="plate" id="hudPlate">
+      <div class="plate-head">
+        <div class="plate-title-group">
+          <span class="live-dot" aria-hidden="true"></span>
+          <h2 id="stage-title" data-i18n="stageTitle">4D VOLUMETRIC STAGE</h2>
+        </div>
+        <div class="plate-actions">
+          <button type="button" id="toggleRadar" class="pill-mini mono" aria-expanded="false" title="Toggle 32-Camera HOLOSYS Rig Map">32-CAM RIG</button>
+          <button type="button" id="togglePlate" class="icon-btn" aria-expanded="true" aria-label="Toggle capture telemetry">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+          </button>
+        </div>
+      </div>
+      <dl id="plateBody">
+        <dt data-i18n="capture">Capture</dt><dd>4DViews HOLOSYS · 32 cam · 30 fps</dd>
+        <dt data-i18n="sequence">Sequence</dt><dd id="seqLabel">H_fast · 한복</dd>
+        <dt data-i18n="range">Frames</dt><dd id="range">2242–2540 · 150 fr. @ 15 fps</dd>
+        <dt data-i18n="model">Model</dt><dd>gsplat 1.5.3 · ~80k splats/fr</dd>
+        <dt data-i18n="registration">Registration</dt><dd>reproj. 1.40–1.61 px · IoU 0.960</dd>
+      </dl>
+      <!-- Interactive 32-Camera Top-Down Radar Drawer -->
+      <div class="cam-radar-box" id="camRadarBox" hidden>
+        <div class="radar-head">
+          <span class="mono" data-i18n="radarTitle">HOLOSYS 32-Camera Calibration Ring</span>
+          <span id="radarActiveInfo" class="mono radar-meta">Free Orbit</span>
+        </div>
+        <div id="camRadarSvgWrap" class="radar-svg-wrap"></div>
+      </div>
+    </div>
+
+    <!-- Top-Right Selected Movement & Scene Telemetry Card -->
+    <div id="stageNote" class="stage-note" aria-live="polite"></div>
+
+    <!-- Bottom-Left Floating Studio Dock (Camera Presets, Hwamunseok Rig, Local .gsq) -->
+    <div class="stage-tools" role="toolbar" aria-label="3D Stage Controls">
+      <div class="cam-picker">
+        <label for="camSelect" class="sr-only" data-i18n="camLabel">Camera View</label>
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5A1.5 1.5 0 013.5 4h6A1.5 1.5 0 0111 5.5v5a1.5 1.5 0 01-1.5 1.5h-6A1.5 1.5 0 012 10.5v-5z"/><path d="M11 7l3-1.8v5.6L11 9"/></svg>
+        <select id="camSelect" aria-label="Camera viewpoint">
+          <option value="" data-i18n="freeOrbit">자유 궤도 시점 (3D)</option>
+        </select>
+      </div>
+      <div class="cam-presets" role="group" aria-label="Quick Camera Angles">
+        <button type="button" class="tool-btn mono" data-cam-preset="front" title="Front Court View (Cam 01)">정면</button>
+        <button type="button" class="tool-btn mono" data-cam-preset="side" title="Side Profile View (Cam 09)">측면</button>
+        <button type="button" class="tool-btn mono" data-cam-preset="overhead" title="High Oblique View (Cam 28)">부감</button>
+      </div>
+      <button type="button" id="toggleGuide" class="tool-btn" aria-pressed="true" title="Toggle Hwamunseok mat &amp; 32-camera rig guide (Key: H)">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="12" height="8" rx="1"/><path d="M2 8h12M8 4v8"/></svg>
+        <span data-i18n="matGuide">화문석 · 리그</span>
+      </button>
+      <label class="tool-btn file-btn" title="Open local .gsq sequence folder">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5A1.5 1.5 0 013.5 3h2.6a1 1 0 01.7.3l1.2 1.2h4.5A1.5 1.5 0 0114 6v5.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 11.5v-7z"/></svg>
+        <span data-i18n="openFolder">.gsq 열기</span>
+        <input id="dirInput" type="file" webkitdirectory multiple>
+      </label>
+    </div>
+
+    <!-- Floating Glassmorphic Transport Scrubber -->
+    <div class="transport">
+      <button id="play" type="button" class="play-btn" aria-label="Play or pause (Space)">
+        <svg id="playIcon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3.5" y="2.5" width="3.2" height="11" rx="0.8"/><rect x="9.3" y="2.5" width="3.2" height="11" rx="0.8"/></svg>
+      </button>
+      <div class="step-btns">
+        <button type="button" id="stepPrev" class="icon-btn-sm" title="Previous frame (←)" aria-label="Previous frame">‹</button>
+        <button type="button" id="stepNext" class="icon-btn-sm" title="Next frame (→)" aria-label="Next frame">›</button>
+      </div>
+      <div class="track">
+        <input id="seek" type="range" min="0" max="0" value="0" aria-label="Frame scrubber">
+        <div class="buffer" aria-hidden="true"><i id="buf"></i></div>
+      </div>
+      <span id="stat" class="mono">—</span>
+      <button id="reset" type="button" class="btn-subtle" title="Reset 3D Orbit (R)">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 101.6-3.9L2.5 5.5"/><path d="M2.5 2.5v3h3"/></svg>
+        <span data-i18n="reset">시점 초기화</span>
+      </button>
+    </div>
+    <p class="hint" data-i18n="hint">드래그 회전 · 우클릭/Shift 이동 · 휠 줌 · Space 재생 · C 카메라 순환 · ⌘K 검색</p>
+  </section>
+
+  <!-- 2. EDITORIAL INTERPRETATION DOSSIER (Right Column / Full Editorial View) -->
+  <aside class="panel" aria-label="Interpretation Dossier" data-od-id="panel">
+    <!-- Emil Kowalski Recipe: Dual-Layer Clip-Path Tab Bar -->
+    <div class="tabs-wrap">
+      <div class="tabs-clip-container" id="dossierTabsContainer">
+        <div class="tabs" role="tablist" id="dossierTabsBase">
+          <button role="tab" id="t-move" aria-controls="p-move" aria-selected="true" data-tab="move">
+            <span class="tab-num mono">01</span>
+            <span data-i18n="tabMovement">춤사위 해부</span>
+          </button>
+          <button role="tab" id="t-theme" aria-controls="p-theme" aria-selected="false" data-tab="theme">
+            <span class="tab-num mono">02</span>
+            <span data-i18n="tabThemes">10대 해설 경로</span>
+          </button>
+          <button role="tab" id="t-matrix" aria-controls="p-matrix" aria-selected="false" data-tab="matrix">
+            <span class="tab-num mono">03</span>
+            <span data-i18n="tabMatrix">9개 시퀀스 · 비교</span>
+          </button>
+          <button role="tab" id="t-data" aria-controls="p-data" aria-selected="false" data-tab="data">
+            <span class="tab-num mono">04</span>
+            <span data-i18n="tabData">4DGS 파이프라인</span>
+          </button>
+        </div>
+        <!-- Duplicated Active Overlay clipped by clip-path: inset(...) -->
+        <div class="tabs tabs-active-copy" id="dossierTabsOverlay" aria-hidden="true">
+          <div class="tab-copy-item"><span class="tab-num mono">01</span><span data-i18n="tabMovement">춤사위 해부</span></div>
+          <div class="tab-copy-item"><span class="tab-num mono">02</span><span data-i18n="tabThemes">10대 해설 경로</span></div>
+          <div class="tab-copy-item"><span class="tab-num mono">03</span><span data-i18n="tabMatrix">9개 시퀀스 · 비교</span></div>
+          <div class="tab-copy-item"><span class="tab-num mono">04</span><span data-i18n="tabData">4DGS 파이프라인</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Panels -->
+    <div role="tabpanel" id="p-move" aria-labelledby="t-move" class="tabpanel"></div>
+    <div role="tabpanel" id="p-theme" aria-labelledby="t-theme" class="tabpanel" hidden></div>
+    <div role="tabpanel" id="p-matrix" aria-labelledby="t-matrix" class="tabpanel" hidden></div>
+    <div role="tabpanel" id="p-data" aria-labelledby="t-data" class="tabpanel" hidden></div>
+  </aside>
+
+  <!-- 3. SYNCHRONIZED MULTI-TRACK CHOREOGRAPHY TIMELINE (Bottom Dock) -->
+  <section class="timeline" aria-labelledby="tl-title" data-od-id="timeline">
+    <div class="tl-head">
+      <div class="tl-title-group">
+        <span class="tl-kicker mono">SYNCHRONIZED CHOREOGRAPHY &amp; COURT MUSIC TIMELINE</span>
+        <h2 id="tl-title" data-i18n="timeline">4D 시퀀스에 주석된 35개 춤사위와 평조회상 반주 흐름</h2>
+        <span id="tlHoverInfo" class="tl-hover-info mono" aria-live="polite"></span>
+      </div>
+      <div id="legend" class="legend"></div>
+    </div>
+    <div id="lanes" class="lanes"></div>
+  </section>
+</main>
+
+<!-- ==========================================================================
+     EMIL KOWALSKI RECIPE: INSTANT-SUBSEQUENT FLOATING TOOLTIP (data-instant)
+     ========================================================================== -->
+<div id="floatingTooltip" class="emil-tooltip" role="tooltip" data-starting-style hidden>
+  <div class="tt-kicker mono" id="ttKicker"></div>
+  <div class="tt-title" id="ttTitle"></div>
+  <div class="tt-meta mono" id="ttMeta"></div>
+</div>
+
+<!-- ==========================================================================
+     EMIL KOWALSKI RECIPE: ORIGIN-AWARE ENTITY INSPECTOR POPOVER
+     ========================================================================== -->
+<div id="entityPopover" class="emil-popover" role="dialog" aria-label="Heritage Entity Inspector" data-starting-style hidden>
+  <div class="pop-head">
+    <span class="pop-badge mono" id="popBadge">ENTITY</span>
+    <button type="button" id="popClose" class="icon-btn" aria-label="Close inspector">✕</button>
+  </div>
+  <h4 class="pop-title" id="popTitle"></h4>
+  <p class="pop-body" id="popBody"></p>
+  <div class="pop-foot mono" id="popFoot"></div>
+</div>
+
+<!-- ==========================================================================
+     LINEAR-GRADE COMMAND PALETTE MODAL (⌘K / /)
+     ========================================================================== -->
+<div id="cmdBackdrop" class="cmd-backdrop" hidden>
+  <div id="cmdModal" class="cmd-modal" role="dialog" aria-modal="true" aria-label="Command Palette" data-starting-style>
+    <div class="cmd-input-wrap">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="7" r="4.8"/><path d="M10.8 10.8L14.2 14.2"/></svg>
+      <input type="text" id="cmdInput" placeholder="35개 춤사위, 10대 해설 경로, 32대 카메라, 악곡·악기 검색…" autocomplete="off" spellcheck="false">
+      <kbd class="mono">ESC</kbd>
+    </div>
+    <div id="cmdResults" class="cmd-results" role="listbox"></div>
+    <div class="cmd-footer mono">
+      <span><kbd>↑↓</kbd> 이동</span>
+      <span><kbd>↵</kbd> 선택 및 스냅</span>
+      <span><kbd>1–9</kbd> 해설 경로 바로가기</span>
+      <span><kbd>C</kbd> 32-Cam 순환</span>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

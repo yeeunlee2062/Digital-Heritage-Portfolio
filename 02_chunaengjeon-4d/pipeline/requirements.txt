@@ -1,0 +1,17 @@
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch==2.4.1+cu124
+torchvision==0.19.1+cu124
+gsplat @ https://github.com/nerfstudio-project/gsplat/releases/download/v1.5.3/gsplat-1.5.3%2Bpt24cu124-cp310-cp310-win_amd64.whl
+numpy<2
+av
+opencv-python
+scipy
+pillow
+tqdm
+plyfile
+pycolmap
+trimesh
+packaging
+setuptools<70
+ninja
+playwright

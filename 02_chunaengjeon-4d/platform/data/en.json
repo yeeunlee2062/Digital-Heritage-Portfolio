@@ -1,0 +1,85 @@
+{
+ "_note": "English layer for the platform, written by the author from the Korean database. Romanisation follows the Revised Romanization of Korean. Hanja for movement names come from the author's movement-vocabulary sheet (춤사위 요약); where that sheet has none, the field is left empty rather than inferred.",
+ "dance": {
+  "title": "Chunaengjeon (Spring Oriole Dance)",
+  "definition": "A solo court dance (hyangak jeongjae) created under King Sunjo, evoking an oriole singing on a spring day.",
+  "description": "First performed in 1828 at a royal banquet in Yeongyeongdang Hall, Changdeokgung Palace; Crown Prince Hyomyeong wrote its sung verse (changsa). The dance moves from the slow Sangnyeongsan through the verse, Jungnyeongsan, Seryeongsan, Dodeuri and fast Dodeuri to Taryeong. It is known for left–right symmetrical paths, delicate sleeve (hansam) movements and the Hwajeontae posture, all danced by one performer on a single flower-patterned mat.",
+  "classification": "Dance › Traditional dance › Court dance › Hyangak jeongjae › Solo",
+  "period": "Late Joseon (first performed 1828)",
+  "creator": "Crown Prince Hyomyeong"
+ },
+ "movements": {
+  "인사": {"roman": "Insa", "gloss": "Bow", "definition": "Joins both hands and bows."},
+  "향섭족도": {"roman": "Hyangseopjokdo", "gloss": "Measured stepping", "definition": "Walks as if in wooden clogs, placing the whole sole on the floor: two steps to one rhythmic cycle, four steps to two."},
+  "무작": {"roman": "Mujak", "gloss": "Opening the arms", "definition": "Lowers both arms below the navel, then raises them sideways to ninety degrees."},
+  "수수쌍불": {"roman": "Susussangbul", "hanja": "垂手雙拂", "gloss": "Lowered hands, double flick", "definition": "Opens both arms to the sides, then flicks the sleeves upward."},
+  "염수": {"roman": "Yeomsu", "hanja": "斂手", "gloss": "Gathered hands", "definition": "The basic stance of court dance: standing with both hands neatly joined."},
+  "사예거": {"roman": "Sayegeo", "hanja": "斜曳裾", "gloss": "Trailing the skirt", "definition": "As if trailing the skirt, takes two steps to the right and back, then two steps to the left and back."},
+  "회란": {"roman": "Hoeran", "hanja": "廻鸞", "gloss": "Circling phoenix", "definition": "With both arms open, turns once to the right and once to the left."},
+  "이수고저": {"roman": "Isugojeo", "hanja": "以袖高低", "gloss": "Raising and lowering the sleeves", "definition": "Above the chest, raises and lowers one arm at a time."},
+  "거수휘지": {"roman": "Geosuhwiji", "gloss": "Lifted sleeves flung", "definition": "After Isugojeo, flings the sleeves upward."},
+  "수수무": {"roman": "Susumu", "hanja": "垂手舞", "gloss": "Lowered-hands dance", "definition": "Releases the hands from behind the back, brings them forward, and shifts the weight forward while bending and straightening the knees."},
+  "비리": {"roman": "Biri", "hanja": "飛履", "gloss": "Flying shoes", "definition": "Steps lightly with right and left foot in turn, lifting each as if flying, then flings one sleeve up and forward and the other down and back."},
+  "희두": {"roman": "Huidu", "gloss": "Turning toward the diagonals", "definition": "Turns the body to the left and right front diagonals, flings the sleeves and folds the hands behind the back. The source spelling 'Huidu' and the dictionary form 'Hoedu' (回頭) may name the same movement; expert review is pending."},
+  "탑탑고": {"roman": "Taptapgo", "hanja": "塔塔高", "gloss": "Rising step by step", "definition": "Takes three steps forward while gradually raising both arms to the sides."},
+  "화전태": {"roman": "Hwajeontae", "hanja": "花前態", "gloss": "Posture before the flowers", "definition": "Steps on the right foot and lifts the left slightly, then alternates, with a light smile."},
+  "전화지": {"roman": "Jeonhwaji", "hanja": "轉花持", "gloss": "Turning petals", "definition": "Expresses petals spinning as they fall in the wind; lifts the right and left foot slightly in turn."},
+  "당퇴립": {"roman": "Dangtoerip", "gloss": "Stepping back", "definition": "Steps back with alternating feet, shifting the weight backward, bends and straightens the knees and gathers the hands in front again."},
+  "소섬수": {"roman": "Soseomsu", "hanja": "小閃袖", "gloss": "Small sleeve flash", "definition": "Raises both arms in a straight line and advances or retreats."},
+  "낙화유수": {"roman": "Nakhwayusu", "hanja": "落花流水", "gloss": "Fallen petals on flowing water", "definition": "Flings the sleeves once to each side, then turns on the spot."},
+  "사사보여의풍": {"roman": "Sasabo-yeouipung", "gloss": "Light steps swaying in the wind", "definition": "Walks lightly as if swayed by the wind, advancing and retreating; the arms perform Isugojeo, with the same hand movement as Daeseomsu."},
+  "후포수": {"roman": "Huposu", "hanja": "後抛袖", "gloss": "Backward sleeve throw", "definition": "With the weight on the left foot behind, throws the sleeves over the head."},
+  "풍류지": {"roman": "Pungnyuji", "hanja": "風流枝", "gloss": "Branch in the breeze", "definition": "Like a branch swaying in the wind: both arms go behind the waist while the knees bend, and the weight moves from front to back."},
+  "비금사": {"roman": "Bigeumsa", "hanja": "飛金沙", "gloss": "Flying golden sand", "definition": "Golden sand blown by the wind: retreats with both hands folded behind the back."},
+  "대수": {"roman": "Daesu", "hanja": "擡袖", "gloss": "Lifted sleeve", "definition": "Flings the sleeves up; one hand comes down as if holding the floral crown, the other lowers to the horizontal."},
+  "좌우대일전": {"roman": "Jwaudaeiljeon", "gloss": "Preparing the great turn", "definition": "Flings the sleeves, moves the weight back and raises the arms in a curve to prepare a turn. The source also spells it 'Jwauildaejeon'; expert review is pending."},
+  "회파신": {"roman": "Hoepasin", "hanja": "廻波身", "gloss": "Body circling like waves", "definition": "Raises both arms and turns once to the right and once to the left toward the four directions."},
+  "과교선": {"roman": "Gwagyoseon", "hanja": "過橋仙", "gloss": "Immortal crossing the bridge", "definition": "Turns widely to the left and right."},
+  "연귀소": {"roman": "Yeongwiso", "hanja": "燕歸巢", "gloss": "Swallow returning to its nest", "definition": "A swallow flying home: stretches the arms back and retreats."}
+ },
+ "themes": {
+  "THM_01": {"group": "Basic", "title": "What Chunaengjeon is and where it was first performed", "example": "Chunaengjeon is a court dance performed by one dancer on a flower-patterned mat. The theme joins its 1828 premiere at Yeongyeongdang Hall with the way the mat itself becomes the dance space."},
+  "THM_02": {"group": "Basic", "title": "The order of steps within a movement", "example": "Selecting 'Hyangseopjokdo' lists its linked scenes in order. The reader follows how the feet are placed and how the direction of foot and body carries from one scene to the next."},
+  "THM_03": {"group": "Basic", "title": "Where a movement sits in the whole performance", "example": "A movement learned in one scene, such as 'Insa' or 'Mujak', is located in the whole performance. When the same movement returns, it is compared with its earlier occurrence."},
+  "THM_04": {"group": "Linked", "title": "How the music frames the movements", "example": "Following the accompaniment piece by piece, the reader sees which movements fall in each piece, with its rhythmic cycle and tempo next to the order of the scenes."},
+  "THM_05": {"group": "Linked", "title": "The words of the verse and the gestures", "example": "In the sung-verse scene, the line 羅袖舞風輕 ('silken sleeves dance lightly in the wind') is shown with the sleeve and hand movements of the same passage, to read how the image of the sleeve is embodied."},
+  "THM_06": {"group": "Linked", "title": "The mat and the dancer's paths", "example": "On the confined flower-patterned mat, the lateral travel of 'Sayegeo' and the turns of 'Hoeran' show how travel and rotation are composed within one small stage."},
+  "THM_07": {"group": "Linked", "title": "Costume and the expressive sleeve", "example": "The five-coloured hansam sleeves of the female court dancer's costume are linked to the scenes where they are flung or lifted, showing how costume makes movement visible."},
+  "THM_08": {"group": "Linked", "title": "The instruments of the accompaniment", "example": "For one piece, the ensemble is listed and each instrument's way of producing sound is described. A specific instrument variant is named only where it is confirmed for the recording."},
+  "THM_09": {"group": "Comparative", "title": "Lineage of transmission and the recorded performance", "example": "The scene descriptions are shown to derive from Kim Cheon-heung's line of transmission and the 1987 court-dance notation, set beside the present capture, so that the source of the interpretation and the source of the performance on screen stay distinct."},
+  "THM_10": {"group": "Comparative", "title": "Comparing performances, learning through the body", "example": "Passages where the same movement occurs are viewed together to compare order, arm range and body direction; the reader can then imitate the movement and compare it with the recording."}
+ },
+ "pieces": {
+  "상령산": {"roman": "Sangnyeongsan", "definition": "The first piece of the Yeongsan-hoesang suite; a slow piece that opens the suite's melodic development."},
+  "중령산": {"roman": "Jungnyeongsan", "definition": "The second piece of the Yeongsan-hoesang suite, a transposed variation of Sangnyeongsan in slow rhythm."},
+  "세령산": {"roman": "Seryeongsan", "definition": "The third piece of the suite, compressing Jungnyeongsan's melody into a 10-beat cycle."},
+  "염불도드리": {"roman": "Yeombul-dodeuri", "definition": "The sixth piece of Pyeongjo-hoesang, in the six-beat dodeuri cycle."},
+  "빠른 도드리": {"roman": "Fast dodeuri", "definition": "The fast passage played after Yeombul-dodeuri in Chunaengjeon (called Jajin-dodeuri in a 1966 recording)."},
+  "타령": {"roman": "Taryeong", "definition": "A fast piece of the later part of the suite, in a 12-beat cycle and four sections."}
+ },
+ "suites": {"평조회상": "Pyeongjo-hoesang", "현악영산회상": "Hyeonak Yeongsan-hoesang (strings)", "삼현영산회상": "Samhyeon Yeongsan-hoesang (winds)"},
+ "instruments": {"가야금": "Gayageum (12-string zither)", "거문고": "Geomungo (6-string zither)", "단소": "Danso (vertical flute)", "대금": "Daegeum (large transverse flute)", "박": "Bak (clapper)", "피리": "Piri (oboe)", "소금": "Sogeum (small flute)", "아쟁": "Ajaeng (bowed zither)", "양금": "Yanggeum (hammered dulcimer)", "장구": "Janggu (hourglass drum)", "좌고": "Jwago (seated drum)", "해금": "Haegeum (two-string fiddle)"},
+ "lyrics": {
+  "1": "Graceful steps beneath the moon,",
+  "2": "silken sleeves dance lightly in the wind;",
+  "3": "most lovely, her posture before the flowers —",
+  "4": "youth gives free rein to its feeling."
+ },
+ "spaces": {
+  "SPC_001": {"name": "Hwamunseok (flower-patterned mat)", "type": "Performance space and stage object", "description": "The flower-patterned mat on which the dancer performs; travel to the left, right, front and back, and every turn, happen within its bounds.", "location": "On a rectangular mat (actual placement in the capture to be verified)"},
+  "SPC_002": {"name": "Yeongyeongdang Hall, Changdeokgung Palace", "type": "Site of the 1828 premiere", "description": "Recorded by the National Gugak Center's dictionary as the place of the first performance.", "location": "Historical context; not the capture site"}
+ },
+ "costumes": {
+  "CST_001": {"wearer": "Yeoryeong (female court dancer)", "summary": "Green jeogori with yellow danssam, red skirt, green hapi stole and red embroidered sash, floral crown (hwagwan), five-coloured hansam sleeves; shoes to be verified in the capture."},
+  "CST_002": {"wearer": "Mudong (boy court dancer)", "summary": "White robe with black trim and green kwaeja vest, jade-coloured skirt with black trim, black silk sash, agyeonmo hat, hohwa shoes, red hansam sleeves."}
+ },
+ "performances": {
+  "PRF_001": {"name": "Volumetric capture session 1", "type": "Digital recording", "place": "Meta-studio, Dadam Learning Centre, KOREATECH", "custodian": "Sejong University", "role": "Dancer"}
+ },
+ "transmitters": {
+  "TRM_0001": "Kim Cheon-heung",
+  "TRM_0002": "Kim Bo-nam",
+  "TRM_0003": "Park Eun-young",
+  "TRM_0004": "Lee Heung-gu"
+ }
+}
