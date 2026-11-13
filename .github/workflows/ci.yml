@@ -14,13 +14,13 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: pyproject.toml
+          cache-dependency-path: tests/pyproject.toml
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
       - name: Install test dependencies
-        run: pip install ".[test]"
+        run: pip install "./tests[test]"
       - name: Lint (ruff)
-        run: ruff check .
+        run: ruff check --config tests/pyproject.toml .
       - name: Tests (pytest)
-        run: pytest -v
+        run: pytest -v tests

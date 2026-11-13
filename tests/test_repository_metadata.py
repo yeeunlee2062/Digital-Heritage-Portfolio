@@ -17,7 +17,7 @@ def test_citation_cff_has_required_fields():
 
 def test_licences_present():
     assert (ROOT / "LICENSE").read_text().startswith("MIT")
-    assert "CC BY 4.0" in (ROOT / "LICENSE-CONTENT.md").read_text(encoding="utf-8")
+    assert "CC BY 4.0" in (ROOT / "CONTRIBUTIONS.md").read_text(encoding="utf-8")
 
 
 def test_every_project_is_documented():

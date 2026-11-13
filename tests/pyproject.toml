@@ -1,4 +1,4 @@
-# Configuration for the portfolio's checks (tests/ and .github/workflows/ci.yml).
+# Configuration for the portfolio's checks: this folder and ../.github/workflows/ci.yml.
 # The GPU reconstruction pipeline has its own requirements in 02_chunaengjeon-4d/pipeline/requirements.txt.
 [build-system]
 requires = ["setuptools>=61"]
@@ -16,13 +16,12 @@ test = ["numpy>=1.24", "pillow>=10", "rdflib>=7.1", "pyshacl>=0.30", "pyyaml>=6"
 py-modules = []  # nothing to install; the project exists to declare the test dependencies
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
 filterwarnings = ["ignore:ConjunctiveGraph is deprecated:DeprecationWarning"]
 
 [tool.ruff]
 line-length = 120
 # Frozen supplementary material of the NEXUS article, covered by SHA256SUMS.txt.
-extend-exclude = ["03_nexus-natural-heritage/reproducibility"]
+extend-exclude = ["**/03_nexus-natural-heritage/reproducibility"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W"]
