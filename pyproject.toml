@@ -1,0 +1,29 @@
+# Configuration for the portfolio's checks (tests/ and .github/workflows/ci.yml).
+# The GPU reconstruction pipeline has its own requirements in 02_chunaengjeon-4d/pipeline/requirements.txt.
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "digital-heritage-portfolio"
+version = "1.1.0"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+test = ["numpy>=1.24", "pillow>=10", "rdflib>=7.1", "pyshacl>=0.30", "pyyaml>=6", "pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools]
+py-modules = []  # nothing to install; the project exists to declare the test dependencies
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore:ConjunctiveGraph is deprecated:DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
+# Frozen supplementary material of the NEXUS article, covered by SHA256SUMS.txt.
+extend-exclude = ["03_nexus-natural-heritage/reproducibility"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E501", "E731", "E741"]

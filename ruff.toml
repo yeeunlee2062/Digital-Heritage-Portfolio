@@ -1,7 +1,0 @@
-line-length = 120
-# The NEXUS package is frozen article supplementary material, covered by SHA256SUMS.txt.
-extend-exclude = ["03_nexus-natural-heritage/reproducibility"]
-
-[lint]
-select = ["E", "F", "W"]
-ignore = ["E501", "E731", "E741"]
