@@ -4,11 +4,13 @@
 
 I build research software with and for humanities and heritage researchers: data models, processing pipelines and interfaces that turn their questions into tools they can use, evaluated and published so that others can inspect and reuse them. Across tangible, intangible and natural heritage, the common thread is that a computational result, whether a 3D reconstruction, a recommendation or a generated image, stays linked to the sources, decisions and uncertainty behind it.
 
-**Skills**: Python (NumPy, PyTorch, OpenCV, rdflib/pySHACL), JavaScript/TypeScript (React, Vite, Three.js, WebGL2), knowledge graphs (RDF, SHACL, SPARQL, Neo4j/Cypher, CIDOC CRM), PostgreSQL/Supabase, applied ML (CLIP, GraphSAGE, LoRA, LLMs), 3D/4D capture and Gaussian Splatting, FAIR data and software
+## From research questions to reusable software
 
-| Chunaengjeon: 4D performance interpretation | Hansan Mosi: scene-centred archive | NHIV: 3D specimens and spatial narratives |
-|:---:|:---:|:---:|
-| [![Chunaengjeon interpretation platform](02_chunaengjeon-4d/media/platform-movement.png)](02_chunaengjeon-4d/) | [![Hansan Mosi scene-centred archive](01_hansan-mosi-scene-archive/media/archive-home.png)](01_hansan-mosi-scene-archive/) | [![NHIV sea turtle visualisation](04_nhiv-3d-specimen-maps/media/nhiv-sea-turtle-map.jpg)](04_nhiv-3d-specimen-maps/) |
+![Research software workflow: understand research needs, connect evidence through semantic data, develop research tools, then validate and publish reusable results.](assets/research-software-workflow.png)
+
+**Selected implementations:** [NEXUS: explainable natural-heritage recommendations and reproducibility](03_nexus-natural-heritage/) · [Chunaengjeon: 4D reconstruction and research viewer](02_chunaengjeon-4d/) · [Hansan Mosi: linked data and FAIR validation](01_hansan-mosi-scene-archive/)
+
+**Skills**: Python (NumPy, PyTorch, OpenCV, rdflib/pySHACL), JavaScript/TypeScript (React, Vite, Three.js, WebGL2), knowledge graphs (RDF, SHACL, SPARQL, Neo4j/Cypher, CIDOC CRM), PostgreSQL/Supabase, applied ML (CLIP, GraphSAGE, LoRA, LLMs), 3D/4D capture and Gaussian Splatting, FAIR data and software
 
 ## Research Projects
 
