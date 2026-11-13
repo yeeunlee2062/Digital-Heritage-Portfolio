@@ -6,7 +6,7 @@ I build research software with and for humanities and heritage researchers: data
 
 ## From research questions to reusable software
 
-![Research software workflow: understand research needs, connect evidence through semantic data, develop research tools, then validate and publish reusable results.](assets/research-software-workflow.svg)
+![Research software workflow: understand research needs, connect evidence through semantic data, develop research tools, then validate and publish reusable results.](assets/research-software-workflow.png)
 
 **Selected implementations:** [NEXUS: explainable natural-heritage recommendations and reproducibility](03_nexus-natural-heritage/) · [Chunaengjeon: 4D reconstruction and research viewer](02_chunaengjeon-4d/) · [Hansan Mosi: linked data and FAIR validation](01_hansan-mosi-scene-archive/)
 
