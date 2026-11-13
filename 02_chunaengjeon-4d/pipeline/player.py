@@ -10,7 +10,6 @@ import argparse
 import glob
 import json
 import os
-import re
 import threading
 import time
 from collections import OrderedDict
@@ -22,23 +21,7 @@ import torch
 import torch.nn.functional as F
 from gsplat import rasterization
 
-SH_C0 = 0.28209479177387814
-
-
-def read_ply(path):
-    with open(path, "rb") as fh:
-        header = b""
-        while not header.endswith(b"end_header\n"):
-            header += fh.readline()
-        names = re.findall(rb"property float (\w+)", header)
-        n = int(re.search(rb"element vertex (\d+)", header).group(1))
-        data = np.frombuffer(fh.read(n * len(names) * 4), np.float32).reshape(n, len(names))
-    col = {k.decode(): i for i, k in enumerate(names)}
-    g = lambda *ks: data[:, [col[k] for k in ks]]
-    return dict(means=g("x", "y", "z"), quats=g("rot_0", "rot_1", "rot_2", "rot_3"),
-                scales=np.exp(g("scale_0", "scale_1", "scale_2")),
-                opac=1 / (1 + np.exp(-g("opacity")[:, 0])),
-                colors=np.clip(g("f_dc_0", "f_dc_1", "f_dc_2") * SH_C0 + 0.5, 0, 1))
+from ply_io import SH_C0, read_ply  # noqa: E402,F401
 
 
 class Cache:

@@ -1,0 +1,9 @@
+# Dependencies of the test suite (tests/) and the CI workflow; the GPU pipeline has its own
+# requirements in 02_chunaengjeon-4d/pipeline/requirements.txt.
+numpy>=1.24
+pillow>=10
+rdflib>=7.1
+pyshacl>=0.30
+pytest>=8
+ruff>=0.6
+pyyaml>=6

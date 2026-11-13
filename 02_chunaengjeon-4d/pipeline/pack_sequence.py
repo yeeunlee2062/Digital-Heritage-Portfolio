@@ -17,11 +17,15 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(__file__))
-from player import read_ply  # noqa: E402
+from ply_io import read_ply  # noqa: E402
 
 
-def pack(ply, out):
-    d = read_ply(ply)
+HEADER = struct.Struct("<4sI6f2f")  # 40 bytes
+BYTES_PER_SPLAT = 6 + 3 + 4 + 4
+
+
+def encode(d):
+    """Quantise one frame (a read_ply dict) into .gsq bytes."""
     p = d["means"].astype(np.float32)
     pmin, pmax = p.min(0), p.max(0)
     qp = np.round((p - pmin) / np.maximum(pmax - pmin, 1e-9) * 65535).astype(np.uint16)
@@ -33,12 +37,40 @@ def pack(ply, out):
     qr = np.round(q * 127).astype(np.int8)
     rgba = np.concatenate([d["colors"], d["opac"][:, None]], 1)
     qc = np.round(np.clip(rgba, 0, 1) * 255).astype(np.uint8)
-    hdr = b"GSQ1" + struct.pack("<I6f2f", len(p), *pmin, *pmax, smin, smax)
+    hdr = HEADER.pack(b"GSQ1", len(p), *pmin, *pmax, smin, smax)
+    return b"".join([hdr] + [a.astype(a.dtype.newbyteorder("<")).tobytes() for a in (qp, qs, qr, qc)])
+
+
+def decode(buf):
+    """Reference decoder for .gsq bytes (mirrors the browser decoder in platform/js/splat-player.js).
+
+    Trailing bytes (PNG padding) are ignored. Returns the same keys as read_ply."""
+    magic, n, *rest = HEADER.unpack_from(buf, 0)
+    if magic != b"GSQ1":
+        raise ValueError("not a GSQ1 frame")
+    if len(buf) < HEADER.size + BYTES_PER_SPLAT * n:
+        raise ValueError("truncated GSQ1 frame")
+    pmin, pmax, (smin, smax) = np.array(rest[:3]), np.array(rest[3:6]), rest[6:]
+    o = HEADER.size
+    qp = np.frombuffer(buf, "<u2", n * 3, o).reshape(n, 3)
+    o += n * 6
+    qs = np.frombuffer(buf, np.uint8, n * 3, o).reshape(n, 3)
+    o += n * 3
+    qr = np.frombuffer(buf, np.int8, n * 4, o).reshape(n, 4)
+    o += n * 4
+    qc = np.frombuffer(buf, np.uint8, n * 4, o).reshape(n, 4)
+    means = pmin + qp / 65535.0 * (pmax - pmin)
+    scales = np.exp(smin + qs / 255.0 * (smax - smin))
+    rgba = qc / 255.0
+    return dict(means=means, scales=scales, quats=qr / 127.0, colors=rgba[:, :3], opac=rgba[:, 3])
+
+
+def pack(ply, out):
+    d = read_ply(ply)
     with open(out + ".tmp", "wb") as fh:
-        for a in (hdr, qp, qs, qr, qc):
-            fh.write(a.tobytes() if isinstance(a, np.ndarray) else a)
+        fh.write(encode(d))
     os.replace(out + ".tmp", out)
-    return len(p), p.mean(0)
+    return len(d["means"]), d["means"].astype(np.float32).mean(0)
 
 
 def main():
